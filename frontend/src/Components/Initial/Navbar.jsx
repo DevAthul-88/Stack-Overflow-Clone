@@ -1,7 +1,10 @@
 import React from "react";
 import Logo from '../../assets/logo-stackoverflow.svg'
+import {Link} from 'wouter'
+import ActiveLink from "../../Components/ActiveLink"
 
 function Navbar() {
+  
   return (
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
@@ -26,14 +29,14 @@ function Navbar() {
         <div className="navbar-menu mr-4">
           <div className="navbar-end">
           <div className="navbar-item">
-              <a href="" className="button nav-btn-2">
+              <Link href="/login" className="button nav-btn-2">
                Login
-              </a>
+              </Link>
             </div>
             <div className="navbar-item">
-              <a href="" className="button nav-btn">
+              <Link href="/signup" className="button nav-btn">
                Sign Up
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -41,21 +44,19 @@ function Navbar() {
 
       <aside class="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar ">
         <ul class="menu-list mt-6">
-          <li>
-            <a class="is-active">Home</a>
-          </li>
+         
        
         </ul>
         <p class="menu-label">Public</p>
         <ul class="menu-list">
           <li>
-            <a>Questions</a>
+           <ActiveLink href="/">Questions</ActiveLink>
           </li>
           <li>
-            <a>Tags</a>
+            <ActiveLink href="/tags">Tags</ActiveLink>
           </li>
           <li>
-            <a>Users</a>
+            <ActiveLink href="/users">Users</ActiveLink>
           </li>
         </ul>
       </aside>
