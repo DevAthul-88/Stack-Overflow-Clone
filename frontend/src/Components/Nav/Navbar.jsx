@@ -48,30 +48,83 @@ function Navbar() {
         <p className="menu-label">MENU</p>
         <ul className="menu-list">
           <li>
-           <ActiveLink href="/">Questions</ActiveLink>
+           <ActiveLink href="/">
+             <span className="icon-text">
+             <span className="icon">
+             <i className="fa fa-question" aria-hidden="true"></i>
+             </span>
+             <span>Questions</span>
+             </span>
+             </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/tags">Tags</ActiveLink>
+            <ActiveLink href="/tags">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-tag" aria-hidden="true"></i>
+                </span>
+                <span>Tags</span>
+              </span>
+            </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/users">Users</ActiveLink>
+            <ActiveLink href="/users">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-users" aria-hidden="true"></i>
+                </span>
+                <span>Users</span>
+              </span>
+            </ActiveLink>
           </li>
         </ul>
        
         <p className="menu-label mt-6">DASHBOARD</p>
         <ul className="menu-list">
           <li>
-           <ActiveLink href="/">Profile</ActiveLink>
+           <ActiveLink href="/">
+             <span className="icon-text">
+               <span className="icon">
+                 <i className="fa fa-user" aria-hidden="true"></i>
+               </span>
+               <span>
+                 Profile
+               </span>
+             </span>
+           </ActiveLink>
           </li>
     
           <li>
-            <ActiveLink href="/users">Your Questions</ActiveLink>
+            <ActiveLink href="/users">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-question-circle" aria-hidden="true"></i>
+                </span>
+                <span>Your Questions</span>
+              </span>
+            </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/users">Your Answers</ActiveLink>
+            <ActiveLink href="/users">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-comment" aria-hidden="true"></i>
+                </span>
+                <span>Your Answers</span>
+              </span>
+            </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/tags">Settings</ActiveLink>
+            <ActiveLink href="/tags">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-cog" aria-hidden="true"></i>
+                </span>
+                <span>
+                  Settings
+                </span>
+              </span>
+            </ActiveLink>
           </li>
         </ul>
       </aside>

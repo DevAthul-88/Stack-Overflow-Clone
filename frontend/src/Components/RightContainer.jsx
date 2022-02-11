@@ -4,8 +4,15 @@ function RightContainer() {
   return (
     <div className="card">
     <div className="p-4">
-    <h1 className="title is-size-5 has-text-weight-bold">
-            <strong>Hot Post</strong>
+    <h1 className="title is-size-5 mb-0 has-text-weight-bold icon-text">
+      
+              <span className="icon">
+                <i className="fas fa-smile    "></i>
+              </span>
+              <span>
+                Hot Posts
+              </span>
+          
         </h1>
         <hr />
         <div className="link">
