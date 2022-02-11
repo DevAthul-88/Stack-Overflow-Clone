@@ -1,16 +1,23 @@
+body{
+  background: #fafafa;
+}
 .navbar {
   border-top: 4px solid #f48225;
 }
 
 .sidebar {
-  height: 100vh;
   width: 200px;
   position: fixed;
+  height: 100%;
+  background: #fff !important;
+  display: inline-block;
   border-right: 2px solid #dbdbdb;
+  display: block;
 }
 
+
 .is-active {
-  background: #f1f2f3 !important;
+  background: #fcf5ed !important;
   color: #000 !important;
   border-right: 4px solid #f48225;
 }
@@ -107,6 +114,11 @@
   box-shadow: none;
   color: #2c5777;
 }
-.top{
-  border-bottom: 2px solid #dbdbdb;
+
+.post-links{
+  border-bottom: 1px solid #dbdbdb;
+}
+.post-links > div >a{
+  color: #0e83ff !important;
+  font-weight: bold;
 }

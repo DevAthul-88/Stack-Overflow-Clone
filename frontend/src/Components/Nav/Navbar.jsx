@@ -15,7 +15,7 @@ function Navbar() {
 
           <a
             role="button"
-            class="navbar-burger"
+            className="navbar-burger"
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
@@ -42,13 +42,11 @@ function Navbar() {
         </div>
       </div>
 
-      <aside class="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar ">
-        <ul class="menu-list mt-6">
-         
-       
+      <aside className="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar ">
+        <ul className="menu-list mt-6">
         </ul>
-        <p class="menu-label">Public</p>
-        <ul class="menu-list">
+        <p className="menu-label">MENU</p>
+        <ul className="menu-list">
           <li>
            <ActiveLink href="/">Questions</ActiveLink>
           </li>
@@ -57,6 +55,23 @@ function Navbar() {
           </li>
           <li>
             <ActiveLink href="/users">Users</ActiveLink>
+          </li>
+        </ul>
+       
+        <p className="menu-label mt-6">DASHBOARD</p>
+        <ul className="menu-list">
+          <li>
+           <ActiveLink href="/">Profile</ActiveLink>
+          </li>
+    
+          <li>
+            <ActiveLink href="/users">Your Questions</ActiveLink>
+          </li>
+          <li>
+            <ActiveLink href="/users">Your Answers</ActiveLink>
+          </li>
+          <li>
+            <ActiveLink href="/tags">Settings</ActiveLink>
           </li>
         </ul>
       </aside>
