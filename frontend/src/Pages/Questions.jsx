@@ -1,6 +1,6 @@
 import React from "react";
-import Tags from '../Components/Tags/Tags'
-import QuesContainer from '../Components/QuesHeader'
+import RightContainer from '../Components/RightContainer'
+import QuesContainer from '../Components/QuesContainer'
 
 function Questions() {
   return (
@@ -11,7 +11,7 @@ function Questions() {
         </div>
       </div>
       <div className="column">
-        <Tags />
+        <RightContainer />
       </div>
     </div>
   );

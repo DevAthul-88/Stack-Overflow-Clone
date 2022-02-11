@@ -115,10 +115,24 @@ body{
   color: #2c5777;
 }
 
-.post-links{
+.b-b{
   border-bottom: 1px solid #dbdbdb;
 }
 .post-links > div >a{
   color: #0e83ff !important;
   font-weight: bold;
+}
+.post_tag{
+  background: #e9f3ff !important;
+  color: #0e83ff !important;
+}
+.blue_text{
+  color: #0064bd ;
+  font-weight: bold;
+}
+.gray{
+  color: #c0c0c0 !important;
+}
+.tab-active{
+  border-bottom: 3px solid #0095ff;
 }
