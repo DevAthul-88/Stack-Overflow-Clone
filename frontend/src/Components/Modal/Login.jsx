@@ -2,8 +2,8 @@ import React from 'react'
 
 function Login({toggle}) {
   return (
-    <div>Login
-      <br />
+    <div>
+      
       <button onClick={() => toggle("SignUp")}>Don't have an account</button>
     </div>
   )
