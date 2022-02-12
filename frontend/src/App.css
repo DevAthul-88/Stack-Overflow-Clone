@@ -1,5 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap');
+
 body{
   background: #fafafa;
+  font-family: 'Rubik', sans-serif;
 }
 .navbar {
   border-top: 4px solid #f48225;
@@ -135,4 +138,7 @@ body{
 }
 .tab-active{
   border-bottom: 3px solid #0095ff;
+}
+.tag-card{
+  border: 1px solid #2c5777;
 }
