@@ -5,11 +5,9 @@ import RootReducer from "./rootReducer";
 
 const middleware = [thunk];
 
-const user= localStorage.getItem("userInfo")
-  ? JSON.parse(localStorage.getItem("userInfo"))
-  : {};
+const user = localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null
 
-const initialState = { };
+const initialState = { auth: user };
 
 const store = createStore(
   RootReducer,

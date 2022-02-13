@@ -21,7 +21,7 @@ const authReducer = (state = initialState, action) => {
     case USER_LOGIN_REQUEST:
       return { loading: true };
     case USER_LOGIN_SUCCESS:
-      return { loading: false, data: action.payload, redirect: true };
+      return { loading: false, data: action.payload, token:action.token , redirect: true };
     case USER_LOGIN_ERROR:
       return { loading: false, error: action.payload };
     case USER_LOGOUT:

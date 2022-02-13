@@ -1,19 +1,40 @@
 import { SET_CURRENT_STATE } from "../../redux/AuthModal/type";
-import React from "react";
-import { useDispatch , useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoginSchema from "../../Schema/Login";
-import Alert from '../Alert'
+import Alert from "../Alert";
+import { loginAction } from "../../redux/Auth/action";
 
 function Login() {
   const dispatch = useDispatch();
-  const {state} = useSelector((state) => state.auth)
-  console.log(state.message);
+  const { state, error, loading , redirect , data, token } = useSelector((state) => state.auth);
+  
+  useEffect(() => {
+    if(redirect){
+      localStorage.setItem("userInfo" , JSON.stringify(data))
+      localStorage.setItem("token" , token)
+      window.location.reload()
+    }
+  },[redirect])
+
+
   return (
     <div>
-      {
-        state.message ? <Alert type="is-success" message={state.message} trigger={true}/> : null
-      }
+      {state !== undefined ? (
+        <>
+          {state.message ? (
+            <Alert type="is-success" message={state.message} trigger={true} />
+          ) : null}
+        </>
+      ) : null}
+      {error !== undefined ? (
+        <>
+          {error ? (
+            <Alert type="is-danger" message={error} trigger={true} />
+          ) : null}
+        </>
+      ) : null}
       <Formik
         initialValues={{
           email: "",
@@ -21,7 +42,7 @@ function Login() {
         }}
         validationSchema={LoginSchema}
         onSubmit={(values) => {
-          console.log(values);
+          dispatch(loginAction(values));
         }}
       >
         {({ errors, touched }) => (
@@ -52,12 +73,16 @@ function Login() {
 
             <div className="columns mt-4">
               <div className="column">
-                <button  type="submit" className="button nav-btn">Login</button>
+                <button
+                  type="submit"
+                  className={`button nav-btn ${loading ? "is-loading" : ""}`}
+                >
+                  Login
+                </button>
               </div>
               <div className="column">
                 <button
                   className=" button "
-                  
                   onClick={() =>
                     dispatch({
                       type: SET_CURRENT_STATE,

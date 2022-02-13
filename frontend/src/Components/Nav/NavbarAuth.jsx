@@ -81,7 +81,50 @@ function Navbar() {
           </li>
         </ul>
 
-        
+        <p className="menu-label mt-6">DASHBOARD</p>
+        <ul className="menu-list">
+          <li>
+            <ActiveLink href="/">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-user" aria-hidden="true"></i>
+                </span>
+                <span>Profile</span>
+              </span>
+            </ActiveLink>
+          </li>
+
+          <li>
+            <ActiveLink href="/users">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-question-circle" aria-hidden="true"></i>
+                </span>
+                <span>Your Questions</span>
+              </span>
+            </ActiveLink>
+          </li>
+          <li>
+            <ActiveLink href="/users">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-comment" aria-hidden="true"></i>
+                </span>
+                <span>Your Answers</span>
+              </span>
+            </ActiveLink>
+          </li>
+          <li>
+            <ActiveLink href="/tags">
+              <span className="icon-text">
+                <span className="icon">
+                  <i className="fa fa-cog" aria-hidden="true"></i>
+                </span>
+                <span>Settings</span>
+              </span>
+            </ActiveLink>
+          </li>
+        </ul>
       </aside>
      
     </div>
