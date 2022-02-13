@@ -1,17 +1,13 @@
 import React,{useState} from "react";
 import Logo from "../../assets/logo-stackoverflow.svg";
+import { SET_CURRENT_STATE} from "../../redux/AuthModal/type";
+import {useDispatch} from 'react-redux'
 import { Link } from "wouter";
 import ActiveLink from "../../Components/ActiveLink";
-import Modal from "../Modal/Main";
+
 
 function Navbar() {
-  const [state , setState] = useState("Login");
-  const [toggle , setToggle] = useState(false)
-
-  const login = () => {
-   setState("Login")
-   setToggle(true)
-  }
+  const dispatch = useDispatch();
   return (
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
@@ -36,19 +32,19 @@ function Navbar() {
         <div className="navbar-menu mr-4">
           <div className="navbar-end">
             <div className="navbar-item">
-              <button className="button nav-btn-2" onClick={() => login()}>
+              <button className="button nav-btn-2" onClick={() => dispatch({type:SET_CURRENT_STATE ,state:"Login" , bool:true})}>
                 Login
               </button>
             </div>
             <div className="navbar-item">
-              <button className="button nav-btn">
+              <button className="button nav-btn" onClick={() => dispatch({type:SET_CURRENT_STATE ,state:"SignUp" , bool:true})}>
                 Sign Up
               </button>
             </div>
           </div>
         </div>
       </div>
-      <Modal current={state} activate={toggle}/>
+
       <aside className="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar ">
         <ul className="menu-list mt-6"></ul>
         <p className="menu-label">MENU</p>

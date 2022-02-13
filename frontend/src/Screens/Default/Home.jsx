@@ -5,6 +5,7 @@ import Login from "../../Pages/Login";
 import SignUp from "../../Pages/SignUp";
 import Tags from '../../Pages/Tags'
 import Questions from "../../Pages/Questions";
+import Modal from '../../Components/Modal/Main'
 
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
       </div>
       <Switch>
         <div className="wrapper  section container  column is-11 mt-6">
+          <Modal />
           <Route  path="/" component={Questions} />
           <Route path="/tags" component={Tags} />
         </div>

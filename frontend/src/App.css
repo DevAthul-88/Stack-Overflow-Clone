@@ -142,3 +142,10 @@ body{
 .tag-card{
   border: 1px solid #2c5777;
 }
+.model_input{
+  box-shadow: none !important;
+  transition: 0.1s;
+}
+.modal{
+  border-radius: 5px !important;
+}
