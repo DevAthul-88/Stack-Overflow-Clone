@@ -1,13 +1,19 @@
 import { SET_CURRENT_STATE } from "../../redux/AuthModal/type";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import LoginSchema from "../../Schema/Login";
+import Alert from '../Alert'
 
 function Login() {
   const dispatch = useDispatch();
+  const {state} = useSelector((state) => state.auth)
+  console.log(state.message);
   return (
     <div>
+      {
+        state.message ? <Alert type="is-success" message={state.message} trigger={true}/> : null
+      }
       <Formik
         initialValues={{
           email: "",

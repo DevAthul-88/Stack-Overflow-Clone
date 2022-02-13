@@ -1,29 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { SET_CURRENT_STATE } from "../../redux/AuthModal/type";
-import { useDispatch } from "react-redux";
+import { useDispatch , useSelector } from "react-redux";
 import SignUpSchema from "../../Schema/SignUp";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Alert from '../Alert';
+import {registerAction} from '../../redux/Auth/action'
 
 function SignUp() {
   const dispatch = useDispatch();
+  const {loading , redirect , error} = useSelector((state) => state.auth)
+  useEffect(() => {
+    if(redirect){
+      dispatch({
+        type: SET_CURRENT_STATE,
+        state: "Login",
+        bool: true,
+      })
+    }
+  },[redirect])
   return (
     <div>
-      <Alert/>
+      {
+        error && <Alert type="is-danger" message={error} trigger={true}/>
+      }
       <Formik
         initialValues={{
+          userName:"",
           email: "",
           password: "",
           passwordConfirmation: "",
         }}
         validationSchema={SignUpSchema}
         onSubmit={(values) => {
-          console.log(values);
+          dispatch(registerAction(values))
         }}
       >
         {({ errors, touched }) => (
           <Form>
-            <label className="label">Email</label>
+             <label className="label">UserName</label>
+            <Field
+              type="text"
+              name="userName"
+              className={`input model_input ${
+                errors.userName && touched.userName ? " is-danger" : ""
+              } `}
+            />
+            {errors.userName && touched.userName ? (
+              <label className="label has-text-danger">{errors.userName}</label>
+            ) : null}
+            <label className="label mt-4">Email</label>
             <Field
               type="text"
               name="email"
