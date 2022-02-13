@@ -20,7 +20,7 @@ function Tags() {
           <div className="field">
             <p className="control has-icons-left">
               <input
-                className="input"
+                className="input model_input"
                 type="text"
                 placeholder="Filter by tag name"
               />
