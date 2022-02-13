@@ -3,11 +3,13 @@ import { SET_CURRENT_STATE } from "../../redux/AuthModal/type";
 import { useDispatch } from "react-redux";
 import SignUpSchema from "../../Schema/SignUp";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import Alert from '../Alert';
 
 function SignUp() {
   const dispatch = useDispatch();
   return (
     <div>
+      <Alert/>
       <Formik
         initialValues={{
           email: "",
