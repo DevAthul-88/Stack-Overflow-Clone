@@ -36,7 +36,7 @@ function Card() {
                   </div>
               </div>
             </div>
-            <hr />
+            <hr className="hr_post"/>
           </div>
         );
       })}

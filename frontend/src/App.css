@@ -149,3 +149,6 @@ body{
 .modal{
   border-radius: 5px !important;
 }
+.hr_post{
+  background: rgb(199, 199, 199) !important;
+}

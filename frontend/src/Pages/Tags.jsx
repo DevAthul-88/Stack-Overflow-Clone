@@ -1,8 +1,14 @@
 import React from "react";
+import { Helmet } from "react-helmet";
 
 function Tags() {
   return (
     <div>
+      <Helmet>
+        <title>Tags - Stack Overflow</title>
+        <meta name="description" content="tags stack overflow" />
+      </Helmet>
+
       <h1 className="title has-text-weight-bold">Tags</h1>
       <p className="subtitle mt-4 is-size-6">
         A tag is a keyword or label that categorizes your question with other,
@@ -24,24 +30,17 @@ function Tags() {
             </p>
           </div>
         </div>
-        <div className="column">
-         
-        </div>
+        <div className="column"></div>
       </div>
 
-        <div className="card-container is-flex ">
+      <div className="card-container is-flex ">
         <div className="tag-card card is-shadowless p-5">
           <div>
-          <div className="tag post_tag has-text-weight-bold">
-            Javascript
-          </div>
-         <div className="mt-2 ">
-         44 questions
-         </div>
+            <div className="tag post_tag has-text-weight-bold">Javascript</div>
+            <div className="mt-2 ">44 questions</div>
           </div>
         </div>
-        </div>
-
+      </div>
     </div>
   );
 }
