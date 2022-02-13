@@ -90,7 +90,7 @@ function SignUp() {
 
             <div className="columns mt-4">
               <div className="column">
-                <button type="submit" className="button nav-btn">
+                <button type="submit" className={`button nav-btn ${loading ? "is-loading" : ""}`}>
                   SignUp
                 </button>
               </div>
