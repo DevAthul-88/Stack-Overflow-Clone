@@ -32,7 +32,7 @@ function Navbar() {
         <div className="navbar-menu mr-4">
         <div className="navbar-end">
         <div className="navbar-item">
-        <Link href="/profile/" >
+        <Link href="/profile" >
             <img src={`https://secure.gravatar.com/avatar/${state._id}?s=164&d=identicon`} alt="" className="avatar_nav" title={`${state.userName}`}/>
           </Link>
         </div>
@@ -42,7 +42,7 @@ function Navbar() {
     </a>
 
     <div className="navbar-dropdown is-right">
-      <Link href="#" className="navbar-item">
+      <Link href="/profile" className="navbar-item">
        Profile
       </Link>
       <hr className="navbar-divider" />
@@ -94,7 +94,7 @@ function Navbar() {
         <p className="menu-label mt-6">DASHBOARD</p>
         <ul className="menu-list">
           <li>
-            <ActiveLink href="/me/profile">
+            <ActiveLink href="/profile">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-user" aria-hidden="true"></i>
@@ -105,7 +105,7 @@ function Navbar() {
           </li>
 
           <li>
-            <ActiveLink href="/me/questions">
+            <ActiveLink href="/profile/questions">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-question-circle" aria-hidden="true"></i>
@@ -115,7 +115,7 @@ function Navbar() {
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/me/answers">
+            <ActiveLink href="/profile/answers">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-comment" aria-hidden="true"></i>
@@ -125,7 +125,7 @@ function Navbar() {
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/settings">
+            <ActiveLink href="/profile/settings">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-cog" aria-hidden="true"></i>
