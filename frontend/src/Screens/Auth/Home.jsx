@@ -8,6 +8,7 @@ import Profile from "../../Pages/Profile";
 import MeAnswers from "../../Pages/You.Answers";
 import YouQuestions from "../../Pages/You.Questions";
 import Settings from "../../Pages/Settings";
+import Users from '../../Pages/Users';
 
 function Home() {
   return (
@@ -21,10 +22,12 @@ function Home() {
           <Route path="/" component={Questions} />
           <Route path="/tags" component={Tags} />
           <Route path="/profile" component={Profile} />
+          <Route path="/users" component={Users} />
           <NestedRoutes base="/profile">
             <Route path="/questions" component={YouQuestions} />
             <Route path="/answers" component={MeAnswers} />
             <Route path="/settings" component={Settings} />
+            
           </NestedRoutes>
         </Switch>
       </div>

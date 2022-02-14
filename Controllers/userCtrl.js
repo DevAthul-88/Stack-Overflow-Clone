@@ -33,6 +33,8 @@ module.exports = {
           userName: user.userName,
           email: user.email,
           createdAt: user.createdAt,
+          about:user.about,
+          reputation: user.reputation,
         };
 
         res.json({ status: true, token: token, userObject: userObject });
@@ -43,4 +45,12 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+  getAllUsers: async (req ,res) => {
+  try {
+    const users  = await userSchema.find()
+    res.json({users:users})
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+  }
 };

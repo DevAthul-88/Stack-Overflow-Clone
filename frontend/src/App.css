@@ -12,7 +12,7 @@ body{
   width: 200px;
   position: fixed;
   height: 100%;
-  background: #fff !important;
+
   display: inline-block;
   border-right: 2px solid #dbdbdb;
   display: block;
@@ -28,7 +28,9 @@ body{
 .navbar-brand:hover {
   background: #f1f2f3 !important;
 }
-
+a{
+  color: #0095ff ;
+}
 
 
 /* CSS */
@@ -160,4 +162,8 @@ body{
 
 .profile_card{
   border: 1px solid #dbdbdb;
+}
+
+.level-item{
+  display: block;
 }
