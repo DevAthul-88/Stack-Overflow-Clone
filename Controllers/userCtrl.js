@@ -47,7 +47,8 @@ module.exports = {
   },
   getAllUsers: async (req ,res) => {
   try {
-    const users  = await userSchema.find()
+    const users  = await userSchema.find().select("userName")
+   
     res.json({users:users})
   } catch (error) {
     res.json({ error: error.message });

@@ -3,21 +3,21 @@ import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 import { usersAction } from "../redux/Users/actions";
 import Alert from "../Components/Alert";
+import Loader from "../Components/Loader/Loader";
 
 function Users() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(usersAction());
   }, []);
-  const { loading, error } = useSelector((state) => state.users);
+  const { loading, error, users } = useSelector((state) => state.users);
   return (
     <div>
       <Helmet>
         <title>Users - Stack Overflow</title>
       </Helmet>
-      {
-        error && <Alert type={'is-danger'} message={error} trigger={true}/>
-      }
+      {error && <Alert type={"is-danger"} message={error} trigger={true} />}
+
       <h2 className="title">Users</h2>
       <div className="columns">
         <div className="column">
@@ -36,6 +36,20 @@ function Users() {
         </div>
         <div className="column"></div>
       </div>
+
+      {loading ? (
+        <div className="mt-6 is-flex is-justify-content-center">
+          <Loader />
+        </div>
+      ) : (
+        <div>
+          {users  ? (<>
+            {users.map((e, index) => {
+            return <div>{e.userName}</div>;
+          })}
+          </>) : <h1>Nothing Found</h1>}
+        </div>
+      )}
     </div>
   );
 }

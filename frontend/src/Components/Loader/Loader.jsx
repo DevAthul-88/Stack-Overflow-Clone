@@ -1,22 +1,11 @@
 import React from "react";
-import "./Loader.css";
+import Loaders from '../../assets/loading.gif';
+import './Loader.css'
 
 function Loader() {
   return (
-    <div className="lds-spinner">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    
+    <img src={Loaders} alt=""  className="spinner"/>
   );
 }
 
