@@ -6,7 +6,7 @@ import './App.css'
 function App() {
   const  [auth , setAuth] = useState(false)
   useEffect(() => {
-    if(localStorage.getItem("userInfo") && localStorage.getItem("token")){
+    if(localStorage.getItem("user_stack") && localStorage.getItem("token")){
       setAuth(true)
     }
     else{

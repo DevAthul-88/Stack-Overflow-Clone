@@ -7,7 +7,7 @@ import ActiveLink from "../../Components/ActiveLink";
 
 
 function Navbar() {
-  const {state} = useSelector((state) => state.auth )
+  const {userInfo} = useSelector((state) => state.auth )
   return (
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
@@ -33,7 +33,7 @@ function Navbar() {
         <div className="navbar-end">
         <div className="navbar-item">
         <Link href="/profile" >
-            <img src={`https://secure.gravatar.com/avatar/${state._id}?s=164&d=identicon`} alt="" className="avatar_nav" title={`${state.userName}`}/>
+            <img src={`https://secure.gravatar.com/avatar/${userInfo._id}?s=164&d=identicon`} alt="" className="avatar_nav" title={`${userInfo.userName}`}/>
           </Link>
         </div>
         <div className="navbar-item has-dropdown is-hoverable ">

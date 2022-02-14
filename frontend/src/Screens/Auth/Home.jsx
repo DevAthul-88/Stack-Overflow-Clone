@@ -27,7 +27,6 @@ function Home() {
             <Route path="/questions" component={YouQuestions} />
             <Route path="/answers" component={MeAnswers} />
             <Route path="/settings" component={Settings} />
-            
           </NestedRoutes>
         </Switch>
       </div>

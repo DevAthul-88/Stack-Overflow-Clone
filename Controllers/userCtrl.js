@@ -27,13 +27,13 @@ module.exports = {
       if (!user) return res.json({ error: "User not found" });
       const checkPassword = await bcrypt.compare(password, user.password);
       if (checkPassword) {
-        const token = await generateToken({id:user._id , email: email});
+        const token = await generateToken({ id: user._id, email: email });
         const userObject = {
           _id: user._id,
           userName: user.userName,
           email: user.email,
           createdAt: user.createdAt,
-          about:user.about,
+          about: user.about,
           reputation: user.reputation,
         };
 
@@ -45,13 +45,15 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
-  getAllUsers: async (req ,res) => {
-  try {
-    const users  = await userSchema.find().select("userName")
-   
-    res.json({users:users})
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-  }
+  getAllUsers: async (req, res) => {
+    try {
+      const users = await userSchema.aggregate([
+        { $project: { userName: 1, createdAt: 1 } },
+      ]);
+
+      res.json({ users: users });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
 };

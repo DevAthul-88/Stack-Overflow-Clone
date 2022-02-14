@@ -8,11 +8,11 @@ import { loginAction } from "../../redux/Auth/action";
 
 function Login() {
   const dispatch = useDispatch();
-  const { state, error, loading , redirect , data, token } = useSelector((state) => state.auth);
+  const { state, error, loading , redirect , userInfo, token } = useSelector((state) => state.auth);
   
   useEffect(() => {
     if(redirect){
-      localStorage.setItem("userInfo" , JSON.stringify(data))
+      localStorage.setItem("user_stack" , JSON.stringify(userInfo))
       localStorage.setItem("token" , token)
       window.location.reload()
     }

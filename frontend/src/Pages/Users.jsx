@@ -7,10 +7,10 @@ import Loader from "../Components/Loader/Loader";
 
 function Users() {
   const dispatch = useDispatch();
-  useEffect(() => {
+  
     dispatch(usersAction());
-  }, []);
-  const { loading, error, users } = useSelector((state) => state.users);
+ 
+  const { loading, error, AllUsers } = useSelector((state) => state.users);
   return (
     <div>
       <Helmet>
@@ -43,8 +43,8 @@ function Users() {
         </div>
       ) : (
         <div>
-          {users  ? (<>
-            {users.map((e, index) => {
+          {AllUsers  ? (<>
+            {AllUsers.map((e, index) => {
             return <div>{e.userName}</div>;
           })}
           </>) : <h1>Nothing Found</h1>}

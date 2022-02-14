@@ -4,8 +4,8 @@ import authReducer from "./Auth/reducer";
 import {usersReducer} from './Users/reducer'
 
 const root = combineReducers({
-  authModal: authModalReducer,
   auth:authReducer,
+  authModal: authModalReducer,
   users:usersReducer
 
 });
