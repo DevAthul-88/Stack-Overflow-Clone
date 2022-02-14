@@ -1,13 +1,13 @@
 import React,{useState} from "react";
 import Logo from "../../assets/logo-stackoverflow.svg";
 import { SET_CURRENT_STATE} from "../../redux/AuthModal/type";
-import {useDispatch} from 'react-redux'
+import {useSelector} from 'react-redux'
 import { Link } from "wouter";
 import ActiveLink from "../../Components/ActiveLink";
 
 
 function Navbar() {
-  const dispatch = useDispatch();
+  const {state} = useSelector((state) => state.auth )
   return (
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
@@ -30,18 +30,28 @@ function Navbar() {
         </div>
 
         <div className="navbar-menu mr-4">
-          <div className="navbar-end">
-            <div className="navbar-item">
-              <button className="button nav-btn-2" onClick={() => dispatch({type:SET_CURRENT_STATE ,state:"Login" , bool:true})}>
-                Login
-              </button>
-            </div>
-            <div className="navbar-item">
-              <button className="button nav-btn" onClick={() => dispatch({type:SET_CURRENT_STATE ,state:"SignUp" , bool:true})}>
-                Sign Up
-              </button>
-            </div>
-          </div>
+        <div className="navbar-end">
+        <div className="navbar-item">
+        <Link href="/profile/" >
+            <img src={`https://secure.gravatar.com/avatar/${state._id}?s=164&d=identicon`} alt="" className="avatar_nav" title={`${state.userName}`}/>
+          </Link>
+        </div>
+        <div className="navbar-item has-dropdown is-hoverable ">
+    <a className="navbar-link is-arrowless">
+     <i className="fab fa-stack-exchange fa-lg" aria-hidden="true"></i>
+    </a>
+
+    <div className="navbar-dropdown is-right">
+      <Link href="#" className="navbar-item">
+       Profile
+      </Link>
+      <hr className="navbar-divider" />
+      <div className="navbar-item">
+        Logout
+      </div>
+    </div>
+  </div>
+        </div>
         </div>
       </div>
 
@@ -84,7 +94,7 @@ function Navbar() {
         <p className="menu-label mt-6">DASHBOARD</p>
         <ul className="menu-list">
           <li>
-            <ActiveLink href="/">
+            <ActiveLink href="/me/profile">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-user" aria-hidden="true"></i>
@@ -95,7 +105,7 @@ function Navbar() {
           </li>
 
           <li>
-            <ActiveLink href="/users">
+            <ActiveLink href="/me/questions">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-question-circle" aria-hidden="true"></i>
@@ -105,7 +115,7 @@ function Navbar() {
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/users">
+            <ActiveLink href="/me/answers">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-comment" aria-hidden="true"></i>
@@ -115,7 +125,7 @@ function Navbar() {
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/tags">
+            <ActiveLink href="/settings">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-cog" aria-hidden="true"></i>

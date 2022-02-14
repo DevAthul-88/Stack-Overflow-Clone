@@ -152,3 +152,9 @@ body{
 .hr_post{
   background: rgb(199, 199, 199) !important;
 }
+.avatar_nav{
+  width: 30px;
+  height: 50px;
+  cursor: pointer;
+}
+
