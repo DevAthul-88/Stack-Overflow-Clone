@@ -55,7 +55,7 @@ function Navbar() {
         </div>
       </div>
 
-      <aside className="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar ">
+      <aside className="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar">
         <ul className="menu-list mt-6"></ul>
         <p className="menu-label">MENU</p>
         <ul className="menu-list">

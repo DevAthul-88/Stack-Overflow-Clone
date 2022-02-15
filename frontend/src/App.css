@@ -10,10 +10,8 @@ body{
 
 .sidebar {
   width: 200px;
-  position: fixed;
+  position:fixed !important;
   height: 100%;
-
-  display: inline-block;
   border-right: 2px solid #dbdbdb;
   display: block;
 }

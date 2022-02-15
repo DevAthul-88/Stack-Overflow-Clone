@@ -8,12 +8,12 @@ import Modal from "../../Components/Modal/Main";
 
 function Home() {
   return (
-    <div className="columns ">
+    <div className="columns is-multiline">
       <div className="column">
         <Navbar />
       </div>
 
-      <div className="wrapper  section container  column is-11 mt-6">
+      <div className="wrapper  section container  column mt-6">
         <Modal />
         <Switch>
           <Route path="/" component={Questions} />

@@ -15,7 +15,7 @@ const authReducer = (state = initialState, action) => {
     case USER_REGISTER_REQUEST:
       return { loading: true };
     case USER_REGISTER_SUCCESS:
-      return { loading: false, redirects: true, message: action.payload };
+      return { loading: false,  message: action.payload };
     case USER_REGISTER_ERROR:
       return { loading: false, error: action.payload };
     case USER_LOGIN_REQUEST:

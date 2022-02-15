@@ -49,11 +49,11 @@ function Users() {
       ) : (
         <div>
           {allUsers ? (
-            <>
+            <div className="columns  is-multiline">
               {allUsers.map((e, index) => {
                 return (
-                  <div key={index}>
-                    <div className="is-flex">
+                  <div key={index} className="column is-3">
+                     <div className="is-flex">
                       <div>
                         <img
                           src={`https://secure.gravatar.com/avatar/${e._id}?s=164&d=identicon`}
@@ -74,7 +74,7 @@ function Users() {
                   </div>
                 );
               })}
-            </>
+            </div>
           ) : (
             <h1>Nothing Found</h1>
           )}
