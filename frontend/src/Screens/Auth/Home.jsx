@@ -14,12 +14,12 @@ import SingleUser from '../../Pages/SingleUser'
 
 function Home() {
   return (
-    <div className="columns ">
-      <div className="column">
+    <div className="columns main">
+      <div className="column is-0">
         <Navbar />
       </div>
 
-      <div className="wrapper  section container  column is-11 mt-6">
+      <div className="wrapper  section container  column  mt-6">
         <Switch>
           <Route path="/" component={Questions} />
           <Route path="/tags" component={Tags} />

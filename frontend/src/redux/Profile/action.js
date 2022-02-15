@@ -5,7 +5,7 @@ const profileAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: PROFILE_REQUEST });
 
-    const { data } = await axios.get(`/api/users/getUserById/${id}`);
+    const { data } = await axios.get(`/api/user/user/${id}`);
 
     if (data.error)
       return dispatch({ type: PROFILE_ERROR, payload: data.error });

@@ -9,12 +9,12 @@ import SingleUser from '../../Pages/SingleUser'
 
 function Home() {
   return (
-    <div className="columns is-multiline">
-      <div className="column">
+    <div className="columns is-desktop">
+      <div className="column is-0">
         <Navbar />
       </div>
 
-      <div className="wrapper  section container  column mt-6">
+      <div className="wrapper  section container   column mt-6">
         <Modal />
         <Switch>
           <Route path="/" component={Questions} />
