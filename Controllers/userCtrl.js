@@ -56,4 +56,24 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+  getUserById: async (req, res) => {
+    try {
+      const {id} = req.params
+
+      const data = await userSchema.findById(id)
+
+      const user = {
+        _id: data._id,
+        userName:data.userName,
+        reputation:data.reputation,
+        createdAt:data.createdAt,
+        about:data.about,
+      }
+
+      res.json({userData:user})
+
+    } catch (error) {
+      res.json({ error: error.message })
+    }
+  }
 };

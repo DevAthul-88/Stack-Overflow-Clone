@@ -9,6 +9,8 @@ import MeAnswers from "../../Pages/You.Answers";
 import YouQuestions from "../../Pages/You.Questions";
 import Settings from "../../Pages/Settings";
 import Users from '../../Pages/Users';
+import SingleUser from '../../Pages/SingleUser'
+
 
 function Home() {
   return (
@@ -23,6 +25,9 @@ function Home() {
           <Route path="/tags" component={Tags} />
           <Route path="/profile" component={Profile} />
           <Route path="/users" component={Users} />
+          <Route path="/users/:id"> 
+          {(params) => <SingleUser id={params.id}/>}
+          </Route>
           <NestedRoutes base="/profile">
             <Route path="/questions" component={YouQuestions} />
             <Route path="/answers" component={MeAnswers} />
