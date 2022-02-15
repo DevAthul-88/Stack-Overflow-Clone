@@ -8,7 +8,7 @@ import { loginAction } from "../../redux/Auth/action";
 
 function Login() {
   const dispatch = useDispatch();
-  const { state, error, loading , redirect , userInfo, token } = useSelector((state) => state.auth);
+  const { message, error, loading , redirect , userInfo, token } = useSelector((state) => state.auth);
   
   useEffect(() => {
     if(redirect){
@@ -21,10 +21,10 @@ function Login() {
 
   return (
     <div>
-      {state !== undefined ? (
+      {message !== undefined ? (
         <>
-          {state.message ? (
-            <Alert type="is-success" message={state.message} trigger={true} />
+          {message ? (
+            <Alert type="is-success" message={message} trigger={true} />
           ) : null}
         </>
       ) : null}

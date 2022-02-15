@@ -8,7 +8,7 @@ function Main() {
     const dispatch = useDispatch()
     const {state , bool} = useSelector((state) => state.authModal)
   return (
-    <div className={`modal ${bool || bool ? "is-active":""}`}>
+    <div className={`modal ${ bool ? "is-active":""}`}>
   <div className="modal-background"></div>
   <div className="modal-card">
     <header className="modal-card-head">

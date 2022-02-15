@@ -4,13 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import { usersAction } from "../redux/Users/actions";
 import Alert from "../Components/Alert";
 import Loader from "../Components/Loader/Loader";
+import { Link } from "wouter";
+import * as timeago from 'timeago.js'
 
 function Users() {
   const dispatch = useDispatch();
-  
+
+  useEffect(() => {
     dispatch(usersAction());
- 
-  const { loading, error, AllUsers } = useSelector((state) => state.users);
+  }, []);
+
+  const { loading, error, allUsers } = useSelector((state) => state.users);
+  const {userInfo} = useSelector((state) => state.auth)
   return (
     <div>
       <Helmet>
@@ -43,11 +48,36 @@ function Users() {
         </div>
       ) : (
         <div>
-          {AllUsers  ? (<>
-            {AllUsers.map((e, index) => {
-            return <div>{e.userName}</div>;
-          })}
-          </>) : <h1>Nothing Found</h1>}
+          {allUsers ? (
+            <>
+              {allUsers.map((e, index) => {
+                return (
+                  <div key={index}>
+                    <div className="is-flex">
+                      <div>
+                        <img
+                          src={`https://secure.gravatar.com/avatar/${e._id}?s=164&d=identicon`}
+                          alt="avatar"
+                          className="users_avatar"
+                        />
+                      </div>
+                      <div className="ml-4">
+                        <Link href={userInfo._id == e._id ? `/profile` : `/users/${e._id}`}>
+                        {e.userName}
+                        </Link>
+                       
+                        <span className="is-block">
+                         {timeago.format(e.createdAt)}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </>
+          ) : (
+            <h1>Nothing Found</h1>
+          )}
         </div>
       )}
     </div>

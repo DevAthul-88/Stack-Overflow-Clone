@@ -8,16 +8,16 @@ import {registerAction} from '../../redux/Auth/action'
 
 function SignUp() {
   const dispatch = useDispatch();
-  const {loading , redirect , error} = useSelector((state) => state.auth)
+  const {loading , redirects, error} = useSelector((state) => state.auth)
   useEffect(() => {
-    if(redirect){
+    if(redirects){
       dispatch({
         type: SET_CURRENT_STATE,
         state: "Login",
         bool: true,
       })
     }
-  },[redirect])
+  },[redirects])
   return (
     <div>
       {

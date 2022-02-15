@@ -1,9 +1,8 @@
 import React from "react";
 import Navbar from "../../Components/Nav/Navbar";
 import { Switch, Route } from "wouter";
-import Login from "../../Pages/Login";
-import SignUp from "../../Pages/SignUp";
 import Tags from "../../Pages/Tags";
+import Users from '../../Pages/Users'
 import Questions from "../../Pages/Questions";
 import Modal from "../../Components/Modal/Main";
 
@@ -19,6 +18,7 @@ function Home() {
         <Switch>
           <Route path="/" component={Questions} />
           <Route path="/tags" component={Tags} />
+          <Route path="/users" component={Users} />
         </Switch>
       </div>
     </div>

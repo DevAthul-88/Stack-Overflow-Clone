@@ -167,3 +167,7 @@ a{
 .level-item{
   display: block;
 }
+.users_avatar{
+  width: 4rem;
+  height: 4rem;
+}

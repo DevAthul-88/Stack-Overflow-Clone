@@ -5,29 +5,29 @@ import { Link } from "wouter";
 import Helmet from 'react-helmet'
 
 function Profile() {
-  const { state } = useSelector((state) => state.auth);
+  const { userInfo } = useSelector((state) => state.auth);
   return (
     <div>
       <Helmet>
-        <title>{`User ${state.user.userName} - Stack Overflow`}</title>
+        <title>{`User ${userInfo.userName} - Stack Overflow`}</title>
       </Helmet>
 
       <div className="columns">
         <div className="column is-2">
           <img
-            src={`https://secure.gravatar.com/avatar/${state.user._id}?s=164&d=identicon`}
+            src={`https://secure.gravatar.com/avatar/${userInfo._id}?s=164&d=identicon`}
             alt="profile"
             className="image is-128x128"
-            title={`${state.user.userName}`}
+            title={`${userInfo.userName}`}
           />
         </div>
         <div className="column ">
-          <h1 className="title">{state.user.userName}</h1>
+          <h1 className="title">{userInfo.userName}</h1>
           <h4 className="icon-text">
             <span className="icon">
               <i className="fa fa-birthday-cake fa-lg" aria-hidden="true"></i>
             </span>{" "}
-            <span>Member for {timeago.format(state.user.createdAt)}</span>
+            <span>Member for {timeago.format(userInfo.createdAt)}</span>
           </h4>
         </div>
       </div>
@@ -40,7 +40,7 @@ function Profile() {
               <div className="level-item">
                 <div>
                   <p className="heading">Reputation</p>
-                  <p className="is-size-5">{state.user.reputation}</p>
+                  <p className="is-size-5">{userInfo.reputation}</p>
                 </div>
               </div>
               <div className="level-item">
@@ -55,7 +55,7 @@ function Profile() {
               <div className="level-item">
                 <div>
                   <p className="heading">Answers</p>
-                  <p className="is-size-5">{state.user.reputation}</p>
+                  <p className="is-size-5">{userInfo.reputation}</p>
                 </div>
               </div>
             </nav>
@@ -65,7 +65,7 @@ function Profile() {
         <div className="column">
           <h1>About</h1>
           <div className="card profile_card is-shadowless p-4 mt-4">
-            {state.about == null ? (
+            {userInfo.about == null ? (
               <div>
                 <h3 className="has-text-centered">
                   Your about me section is currently blank. Would you like to
@@ -76,7 +76,7 @@ function Profile() {
                 </h3>
               </div>
             ) : (
-              <h1>{state.user.about}</h1>
+              <h1>{userInfo.about}</h1>
             )}
           </div>
         </div>
