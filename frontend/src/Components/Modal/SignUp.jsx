@@ -8,21 +8,29 @@ import {registerAction} from '../../redux/Auth/action'
 
 function SignUp() {
   const dispatch = useDispatch();
-  const {loading , redirects, error} = useSelector((state) => state.auth)
+  const {loading , redirect , message, error} = useSelector((state) => state.auth)
   useEffect(() => {
-    if(redirects){
+    if(redirect){
       dispatch({
         type: SET_CURRENT_STATE,
         state: "Login",
         bool: true,
       })
     }
-  },[redirects])
+  },[redirect])
   return (
     <div>
       {
         error && <Alert type="is-danger" message={error} trigger={true}/>
       }
+       {message !== undefined ? (
+        <>
+          {message ? (
+            <Alert type="is-success" message={message} trigger={true} />
+          ) : null}
+        </>
+      ) : null}
+      
       <Formik
         initialValues={{
           userName:"",

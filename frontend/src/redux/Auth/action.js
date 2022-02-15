@@ -18,7 +18,7 @@ export const registerAction = (credentials) => async (dispatch) => {
       return dispatch({ type: USER_REGISTER_ERROR, payload: res.data.error });
     dispatch({
       type: USER_REGISTER_SUCCESS,
-      payload: "User successfully created",
+      payload: "User successfully created. Please login to continue",
     });
   } catch (error) {
     dispatch({ type: USER_REGISTER_ERROR, payload: error.message });
