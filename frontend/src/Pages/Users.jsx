@@ -1,21 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
 import { usersAction } from "../redux/Users/actions";
 import Alert from "../Components/Alert";
 import Loader from "../Components/Loader/Loader";
 import { Link } from "wouter";
-import * as timeago from 'timeago.js'
+import * as timeago from "timeago.js";
 
 function Users() {
   const dispatch = useDispatch();
-
+  const [state, setState] = useState("all");
   useEffect(() => {
-    dispatch(usersAction());
-  }, []);
+    if (state === "all") {
+      dispatch(usersAction());
+    }
+  }, [state]);
 
   const { loading, error, allUsers } = useSelector((state) => state.users);
-  const {userInfo} = useSelector((state) => state.auth)
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setState(value);
+  };
+
   return (
     <div>
       <Helmet>
@@ -32,6 +40,7 @@ function Users() {
                 className="input model_input"
                 type="text"
                 placeholder="Filter by user name"
+                onChange={handleChange}
               />
               <span className="icon is-small is-left">
                 <i className="fa fa-search" aria-hidden="true"></i>
@@ -53,7 +62,7 @@ function Users() {
               {allUsers.map((e, index) => {
                 return (
                   <div key={index} className="column is-3">
-                     <div className="is-flex">
+                    <div className="is-flex">
                       <div>
                         <img
                           src={`https://secure.gravatar.com/avatar/${e._id}?s=164&d=identicon`}
@@ -62,12 +71,18 @@ function Users() {
                         />
                       </div>
                       <div className="ml-4">
-                        <Link href={userInfo._id == e._id ? `/profile` : `/users/${e._id}`}>
-                        {e.userName}
+                        <Link
+                          href={
+                            userInfo._id == e._id
+                              ? `/profile`
+                              : `/users/${e._id}`
+                          }
+                        >
+                          {e.userName}
                         </Link>
-                       
+
                         <span className="is-block">
-                         {timeago.format(e.createdAt)}
+                          {timeago.format(e.createdAt)}
                         </span>
                       </div>
                     </div>
