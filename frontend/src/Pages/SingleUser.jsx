@@ -17,6 +17,9 @@ function SingleUser({id}) {
 
   return (
     <div>
+      {profile == null ? <div className='is-flex is-justify-content-center'>
+        <Loader />
+      </div> : (<div>
       {loading  ? (<div className='is-flex is-justify-content-center'>
         <Loader />
       </div>) : (<div>
@@ -101,6 +104,7 @@ function SingleUser({id}) {
       </div>
         </div>)}
       </div>)}
+    </div>)}
     </div>
   )
 }

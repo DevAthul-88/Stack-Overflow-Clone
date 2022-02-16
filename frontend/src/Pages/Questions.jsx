@@ -15,7 +15,7 @@ function Questions() {
           <QuesContainer />
         </div>
       </div>
-      <div className="column">
+      <div className="column is-hidden-mobile">
         <RightContainer />
       </div>
     </div>
