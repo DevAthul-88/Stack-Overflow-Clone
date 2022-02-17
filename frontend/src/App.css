@@ -188,3 +188,11 @@ a{
 .ques_input{
   box-shadow: none !important;
 }
+.nav_ask:active{
+  color: #fff;
+  box-shadow: none !important;
+}
+.nav_ask:focus{
+  color: #fff;
+  box-shadow: none !important;
+}
