@@ -75,5 +75,15 @@ module.exports = {
     } catch (error) {
       res.json({ error: error.message })
     }
+  },
+
+  searchUser: async (req, res) => {
+    try {
+      const {search} = req.query
+      const data = await userSchema.find({userName:{$regex:`${search}`, $options:"i"}})
+      res.json({users:data})
+    } catch (error) {
+      res.json({ error: error.message })
+    }
   }
 };

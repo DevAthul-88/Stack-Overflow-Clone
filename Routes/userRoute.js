@@ -3,6 +3,7 @@ const userCtrl = require("../Controllers/userCtrl");
 
 Router.route("/allUsers").get(userCtrl.getAllUsers);
 Router.route("/user/:id").get(userCtrl.getUserById);
+Router.route("/searchUsers").get(userCtrl.searchUser);
 Router.route("/create").post(userCtrl.createANewUser);
 Router.route("/login").post(userCtrl.login);
 

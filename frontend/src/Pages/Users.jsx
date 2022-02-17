@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
-import { usersAction } from "../redux/Users/actions";
+import { usersAction , searchUsersAction} from "../redux/Users/actions";
 import Alert from "../Components/Alert";
 import Loader from "../Components/Loader/Loader";
 import { Link } from "wouter";
@@ -13,6 +13,12 @@ function Users() {
   useEffect(() => {
     if (state === "all") {
       dispatch(usersAction());
+    }
+    else if (state === ""){
+      dispatch(usersAction());
+    }
+    else {
+      dispatch(searchUsersAction(state))
     }
   }, [state]);
 
