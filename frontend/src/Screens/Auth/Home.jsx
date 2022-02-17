@@ -10,6 +10,7 @@ import YouQuestions from "../../Pages/You.Questions";
 import Settings from "../../Pages/Settings";
 import Users from '../../Pages/Users';
 import SingleUser from '../../Pages/SingleUser'
+import AskQuestion from "../../Pages/AskQuestion"
 
 
 function Home() {
@@ -28,6 +29,7 @@ function Home() {
           <Route path="/users/:id"> 
           {(params) => <SingleUser id={params.id}/>}
           </Route>
+          <Route path="/ask" component={AskQuestion} />
           <NestedRoutes base="/profile">
             <Route path="/questions" component={YouQuestions} />
             <Route path="/answers" component={MeAnswers} />

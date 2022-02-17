@@ -31,6 +31,16 @@ function Navbar() {
 
         <div className="navbar-menu mr-4">
         <div className="navbar-end">
+          <div className="navbar-item">
+            <Link href="/ask" className="button nav_ask is-small">
+              <span className="icon">
+                <i className="fa fa-plus" aria-hidden="true"></i>
+              </span>
+              <span>
+               Ask Question
+              </span>
+            </Link>
+          </div>
         <div className="navbar-item">
         <Link href="/profile" >
             <img src={`https://secure.gravatar.com/avatar/${userInfo._id}?s=164&d=identicon`} alt="" className="avatar_nav" title={`${userInfo.userName}`}/>

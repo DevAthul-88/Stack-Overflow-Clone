@@ -178,3 +178,13 @@ a{
     margin-left:200px
   }
 }
+.nav_ask{
+  background: #f48225 !important;
+  color: #fff;
+}
+.nav_ask:hover{
+  color: #fff;
+}
+.ques_input{
+  box-shadow: none !important;
+}
