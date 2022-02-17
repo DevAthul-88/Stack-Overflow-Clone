@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import { Formik, Form, Field, ErrorMessage  } from "formik";
+import React from "react";
+import {Helmet} from "react-helmet"
+import { Formik, Form, Field, ErrorMessage } from "formik";
 import QuestionSchema from "../Schema/Question";
+import {useDispatch} from 'react-redux'
+import {createAction} from '../redux/Question/action'
 
 function AskQuestion() {
+  const dispatch = useDispatch()
   return (
     <div>
+      <Helmet>
+        <title>Ask a question - Stack Overflow</title>
+      </Helmet>
       <Formik
         initialValues={{
           title: "",
@@ -12,7 +19,9 @@ function AskQuestion() {
           tags: "",
         }}
         validationSchema={QuestionSchema}
-        onSubmit={(values) => {}}
+        onSubmit={(values) => {
+          dispatch(createAction(values))
+        }}
       >
         {({ errors, touched }) => (
           <Form>
@@ -44,6 +53,7 @@ function AskQuestion() {
               </label>
 
               <Field
+                as="textarea"
                 className={`textarea mt-2 ques_input ${
                   errors.description && touched.description ? " is-danger" : ""
                 }`}
@@ -51,6 +61,7 @@ function AskQuestion() {
                 id=""
                 cols={30}
                 rows={10}
+                placeholder="Explain your question here!"
               ></Field>
 
               {errors.description && touched.description ? (
