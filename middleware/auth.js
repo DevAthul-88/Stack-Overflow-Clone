@@ -1,27 +1,23 @@
+require("dotenv").config();
 const userSchema = require("../Schema/userSchema");
 const jwt = require("jsonwebtoken");
 
-const authMiddleware = (req, res, next) => {
-  try {
-    if (
-      req.headers["authorization"] &&
-      req.headers.startswith("authorization")
-    ) {
-      const token = req.headers["authorization"].split("")[0];
+const authMiddleware = async (req, res, next) => {
+  let token
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    try {
+       token = req.headers.authorization.split(" ")[1];
 
-      if (token) {
-        const user = jwt.verify(token, async (err, data) => {
-          if (err) return err;
-          const user = await userSchema.findOne({ _id: data.id });
-          return user;
-        });
-
-        req.user = user;
-        next();
-      }
+      const decoded = jwt.verify(token, process.env.TOKEN);
+      const user = await userSchema.findOne({ _id: decoded.id });
+      req.user = user;
+      next();
+    } catch (error) {
+      res.json({ error: error.message });
     }
-  } catch (error) {
-    res.json({ error: error.message });
   }
 };
 
