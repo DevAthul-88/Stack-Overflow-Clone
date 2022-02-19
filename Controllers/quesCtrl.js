@@ -13,8 +13,16 @@ module.exports = {
         };
       });
 
-      await tagSchema.insertMany(tag , {ordered:false});
+      const Ques = new quesSchema({
+        id:req.user._id,
+        userName: req.user.userName,
+        title:req.body.title,
+        description: req.body.description,
+        tags:req.body.tags,
+      })
       res.json({ status: true });
+      await tagSchema.insertMany(tag , {ordered:false}); 
+      
     } catch (error) {
       
     }

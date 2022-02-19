@@ -2,13 +2,19 @@ import React from "react";
 import {Helmet} from "react-helmet"
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import QuestionSchema from "../Schema/Question";
-import {useDispatch} from 'react-redux'
+import {useDispatch , useSelector} from 'react-redux'
 import {createAction} from '../redux/Question/action'
+import Alert from '../Components/Alert'
 
 function AskQuestion() {
   const dispatch = useDispatch()
+  const {loading , created} = useSelector((state) => state.question)
+  
   return (
     <div>
+      {created && (
+        <Alert type="is-success" message="Post created successfully" trigger/>
+      )}
       <Helmet>
         <title>Ask a question - Stack Overflow</title>
       </Helmet>
@@ -19,8 +25,9 @@ function AskQuestion() {
           tags: "",
         }}
         validationSchema={QuestionSchema}
-        onSubmit={(values) => {
+        onSubmit={(values , {resetForm}) => {
           dispatch(createAction(values))
+           resetForm({})
         }}
       >
         {({ errors, touched }) => (
@@ -86,7 +93,7 @@ function AskQuestion() {
                 <label className="label has-text-danger">{errors.tags}</label>
               ) : null}
             </div>
-            <button className="nav-btn" type="submit">
+            <button className={`nav-btn button ${loading && "is-loading"}`} type="submit">
               Submit
             </button>
           </Form>
