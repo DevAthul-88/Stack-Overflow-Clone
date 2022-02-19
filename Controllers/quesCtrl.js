@@ -1,6 +1,7 @@
 const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
+const req = require("express/lib/request");
 
 module.exports = {
   create: async (req, res) => {
@@ -14,17 +15,31 @@ module.exports = {
       });
 
       const Ques = new quesSchema({
-        id:req.user._id,
+        id: req.user._id,
         userName: req.user.userName,
-        title:req.body.title,
+        title: req.body.title,
         description: req.body.description,
-        tags:req.body.tags,
-      })
+        tags: req.body.tags,
+      });
       res.json({ status: true });
-      await tagSchema.insertMany(tag , {ordered:false}); 
-      
+      Ques.save()
+      await tagSchema.insertMany(tag, { ordered: false });
+    } catch (error) {}
+  },
+
+  allTags: async (req, res) => {
+    try {
+
+      const count = await quesSchema.aggregate([
+        {$project:{tags:1}},
+        {$unwind:"$tags"},
+        {$group:{_id:"$tags" , count:{$sum:1}}}
+
+      ])
+
+      res.json({ tag:count });
     } catch (error) {
-      
+      res.json({ error: error.message });
     }
   },
 };
