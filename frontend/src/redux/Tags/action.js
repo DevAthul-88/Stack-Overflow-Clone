@@ -15,7 +15,7 @@ export const tagAction = () => async (dispatch) => {
 export const searchTagsAction = (value) => async (dispatch) => {
   try {
     dispatch({ type: TAG_REQUEST });
-    const { data } = await axios.get(`/api/user/searchTags?search=${value}`);
+    const { data } = await axios.get(`/api/question/searchTags?search=${value}`);
     if (data.error) return dispatch({ type: TAG_ERROR, payload: data.error });
     dispatch({ type: TAG_SUCCESS, payload: data.tag });
   } catch (error) {

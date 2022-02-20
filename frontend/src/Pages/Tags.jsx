@@ -1,28 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import Loader from "../Components/Loader/Loader";
 import Alert from "../Components/Alert";
-import { tagAction } from "../redux/Tags/action";
+import { tagAction, searchTagsAction } from "../redux/Tags/action";
 import { useSelector, useDispatch } from "react-redux";
-import {Link} from 'wouter'
+import { Link } from "wouter";
 
 function Tags() {
   const dispatch = useDispatch();
   const { loading, error, tags } = useSelector((state) => state.tag);
+
+  const [state, setState] = useState("all");
+
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setState(value);
+  };
+
   useEffect(() => {
-    dispatch(tagAction());
-  }, []);
+    if (state == "all") {
+      dispatch(tagAction());
+    } else if (state == "") {
+      dispatch(tagAction());
+    } else {
+      dispatch(searchTagsAction(state));
+    }
+  }, [state]);
+
   return (
     <div>
       <Helmet>
         <title>Tags - Stack Overflow</title>
         <meta name="description" content="tags stack overflow" />
       </Helmet>
-       {
-         error && <Alert type={'is-danger'} message={error} trigger={true} />
-       }
+      {error && <Alert type={"is-danger"} message={error} trigger={true} />}
       {loading ? (
-        <div className="is-flex is-justify-content-center"><Loader /></div>
+        <div className="is-flex is-justify-content-center">
+          <Loader />
+        </div>
       ) : (
         <>
           <h1 className="title has-text-weight-bold">Tags</h1>
@@ -39,6 +54,7 @@ function Tags() {
                     className="input model_input"
                     type="text"
                     placeholder="Filter by tag name"
+                    onChange={handleChange}
                   />
                   <span className="icon is-small is-left">
                     <i className="fa fa-search" aria-hidden="true"></i>
@@ -50,34 +66,28 @@ function Tags() {
           </div>
 
           <div className="card-container columns ">
-
-            {
-              tags !== null && tags !== undefined ? (
-               <>
-               {
-                 tags.map((e , index) => {
-                   return (
-                    <div className="tag-card card is-4 ml-2 is-shadowless p-4 column" key={index}>
-                    <div>
-                      <div className="tag post_tag has-text-weight-bold">
-                        <Link to={`/tags/${e._id}`}>{e._id}</Link>
+            {tags !== null && tags !== undefined ? (
+              <>
+                {tags.map((e, index) => {
+                  return (
+                    <div
+                      className="tag-card card is-4 ml-2 is-shadowless p-4 column"
+                      key={index}
+                    >
+                      <div>
+                        <div className="tag post_tag has-text-weight-bold">
+                          <Link to={`/tags/${e._id}`}>{e._id}</Link>
+                        </div>
+                        <div className="mt-2 ">{e.count} questions</div>
                       </div>
-                      <div className="mt-2 ">{e.count} questions</div>
                     </div>
-                  </div>
-                   )
-                 })
-               }
-               
-               </>
-              ) : (<h1>No tags found.</h1>)
-            }
-            
+                  );
+                })}
+              </>
+            ) : (
+              <h1>No tags found.</h1>
+            )}
           </div>
-          
-
-
-
         </>
       )}
     </div>

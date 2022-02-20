@@ -42,4 +42,21 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+
+  searchTag: async (req, res) => {
+    try {
+      const {search} = req.query
+      const data = await tagSchema.aggregate([
+        {$project:{tags:1}},
+        {$unwind:"$tags"},
+        { $group: { _id: '$tags', count: { $sum: 1 } } },
+        { $match: { _id: { $regex:search, $options: 'i' } } },
+        { $sort: { count: -1 } }
+      ])
+      res.json({tag:data})
+    } catch (error) {
+      res.json({ error: error.message })
+    }
+  }
+
 };
