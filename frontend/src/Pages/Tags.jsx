@@ -12,10 +12,7 @@ function Tags() {
 
   const [state, setState] = useState("all");
 
-  const handleChange = (event) => {
-    const { value } = event.target;
-    setState(value);
-  };
+ 
 
   useEffect(() => {
     if (state == "all") {
@@ -26,21 +23,17 @@ function Tags() {
       dispatch(searchTagsAction(state));
     }
   }, [state]);
-
+  const handleChange = (event) => {
+    const { value } = event.target;
+    setState(value);
+  };
   return (
     <div>
       <Helmet>
         <title>Tags - Stack Overflow</title>
         <meta name="description" content="tags stack overflow" />
       </Helmet>
-      {error && <Alert type={"is-danger"} message={error} trigger={true} />}
-      {loading ? (
-        <div className="is-flex is-justify-content-center">
-          <Loader />
-        </div>
-      ) : (
-        <>
-          <h1 className="title has-text-weight-bold">Tags</h1>
+      <h1 className="title has-text-weight-bold">Tags</h1>
           <p className="subtitle mt-4 is-size-6">
             A tag is a keyword or label that categorizes your question with
             other, similar questions. Using the right tags makes it easier for
@@ -64,7 +57,14 @@ function Tags() {
             </div>
             <div className="column"></div>
           </div>
-
+          
+      {error && <Alert type={"is-danger"} message={error} trigger={true} />}
+      {loading ? (
+        <div className="is-flex is-justify-content-center">
+          <Loader />
+        </div>
+      ) : (
+        <>
           <div className="card-container columns ">
             {tags !== null && tags !== undefined ? (
               <>

@@ -22,22 +22,21 @@ module.exports = {
         tags: req.body.tags,
       });
       res.json({ status: true });
-      Ques.save()
+      Ques.save();
       await tagSchema.insertMany(tag, { ordered: false });
     } catch (error) {}
   },
 
   allTags: async (req, res) => {
     try {
-
       const count = await quesSchema.aggregate([
-        {$project:{tags:1}},
-        {$unwind:"$tags"},
-        {$group:{_id:"$tags" , count:{$sum:1}}}
+        { $project: { tags: 1 } },
+        { $unwind: "$tags" },
+        { $group: { _id: "$tags", count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+      ]);
 
-      ])
-
-      res.json({ tag:count });
+      res.json({ tag: count });
     } catch (error) {
       res.json({ error: error.message });
     }
@@ -45,18 +44,18 @@ module.exports = {
 
   searchTag: async (req, res) => {
     try {
-      const {search} = req.query
-      const data = await tagSchema.aggregate([
-        {$project:{tags:1}},
-        {$unwind:"$tags"},
-        { $group: { _id: '$tags', count: { $sum: 1 } } },
-        { $match: { _id: { $regex:search, $options: 'i' } } },
-        { $sort: { count: -1 } }
-      ])
-      res.json({tag:data})
+      const { search } = req.query;
+      const data = await quesSchema.aggregate([
+        { $project: { tags: 1 } },
+        { $unwind: "$tags" },
+        { $group: { _id: "$tags", count: { $sum: 1 } } },
+        { $match: { _id: { $regex: search, $options: "i" } } },
+        { $sort: { count: -1 } },
+      ]);
+      console.log(data);
+      res.json({ tag: data });
     } catch (error) {
-      res.json({ error: error.message })
+      res.json({ error: error.message });
     }
-  }
-
+  },
 };
