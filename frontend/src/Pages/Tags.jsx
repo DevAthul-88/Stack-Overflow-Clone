@@ -49,7 +49,7 @@ function Tags() {
             <div className="column"></div>
           </div>
 
-          <div className="card-container is-flex is-justify-content-space-between">
+          <div className="card-container columns ">
 
             {
               tags !== null && tags !== undefined ? (
@@ -57,7 +57,7 @@ function Tags() {
                {
                  tags.map((e , index) => {
                    return (
-                    <div className="tag-card card is-shadowless p-4" key={index}>
+                    <div className="tag-card card is-4 ml-2 is-shadowless p-4 column" key={index}>
                     <div>
                       <div className="tag post_tag has-text-weight-bold">
                         <Link to={`/tags/${e._id}`}>{e._id}</Link>
