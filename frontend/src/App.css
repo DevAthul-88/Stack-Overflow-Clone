@@ -196,3 +196,7 @@ a{
   color: #fff;
   box-shadow: none !important;
 }
+.replay{
+  border-top: 1px solid #dbdbdb;
+  border-bottom: 1px solid #dbdbdb;
+}

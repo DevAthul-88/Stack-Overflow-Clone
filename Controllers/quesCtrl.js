@@ -2,6 +2,7 @@ const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
 const req = require("express/lib/request");
+const { findById, findOne } = require("../Schema/quesSchema");
 
 module.exports = {
   create: async (req, res) => {
@@ -67,6 +68,15 @@ module.exports = {
   } catch (error) {
     res.json({ error: error.message });
   }
+  },
+  comment: async (req, res) => {
+     try {    
+       await quesSchema.updateOne({_id:req.params.id}, {$push:{'replies':req.body}});
+       const data = await quesSchema.findOne({_id:req.params.id})
+       res.json({data: data});
+     } catch (error) {
+       res.json({ error: error.message });
+     }
   },
   newest: async (req, res) => {
     try {

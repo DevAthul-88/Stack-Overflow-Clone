@@ -7,12 +7,13 @@ import QuesAction from "../redux/Single/action";
 import * as timeago from "timeago.js";
 import Comment from '../Components/Post/Comment'
 import { useState } from "react";
-
+import {Link} from 'wouter'
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
   const [showComment , setShowComment] = useState(false)
+  
   useEffect(() => {
     dispatch(QuesAction(id));
   }, []);
@@ -73,7 +74,31 @@ function SingleQues({ id }) {
             </div>
           )}
             <hr />
-            <a onClick={() => setShowComment(!showComment)}>Add Comment</a>
+            {
+              data.replies.map((e , index) => {
+                return (
+                  <div className='replay mb-1 p-1' key={index}>
+                    <div className="is-flex is-justify-content-space-between">
+                    <h6 className="is-capitalized">{e.comment}</h6>
+                    <div>
+                   
+                    <Link href='' style={{fontSize:"10px"}} className="mr-2">
+                      {e.userName}
+                    </Link>
+                    {" "}
+                    <span  style={{fontSize:"10px"}}>
+                      {timeago.format(e.createdAt)}
+                    </span>
+                    <span style={{fontSize:"10px"}} className='ml-2 '>
+                    <a className="has-text-danger">Delete</a>
+                    </span>
+                    </div>
+                    </div>
+                  </div>
+                )
+              })
+            }
+            <a onClick={() => setShowComment(!showComment)} className="mt-4 is-block">Add Comment</a>
             {showComment && <Comment id={id}/>}
             <hr />
         </>

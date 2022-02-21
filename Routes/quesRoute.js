@@ -3,6 +3,7 @@ const quesRoute = require("../Controllers/quesCtrl");
 const auth = require("../middleware/auth");
 
 Router.route("/create").post(auth, quesRoute.create);
+Router.route("/comment/:id").post(auth, quesRoute.comment);
 Router.route("/tags").get(quesRoute.allTags);
 Router.route("/searchTags").get(quesRoute.searchTag);
 Router.route("/newest").get(quesRoute.newest);
