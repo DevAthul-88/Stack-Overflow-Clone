@@ -58,4 +58,12 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+  newest: async (req, res) => {
+    try {
+      const data = await quesSchema.find().sort({createdAt:1})
+      res.json({data:data})
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  }
 };

@@ -1,9 +1,27 @@
 import React, { useState } from "react";
-import { Link } from "wouter";
 import Card from "../Components/Post/Card";
+import Interesting from '../Pages/Tabs/Interesting'
+import Unanswered from '../Pages/Tabs/unanswered'
+import Featured from "../Pages/Tabs/Featured";
+import Newest from "../Pages/Tabs/Newest";
 
 function QuesHeader() {
   const [current, setCurrent] = useState("newest");
+
+  const Main = () => {
+    if(current === "newest"){
+      return <Newest />
+    }
+    else if(current === "interesting"){
+      return <Interesting />
+    }
+    else if(current === "featured"){
+      return <Featured />
+    }
+    else {
+      return <Unanswered/>
+    }
+  }
 
   return (
     <div className="top">
@@ -43,7 +61,7 @@ function QuesHeader() {
           </div>
         </div>
         <div className="p-4 mt-5">
-          <Card />
+         <Main />
         </div>
       </div>
     </div>
