@@ -93,7 +93,7 @@ function AskQuestion() {
                 <label className="label has-text-danger">{errors.tags}</label>
               ) : null}
             </div>
-            <button className={`nav-btn button ${loading && "is-loading"}`} type="submit">
+            <button className={`nav-btn button ${loading ? "is-loading" : ""}`} type="submit">
               Submit
             </button>
           </Form>

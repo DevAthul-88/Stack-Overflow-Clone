@@ -4,7 +4,8 @@ import authReducer from "./Auth/reducer";
 import { usersReducer } from "./Users/reducer";
 import ProfileReducer from "./Profile/reducer";
 import questionReducer from "./Question/reducer";
-import tagReducer from './Tags/reducer'
+import tagReducer from "./Tags/reducer";
+import postReducer from "./Post/reducer";
 
 const root = combineReducers({
   authModal: authModalReducer,
@@ -12,6 +13,7 @@ const root = combineReducers({
   users: usersReducer,
   profile: ProfileReducer,
   question: questionReducer,
-  tag: tagReducer
+  tag: tagReducer,
+  post: postReducer,
 });
 export default root;

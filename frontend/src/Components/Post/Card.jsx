@@ -1,38 +1,53 @@
 import React from "react";
-import Data from "../../data";
+import {Link} from 'wouter'
 
-function Card() {
+
+function Card({Data}) {
   return (
     <div>
       {Data.map((e, index) => {
         return (
-          <div key={index} className=" mb-4">
-            <h1 className="title is-size-5">{e.title}</h1>
-            <h4 className="subtitle mb-1 is-size-6 is-light">
-              <span className="gray">answered on {e.date}</span> {" "}
-              <a href="" className="blue_text">
-                {e.user}
+          <div key={index} className="">
+            <h1 className="title is-size-5 mb-1">
+              <Link href={`/question/${e._id}`} >
+              {e.title}
+              </Link>
+            </h1>
+            
+             <div className="is-flex is-justify-content-space-between">
+             {e.completed && (
+               <div>
+               <h4 className="subtitle   is-light" style={{fontSize:"10px"}}>
+                {e.completed ? <div><span className="gray">answered on {e.createdAt}</span> {" "} </div>: null}
+              </h4>
+               </div>
+             )}
+             <div>
+             <Link href="" >
+             <a className="blue_text" style={{fontSize:"10px"}}>
+                {e.userName}
               </a>
-            </h4>
+             </Link>
+             </div>
+             </div>
+
             <div>
-              <div className="columns mt-2">
-                  <div className="column">
+              <div className="is-flex is-justify-content-space-between mt-4">
+                  <div >
                   <div className="is-flex ">
                 {e.tags.map((es, index) => {
-                  return <div className="tag post_tag ml-2" key={index}>{es}</div>;
+                  return <div className="tag post_tag" key={index}>{es}</div>;
                 })}
               </div>
                   </div>
-                  <div className="column ">
+                  <div>
                       <div className="tag ml-2">
-                          {e.votes.length} Votes
+                          {e.upVote.length} Votes
                       </div>
-                      <div className="tag is-success ml-2 is-light">
-                          {e.answers.length} Answers
+                      <div className="tag is-success is-light">
+                          {e.answer.length} Answers
                       </div>
-                      <div className="tag ml-2">
-                          {e.views.length} Views
-                      </div>
+                      
                   </div>
               </div>
             </div>
