@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { useSelector, useDispatch } from "react-redux";
-import { usersAction , searchUsersAction} from "../redux/Users/actions";
+import { usersAction, searchUsersAction } from "../redux/Users/actions";
 import Alert from "../Components/Alert";
 import Loader from "../Components/Loader/Loader";
 import { Link } from "wouter";
@@ -13,12 +13,10 @@ function Users() {
   useEffect(() => {
     if (state === "all") {
       dispatch(usersAction());
-    }
-    else if (state === ""){
+    } else if (state === "") {
       dispatch(usersAction());
-    }
-    else {
-      dispatch(searchUsersAction(state))
+    } else {
+      dispatch(searchUsersAction(state));
     }
   }, [state]);
 
@@ -95,10 +93,12 @@ function Users() {
                   </div>
                 );
               })}
+               {allUsers.length == 0 ? <h1>No user found</h1> : null}
             </div>
           ) : (
             <h1>Nothing Found</h1>
           )}
+         
         </div>
       )}
     </div>
