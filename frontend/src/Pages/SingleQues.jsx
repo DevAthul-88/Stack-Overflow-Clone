@@ -74,7 +74,7 @@ function SingleQues({ id }) {
           )}
             <hr />
             <a onClick={() => setShowComment(!showComment)}>Add Comment</a>
-            {showComment && <Comment />}
+            {showComment && <Comment id={id}/>}
             <hr />
         </>
       )}
