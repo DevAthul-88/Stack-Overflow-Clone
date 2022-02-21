@@ -11,7 +11,7 @@ import Settings from "../../Pages/Settings";
 import Users from '../../Pages/Users';
 import SingleUser from '../../Pages/SingleUser'
 import AskQuestion from "../../Pages/AskQuestion"
-
+import SingleQues from "../../Pages/SingleQues";
 
 function Home() {
   return (
@@ -28,6 +28,9 @@ function Home() {
           <Route path="/users" component={Users} />
           <Route path="/users/:id"> 
           {(params) => <SingleUser id={params.id}/>}
+          </Route>
+          <Route path="/question/:id"> 
+          {(params) => <SingleQues id={params.id}/>}
           </Route>
           <Route path="/ask" component={AskQuestion} />
           <NestedRoutes base="/profile">

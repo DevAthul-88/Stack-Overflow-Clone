@@ -60,7 +60,8 @@ module.exports = {
   },
   byId: async (req, res) => {
   try {
-    const {id} = req.params.id;
+    const {id} = req.params;
+
     const data = await quesSchema.findById(id)
     res.json({data: data});
   } catch (error) {

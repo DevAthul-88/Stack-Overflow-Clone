@@ -5,7 +5,8 @@ import Tags from "../../Pages/Tags";
 import Users from '../../Pages/Users'
 import Questions from "../../Pages/Questions";
 import Modal from "../../Components/Modal/Main";
-import SingleUser from '../../Pages/SingleUser'
+import SingleUser from '../../Pages/SingleUser';
+import SingleQues from "../../Pages/SingleQues";
 
 function Home() {
   return (
@@ -22,6 +23,9 @@ function Home() {
           <Route path="/users" component={Users} />
           <Route path="/users/:id"> 
           {(params) => <SingleUser id={params.id}/>}
+          </Route>
+          <Route path="/question/:id"> 
+          {(params) => <SingleQues id={params.id}/>}
           </Route>
         </Switch>
       </div>
