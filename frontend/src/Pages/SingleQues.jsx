@@ -11,7 +11,7 @@ import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
 import { upVoteAction, downVoteAction } from "../redux/Vote/action";
-import AnswerForm from '../Components/Post/Ans'
+import AnswerForm from "../Components/Post/Ans";
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
@@ -22,8 +22,6 @@ function SingleQues({ id }) {
 
   useEffect(() => {
     dispatch(QuesAction(id));
-
-   
   }, []);
 
   const loadMore = () => {
@@ -66,7 +64,9 @@ function SingleQues({ id }) {
                 <div className="column is-1">
                   <button
                     className={`button vote_btn ${
-                      data.upVote.some((e) => e.userId == userInfo._id) ? "voted disabled" : ""
+                      userInfo !== null && userInfo !== undefined ? data.upVote.some((e) => e.userId == userInfo._id)
+                      ? "voted disabled"
+                      : "" : null
                     }`}
                     onClick={() => vote("up")}
                     disabled={data.upVote.some((e) => e.userId == userInfo._id)}
@@ -78,14 +78,18 @@ function SingleQues({ id }) {
                   <h5 className="is-size-4 ml-3">
                     {data.upVote.length > data.downVote.length
                       ? data.upVote.length
-                      :- data.downVote.length}
+                      : -data.downVote.length}
                   </h5>
                   <button
                     className={`button vote_btn ${
-                      data.downVote.some((e) => e.userId == userInfo._id) ? "voted disabled" : ""
+                      userInfo !== null && userInfo !== undefined ?data.downVote.some((e) => e.userId == userInfo._id)
+                      ? "voted disabled"
+                      : ""  : null
                     }`}
                     onClick={() => vote()}
-                    disabled={data.downVote.some((e) => e.userId == userInfo._id)}
+                    disabled={data.downVote.some(
+                      (e) => e.userId == userInfo._id
+                    )}
                   >
                     <span className="icon">
                       <i className="fas fa-caret-down fa-2x"></i>
@@ -179,9 +183,11 @@ function SingleQues({ id }) {
           {showComment && <Comment id={id} />}
           <hr />
 
+
+          {userInfo._id == data.id ? null : <AnswerForm id={id} />}
         </>
       )}
-      <AnswerForm id={id}/>
+      
     </div>
   );
 }

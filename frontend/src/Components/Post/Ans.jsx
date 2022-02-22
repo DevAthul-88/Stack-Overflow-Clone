@@ -2,12 +2,12 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import AnswerSchema from "../../Schema/Answer";
 import { useSelector, useDispatch } from "react-redux";
-
+import {answerCreateAction} from '../../redux/Answer/action'
 
 
 function Comment({ id }) {
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.comment);
+  const { loading, error } = useSelector((state) => state.answer);
   const { userInfo } = useSelector((state) => state.auth);
 
   return (
@@ -17,11 +17,12 @@ function Comment({ id }) {
           answer: "",
           userId: userInfo._id,
           userName: userInfo.userName,
+          replies:[],
           date: Date.now(),
         }}
         validationSchema={AnswerSchema}
         onSubmit={(values) => {
-          
+           dispatch(answerCreateAction(id ,values))
         }}
       >
         {({ errors, touched }) => (

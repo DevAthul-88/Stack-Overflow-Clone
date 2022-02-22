@@ -107,16 +107,15 @@ module.exports = {
   },
   upVote: async (req, res) => {
     try {
-      const { id } = req.params; 
-  
+      const { id } = req.params;
 
       await quesSchema.updateOne(
         { _id: id },
-        { $push: { 'upVote': {userId:req.body.user} } }
+        { $push: { upVote: { userId: req.body.user } } }
       );
       await quesSchema.updateOne(
         { _id: id },
-        { $pull: { 'downVote':{userId:req.body.user} } }
+        { $pull: { downVote: { userId: req.body.user } } }
       );
 
       const data = await quesSchema.findOne({ _id: id });
@@ -130,16 +129,15 @@ module.exports = {
 
   downVote: async (req, res) => {
     try {
-      const { id } = req.params; 
-  
+      const { id } = req.params;
 
       await quesSchema.updateOne(
         { _id: id },
-        { $pull: { 'upVote': {userId:req.body.user} } }
+        { $pull: { upVote: { userId: req.body.user } } }
       );
       await quesSchema.updateOne(
         { _id: id },
-        { $push: { 'downVote':{userId:req.body.user} } }
+        { $push: { downVote: { userId: req.body.user } } }
       );
 
       const data = await quesSchema.findOne({ _id: id });
@@ -161,10 +159,13 @@ module.exports = {
 
   answer: async (req, res) => {
     try {
-      const {id} = req.params;
-      console.log(req.body);
+      const { id } = req.params;
+      const d = req.body;
+      await quesSchema.updateOne({ _id: id }, { $push: { answer:  d  } });
+      const data = await quesSchema.findOne({ _id: id });
+      res.json({ data: data });
     } catch (error) {
-      res.json({ error: error.message })
+      res.json({ error: error.message });
     }
-  }
+  },
 };
