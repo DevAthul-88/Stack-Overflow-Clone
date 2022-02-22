@@ -10,9 +10,9 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
-import { upVoteAction, downVoteAction } from "../redux/Vote/action";
+import { upVoteAction, downVoteAction , upVoteAnsAction , downVoteAnsAction} from "../redux/Vote/action";
 import AnswerForm from "../Components/Post/Ans";
-import {answerDeleteAction} from '../redux/Answer/action'
+import {answerDeleteAction } from '../redux/Answer/action'
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
@@ -37,11 +37,11 @@ function SingleQues({ id }) {
     }
   };
 
-  const vote = (state) => {
+  const vote = (state , ansId) => {
     if (userInfo == null && userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "up") {
-      dispatch(upVoteAction(id, userInfo._id));
+      dispatch(upVoteAction(id,  userInfo._id));
     } else {
       dispatch(downVoteAction(id, userInfo._id));
     }
@@ -50,10 +50,10 @@ function SingleQues({ id }) {
   const votes = (state, commentId) => {
     if (userInfo == null && userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
-    } else if (state == "up") {
-      dispatch(upVoteAction(id, commentId, userInfo._id));
+    } else if (state == "ups") {
+      dispatch(upVoteAnsAction(id, commentId, userInfo._id));
     } else {
-      dispatch(downVoteAction(id, userInfo._id));
+      dispatch(downVoteAnsAction(id, commentId, userInfo._id))
     }
   };
 
@@ -63,10 +63,12 @@ function SingleQues({ id }) {
      }
   }
 
+  
+
   return (
     <div>
       {data === null || data === undefined ? (
-        <h1 className="title has-text-centered">No data</h1>
+        <h1 className="title has-text-centered"><Loader /></h1>
       ) : (
         <>
           {loading ? (
@@ -244,7 +246,7 @@ function SingleQues({ id }) {
                               : ""
                             : null
                         }`}
-                        onClick={() => votes("up")}
+                        onClick={() => votes("ups" , e.id)}
                         disabled={
                           userInfo !== undefined && userInfo !== null
                             ? e.upVote.some((e) => e.userId == userInfo._id)
@@ -274,7 +276,7 @@ function SingleQues({ id }) {
                               : ""
                             : null
                         }`}
-                        onClick={() => votes()}
+                        onClick={() => votes("", e.id)}
                         disabled={
                           userInfo !== null && userInfo !== undefined
                             ? e.downVote.some((e) => e.userId == userInfo._id)

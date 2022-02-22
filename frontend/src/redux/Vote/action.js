@@ -3,13 +3,17 @@ import { SINGLE_SUCCESS, SINGLE_REQUEST } from "../Single/type";
 import axios from "axios";
 import config from "../../Config/header";
 
-export const upVoteAction = (id , userId) => async (dispatch) => {
+export const upVoteAction = (id, userId) => async (dispatch) => {
   try {
     dispatch({ type: VOTE_REQUEST });
-    
+
     dispatch({ type: SINGLE_REQUEST });
 
-    const { data } = await axios.post(`/api/question/upVote/${id}`, {user:userId} , config);
+    const { data } = await axios.post(
+      `/api/question/upVote/${id}`,
+      { user: userId },
+      config
+    );
 
     if (data.error) return dispatch({ type: VOTE_ERROR, payload: data.error });
     dispatch({ type: UP_VOTE });
@@ -19,13 +23,17 @@ export const upVoteAction = (id , userId) => async (dispatch) => {
   }
 };
 
-export const downVoteAction = (id , userId) => async (dispatch) => {
+export const downVoteAction = (id, userId) => async (dispatch) => {
   try {
     dispatch({ type: VOTE_REQUEST });
-    
+
     dispatch({ type: SINGLE_REQUEST });
 
-    const { data } = await axios.post(`/api/question/downVote/${id}`, {user:userId} , config);
+    const { data } = await axios.post(
+      `/api/question/downVote/${id}`,
+      { user: userId },
+      config
+    );
 
     if (data.error) return dispatch({ type: VOTE_ERROR, payload: data.error });
     dispatch({ type: DOWN_VOTE });
@@ -34,3 +42,47 @@ export const downVoteAction = (id , userId) => async (dispatch) => {
     dispatch({ type: VOTE_ERROR, payload: error.message });
   }
 };
+
+export const upVoteAnsAction =
+  (postId, answerId, userId) => async (dispatch) => {
+    try {
+      dispatch({ type: VOTE_REQUEST });
+
+      dispatch({ type: SINGLE_REQUEST });
+
+      const { data } = await axios.post(
+        `/api/question/ansVote/up/${postId}`,
+        { answerId: answerId, user: userId },
+        config
+      );
+
+      if (data.error)
+        return dispatch({ type: VOTE_ERROR, payload: data.error });
+      dispatch({ type: DOWN_VOTE });
+      dispatch({ type: SINGLE_SUCCESS, payload: data.data });
+    } catch (error) {
+      dispatch({ type: VOTE_ERROR, payload: error.message });
+    }
+  };
+
+export const downVoteAnsAction =
+  (postId, answerId, userId) => async (dispatch) => {
+    try {
+      dispatch({ type: VOTE_REQUEST });
+
+      dispatch({ type: SINGLE_REQUEST });
+
+      const { data } = await axios.post(
+        `/api/question/ansVote/down/${postId}`,
+        { answerId: answerId, user: userId },
+        config
+      );
+
+      if (data.error)
+        return dispatch({ type: VOTE_ERROR, payload: data.error });
+      dispatch({ type: DOWN_VOTE });
+      dispatch({ type: SINGLE_SUCCESS, payload: data.data });
+    } catch (error) {
+      dispatch({ type: VOTE_ERROR, payload: error.message });
+    }
+  };
