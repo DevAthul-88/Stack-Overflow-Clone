@@ -11,6 +11,7 @@ import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
 import { upVoteAction, downVoteAction } from "../redux/Vote/action";
+import AnswerForm from '../Components/Post/Ans'
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
@@ -177,8 +178,10 @@ function SingleQues({ id }) {
           </div>
           {showComment && <Comment id={id} />}
           <hr />
+
         </>
       )}
+      <AnswerForm id={id}/>
     </div>
   );
 }

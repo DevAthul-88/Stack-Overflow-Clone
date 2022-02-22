@@ -158,4 +158,13 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+
+  answer: async (req, res) => {
+    try {
+      const {id} = req.params;
+      console.log(req.body);
+    } catch (error) {
+      res.json({ error: error.message })
+    }
+  }
 };

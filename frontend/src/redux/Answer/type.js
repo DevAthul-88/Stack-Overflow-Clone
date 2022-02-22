@@ -1,0 +1,4 @@
+export const ANSWER_REQUEST = "ANSWER_REQUEST";
+export const ANSWER_SUCCESS = "ANSWER_SUCCESS";
+export const ANSWER_ERROR = "ANSWER_ERROR";
+export const ANSWER_DELETE = "ANSWER_DELETE";
