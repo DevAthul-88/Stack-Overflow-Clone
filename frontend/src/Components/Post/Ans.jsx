@@ -11,7 +11,7 @@ function Comment({ id }) {
   const { userInfo } = useSelector((state) => state.auth);
 
   return (
-    <div>
+    <div className="mt-4">
       <Formik
         initialValues={{
           answer: "",

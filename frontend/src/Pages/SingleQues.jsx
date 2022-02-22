@@ -37,7 +37,7 @@ function SingleQues({ id }) {
   };
 
   const vote = (state) => {
-    if (userInfo !== null || userInfo !== undefined) {
+    if (userInfo == null && userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "up") {
       dispatch(upVoteAction(id, userInfo._id));
@@ -82,9 +82,12 @@ function SingleQues({ id }) {
                     </span>
                   </button>
                   <h5 className="is-size-4 ml-3">
-                    {data.upVote.length > data.downVote.length
+                    {data.upVote.length == data.downVote.length ? data.upVote.length : <>
+                      {data.upVote.length > data.downVote.length
                       ? data.upVote.length
                       : -data.downVote.length}
+                    </>}
+                    
                   </h5>
                   <button
                     className={`button vote_btn ${
@@ -205,7 +208,9 @@ function SingleQues({ id }) {
           {showComment && <Comment id={id} />}
 
           {userInfo !== null && userInfo !== undefined ? (
-            <div>{userInfo._id == data.id ? null : <AnswerForm id={id} />}</div>
+            <div>
+              {Object.keys(userInfo).length == 0 ? <Alert type={'is-info'} message="Login in order to add a answer." trigger={true} /> : (<div>{userInfo._id == data.id ? null : <AnswerForm id={id} />}</div>)}
+            </div>
           ) : (
             null
           )}
