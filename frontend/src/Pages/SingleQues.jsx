@@ -15,8 +15,6 @@ import { upVoteAction, downVoteAction } from "../redux/Vote/action";
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
-  const [exist, setExists] = useState(false);
-  const [existDown, setExistsDown] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const [showComment, setShowComment] = useState(false);
   const [limit, setLimit] = useState(4);
@@ -24,13 +22,7 @@ function SingleQues({ id }) {
   useEffect(() => {
     dispatch(QuesAction(id));
 
-    if (data && userInfo) {
-      const checkExist = data.upVote.some((e) => e.userId == userInfo._id);
-      setExists(checkExist);
-
-      const check = data.downVote.some((e) => e.userId == userInfo._id);
-      setExistsDown(check);
-    }
+   
   }, []);
 
   const loadMore = () => {
@@ -73,10 +65,10 @@ function SingleQues({ id }) {
                 <div className="column is-1">
                   <button
                     className={`button vote_btn ${
-                      exist ? "voted disabled" : ""
+                      data.upVote.some((e) => e.userId == userInfo._id) ? "voted disabled" : ""
                     }`}
                     onClick={() => vote("up")}
-                    disabled={exist}
+                    disabled={data.upVote.some((e) => e.userId == userInfo._id)}
                   >
                     <span className="icon">
                       <i className="fas fa-caret-up fa-2x"></i>
@@ -89,10 +81,10 @@ function SingleQues({ id }) {
                   </h5>
                   <button
                     className={`button vote_btn ${
-                      existDown ? "voted disabled" : ""
+                      data.downVote.some((e) => e.userId == userInfo._id) ? "voted disabled" : ""
                     }`}
                     onClick={() => vote()}
-                    disabled={existDown}
+                    disabled={data.downVote.some((e) => e.userId == userInfo._id)}
                   >
                     <span className="icon">
                       <i className="fas fa-caret-down fa-2x"></i>
