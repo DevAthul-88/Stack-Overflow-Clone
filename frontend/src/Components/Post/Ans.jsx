@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import AnswerSchema from "../../Schema/Answer";
 import { useSelector, useDispatch } from "react-redux";
 import {answerCreateAction} from '../../redux/Answer/action'
-
+import { v4 as uuidv4 } from 'uuid';
 
 function Comment({ id }) {
   const dispatch = useDispatch();
@@ -14,11 +14,14 @@ function Comment({ id }) {
     <div className="mt-4">
       <Formik
         initialValues={{
+          id:uuidv4(),
           answer: "",
           userId: userInfo._id,
           userName: userInfo.userName,
           replies:[],
-          date: Date.now(),
+          upVote:[],
+          downVote:[],
+          date: new Date(),
         }}
         validationSchema={AnswerSchema}
         onSubmit={(values) => {

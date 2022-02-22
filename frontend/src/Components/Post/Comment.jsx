@@ -17,7 +17,7 @@ function Comment({ id }) {
           comment: "",
           userId: userInfo._id,
           userName: userInfo.userName,
-          date: Date.now(),
+          date: new Date(),
         }}
         validationSchema={CommentSchema}
         onSubmit={(values) => {

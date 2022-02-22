@@ -12,6 +12,7 @@ import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
 import { upVoteAction, downVoteAction } from "../redux/Vote/action";
 import AnswerForm from "../Components/Post/Ans";
+import {answerDeleteAction} from '../redux/Answer/action'
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
@@ -45,6 +46,22 @@ function SingleQues({ id }) {
       dispatch(downVoteAction(id, userInfo._id));
     }
   };
+
+  const votes = (state, commentId) => {
+    if (userInfo == null && userInfo == undefined) {
+      dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
+    } else if (state == "up") {
+      dispatch(upVoteAction(id, commentId, userInfo._id));
+    } else {
+      dispatch(downVoteAction(id, userInfo._id));
+    }
+  };
+
+  const deleteAnswer = (id , userId, postId) => {
+     if(window.confirm("Are you sure you want to delete this answer?")){
+       dispatch(answerDeleteAction(id , userId, postId));
+     }
+  }
 
   return (
     <div>
@@ -82,12 +99,15 @@ function SingleQues({ id }) {
                     </span>
                   </button>
                   <h5 className="is-size-4 ml-3">
-                    {data.upVote.length == data.downVote.length ? data.upVote.length : <>
-                      {data.upVote.length > data.downVote.length
-                      ? data.upVote.length
-                      : -data.downVote.length}
-                    </>}
-                    
+                    {data.upVote.length == data.downVote.length ? (
+                      data.upVote.length
+                    ) : (
+                      <>
+                        {data.upVote.length > data.downVote.length
+                          ? data.upVote.length
+                          : -data.downVote.length}
+                      </>
+                    )}
                   </h5>
                   <button
                     className={`button vote_btn ${
@@ -152,14 +172,14 @@ function SingleQues({ id }) {
           <hr />
           {data.replies.slice(0, limit).map((e, index) => {
             return (
-              <div className="replay mb-1 p-1" key={index}>
+              <div className="replay  p-1" key={index}>
                 <div className="is-flex is-justify-content-space-between is-flex-wrap-wrap">
                   <h6 className="is-capitalized">{e.comment}</h6>
                   <div>
                     <Link
                       href={`${
                         userInfo !== null && userInfo !== undefined
-                          ? userInfo._id === data.id
+                          ? userInfo._id == e.userId
                             ? "/profile"
                             : `/users/${data.id}`
                           : `/users/${data.id}`
@@ -198,7 +218,10 @@ function SingleQues({ id }) {
             {userInfo !== null && userInfo !== undefined ? (
               <div>
                 {Object.keys(userInfo).length == 0 ? null : (
-                  <a onClick={() => setShowComment(!showComment)}>
+                  <a
+                    onClick={() => setShowComment(!showComment)}
+                    style={{ fontSize: "10px" }}
+                  >
                     Add Comment
                   </a>
                 )}
@@ -206,16 +229,124 @@ function SingleQues({ id }) {
             ) : null}
           </div>
           {showComment && <Comment id={id} />}
+          <h1 className="title mt-4 is-size-4">Answers</h1>
+          <div className="ans mt-6">
+            {data.answer.map((e, index) => {
+              return (
+                <div key={index}>
+                  <div className="columns">
+                    <div className="column is-1">
+                      <button
+                        className={`button vote_btn ${
+                          userInfo !== null && userInfo !== undefined
+                            ? e.upVote.some((e) => e.userId == userInfo._id)
+                              ? "voted disabled"
+                              : ""
+                            : null
+                        }`}
+                        onClick={() => votes("up")}
+                        disabled={
+                          userInfo !== undefined && userInfo !== null
+                            ? e.upVote.some((e) => e.userId == userInfo._id)
+                            : ""
+                        }
+                      >
+                        <span className="icon">
+                          <i className="fas fa-caret-up fa-2x"></i>
+                        </span>
+                      </button>
+                      <h5 className="is-size-4 ml-3">
+                        {e.upVote.length == e.downVote.length ? (
+                          e.upVote.length
+                        ) : (
+                          <>
+                            {e.upVote.length > e.downVote.length
+                              ? e.upVote.length
+                              : -e.downVote.length}
+                          </>
+                        )}
+                      </h5>
+                      <button
+                        className={`button vote_btn ${
+                          userInfo !== null && userInfo !== undefined
+                            ? e.downVote.some((e) => e.userId == userInfo._id)
+                              ? "voted disabled"
+                              : ""
+                            : null
+                        }`}
+                        onClick={() => votes()}
+                        disabled={
+                          userInfo !== null && userInfo !== undefined
+                            ? e.downVote.some((e) => e.userId == userInfo._id)
+                            : ""
+                        }
+                      >
+                        <span className="icon">
+                          <i className="fas fa-caret-down fa-2x"></i>
+                        </span>
+                      </button>
+                    </div>
+                    <div className="column">
+                      <h1 className="is-capitalized">{e.answer}</h1>
+                    </div>
+                  </div>
+                  <div className="is-flex is-justify-content-space-between">
+                    <div>
+                      <a style={{ fontSize: "10px" }}>Add comment</a>
+                    </div>
+                    <div>
+                      <span>{timeago.format(e.createdAt)}</span>
+
+                      <Link
+                        href={`${
+                          userInfo !== null && userInfo !== undefined
+                            ? userInfo._id == e.userId
+                              ? "/profile"
+                              : `/users/${data.id}`
+                            : `/users/${data.id}`
+                        }`}
+                        style={{ fontSize: "10px" }}
+                        className="ml-2"
+                      >
+                        {e.userName}
+                      </Link>
+                      {userInfo !== null && userInfo !== undefined ? (
+                      <span style={{ fontSize: "10px" }} className="ml-2 ">
+                        {userInfo._id === e.userId ? (
+                          <a
+                            className="has-text-danger"
+                            onClick={() =>
+                              deleteAnswer(id, e.userId, e.id)
+                            }
+                          >
+                            Delete
+                          </a>
+                        ) : null}
+                      </span>
+                    ) : null}
+                    </div>
+                  </div>
+                  <hr />
+                </div>
+              );
+            })}
+          </div>
 
           {userInfo !== null && userInfo !== undefined ? (
             <div>
-              {Object.keys(userInfo).length == 0 ? <Alert type={'is-info'} message="Login in order to add a answer." trigger={true} /> : (<div>{userInfo._id == data.id ? null : <AnswerForm id={id} />}</div>)}
+              {Object.keys(userInfo).length == 0 ? (
+                <Alert
+                  type={"is-info"}
+                  message="Login in order to add a answer."
+                  trigger={true}
+                />
+              ) : (
+                <div>
+                  {userInfo._id == data.id ? null : <AnswerForm id={id} />}
+                </div>
+              )}
             </div>
-          ) : (
-            null
-          )}
-
-        
+          ) : null}
         </>
       )}
     </div>

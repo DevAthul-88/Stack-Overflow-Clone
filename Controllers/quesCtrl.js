@@ -161,8 +161,24 @@ module.exports = {
     try {
       const { id } = req.params;
       const d = req.body;
-      await quesSchema.updateOne({ _id: id }, { $push: { answer:  d  } });
+      await quesSchema.updateOne({ _id: id }, { $push: { answer: d } });
       const data = await quesSchema.findOne({ _id: id });
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+  deleteAnswer: async (req, res) => {
+    try {
+      await quesSchema.updateOne(
+        { _id: req.params.id },
+        {
+          $pull: { answer: { id: req.body.answerId, userId: req.body.userId } },
+        }
+      );
+
+      const data = await quesSchema.findOne({ _id: req.params.id });
+
       res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
