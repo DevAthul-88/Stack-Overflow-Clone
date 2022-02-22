@@ -9,15 +9,19 @@ import Comment from "../Components/Post/Comment";
 import { useState } from "react";
 import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
-import {commentDeleteAction} from '../redux/Comment/action'
-import {upVoteAction} from '../redux/Vote/action'
+import { commentDeleteAction } from "../redux/Comment/action";
+import { upVoteAction } from "../redux/Vote/action";
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
+  const [exist , setExists] = useState(false)
   const { userInfo } = useSelector((state) => state.auth);
   const [showComment, setShowComment] = useState(false);
   const [limit, setLimit] = useState(4);
+
+  
+
 
   useEffect(() => {
     dispatch(QuesAction(id));
@@ -27,19 +31,19 @@ function SingleQues({ id }) {
     setLimit(limit + 5);
   };
 
-  const deleteComment = (id , userId , commentId) => {
-    if(window.confirm("Are you sure you want to delete this comment?")){
-      
-      dispatch(commentDeleteAction(id , {userId: userId , commentId: commentId}));
+  const deleteComment = (id, userId, commentId) => {
+    if (window.confirm("Are you sure you want to delete this comment?")) {
+      dispatch(
+        commentDeleteAction(id, { userId: userId, commentId: commentId })
+      );
     }
   };
 
   const vote = () => {
     if (Object.keys(userInfo).length == 0) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
-    }
-    else{
-      dispatch(upVoteAction(id))
+    } else {
+      dispatch(upVoteAction(id , userInfo._id));
     }
   };
 
@@ -136,7 +140,14 @@ function SingleQues({ id }) {
                     </span>
                     <span style={{ fontSize: "10px" }} className="ml-2 ">
                       {userInfo._id === e.userId ? (
-                        <a className="has-text-danger" onClick={() => deleteComment(id , e.userId , e.commentId)}>Delete</a>
+                        <a
+                          className="has-text-danger"
+                          onClick={() =>
+                            deleteComment(id, e.userId, e.commentId)
+                          }
+                        >
+                          Delete
+                        </a>
                       ) : null}
                     </span>
                   </div>

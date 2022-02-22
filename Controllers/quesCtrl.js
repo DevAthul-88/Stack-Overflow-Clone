@@ -108,22 +108,21 @@ module.exports = {
   upVote: async (req, res) => {
     try {
       const { id } = req.params;
-      const userId = req.user._id;
 
-       await quesSchema.updateOne(
+      await quesSchema.updateOne(
         { _id: id },
-        { $push: { upVote: userId } }
+        { $push: { 'upVote': {userId:req.body.userId} } }
       );
       await quesSchema.updateOne(
         { _id: id },
-        { $pull: { downVote: userId } }
+        { $pull: { 'downVote':{userId:req.body.userId} } }
       );
 
       const data = await quesSchema.findOne({ _id: id });
 
-      res.json({data:data})
-
+      res.json({ data: data });
     } catch (error) {
+      console.log(error.message);
       res.json({ error: error.message });
     }
   },

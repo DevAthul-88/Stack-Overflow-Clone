@@ -3,12 +3,13 @@ import { SINGLE_SUCCESS, SINGLE_REQUEST } from "../Single/type";
 import axios from "axios";
 import config from "../../Config/header";
 
-export const upVoteAction = (id) => async (dispatch) => {
+export const upVoteAction = (id , userId) => async (dispatch) => {
   try {
     dispatch({ type: VOTE_REQUEST });
+    
     dispatch({ type: SINGLE_REQUEST });
 
-    const { data } = await axios.post(`/api/question/upVote/${id}`, config);
+    const { data } = await axios.post(`/api/question/upVote/${id}`, {user:userId} , config);
 
     if (data.error) return dispatch({ type: VOTE_ERROR, payload: data.error });
     dispatch({ type: UP_VOTE });
