@@ -10,21 +10,27 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
-import { upVoteAction } from "../redux/Vote/action";
+import { upVoteAction, downVoteAction } from "../redux/Vote/action";
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
-  const [exist , setExists] = useState(false)
+  const [exist, setExists] = useState(false);
+  const [existDown, setExistsDown] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const [showComment, setShowComment] = useState(false);
   const [limit, setLimit] = useState(4);
 
-  
-
-
   useEffect(() => {
     dispatch(QuesAction(id));
+
+    if (data && userInfo) {
+      const checkExist = data.upVote.some((e) => e.userId == userInfo._id);
+      setExists(checkExist);
+
+      const check = data.downVote.some((e) => e.userId == userInfo._id);
+      setExistsDown(check);
+    }
   }, []);
 
   const loadMore = () => {
@@ -39,11 +45,13 @@ function SingleQues({ id }) {
     }
   };
 
-  const vote = () => {
+  const vote = (state) => {
     if (Object.keys(userInfo).length == 0) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
+    } else if (state == "up") {
+      dispatch(upVoteAction(id, userInfo._id));
     } else {
-      dispatch(upVoteAction(id , userInfo._id));
+      dispatch(downVoteAction(id, userInfo._id));
     }
   };
 
@@ -63,7 +71,13 @@ function SingleQues({ id }) {
 
               <div className="columns">
                 <div className="column is-1">
-                  <button className="button vote_btn " onClick={() => vote()}>
+                  <button
+                    className={`button vote_btn ${
+                      exist ? "voted disabled" : ""
+                    }`}
+                    onClick={() => vote("up")}
+                    disabled={exist}
+                  >
                     <span className="icon">
                       <i className="fas fa-caret-up fa-2x"></i>
                     </span>
@@ -71,9 +85,15 @@ function SingleQues({ id }) {
                   <h5 className="is-size-4 ml-3">
                     {data.upVote.length > data.downVote.length
                       ? data.upVote.length
-                      : data.downVote.length}
+                      :- data.downVote.length}
                   </h5>
-                  <button className="button vote_btn " onClick={() => vote()}>
+                  <button
+                    className={`button vote_btn ${
+                      existDown ? "voted disabled" : ""
+                    }`}
+                    onClick={() => vote()}
+                    disabled={existDown}
+                  >
                     <span className="icon">
                       <i className="fas fa-caret-down fa-2x"></i>
                     </span>

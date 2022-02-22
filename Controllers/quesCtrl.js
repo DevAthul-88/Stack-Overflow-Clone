@@ -107,15 +107,39 @@ module.exports = {
   },
   upVote: async (req, res) => {
     try {
-      const { id } = req.params;
+      const { id } = req.params; 
+  
 
       await quesSchema.updateOne(
         { _id: id },
-        { $push: { 'upVote': {userId:req.body.userId} } }
+        { $push: { 'upVote': {userId:req.body.user} } }
       );
       await quesSchema.updateOne(
         { _id: id },
-        { $pull: { 'downVote':{userId:req.body.userId} } }
+        { $pull: { 'downVote':{userId:req.body.user} } }
+      );
+
+      const data = await quesSchema.findOne({ _id: id });
+
+      res.json({ data: data });
+    } catch (error) {
+      console.log(error.message);
+      res.json({ error: error.message });
+    }
+  },
+
+  downVote: async (req, res) => {
+    try {
+      const { id } = req.params; 
+  
+
+      await quesSchema.updateOne(
+        { _id: id },
+        { $pull: { 'upVote': {userId:req.body.user} } }
+      );
+      await quesSchema.updateOne(
+        { _id: id },
+        { $push: { 'downVote':{userId:req.body.user} } }
       );
 
       const data = await quesSchema.findOne({ _id: id });

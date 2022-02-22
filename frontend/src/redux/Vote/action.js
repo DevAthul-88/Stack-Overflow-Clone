@@ -18,3 +18,19 @@ export const upVoteAction = (id , userId) => async (dispatch) => {
     dispatch({ type: VOTE_ERROR, payload: error.message });
   }
 };
+
+export const downVoteAction = (id , userId) => async (dispatch) => {
+  try {
+    dispatch({ type: VOTE_REQUEST });
+    
+    dispatch({ type: SINGLE_REQUEST });
+
+    const { data } = await axios.post(`/api/question/downVote/${id}`, {user:userId} , config);
+
+    if (data.error) return dispatch({ type: VOTE_ERROR, payload: data.error });
+    dispatch({ type: DOWN_VOTE });
+    dispatch({ type: SINGLE_SUCCESS, payload: data.data });
+  } catch (error) {
+    dispatch({ type: VOTE_ERROR, payload: error.message });
+  }
+};

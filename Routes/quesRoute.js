@@ -11,5 +11,6 @@ Router.route("/searchTags").get(quesRoute.searchTag);
 Router.route("/newest").get(quesRoute.newest);
 Router.route("/idle/:id").get(quesRoute.byId);
 Router.route("/upVote/:id").post(auth, quesRoute.upVote);
+Router.route("/downVote/:id").post(auth , quesRoute.downVote);
 
 module.exports = Router;

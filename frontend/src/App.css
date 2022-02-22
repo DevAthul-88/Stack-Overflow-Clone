@@ -207,6 +207,7 @@ a{
 }
 .voted{
   color: #f48225;
+  cursor: not-allowed;
 }
 .voted:hover{
   color: #f48225;
