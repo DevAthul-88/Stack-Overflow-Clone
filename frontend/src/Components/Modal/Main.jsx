@@ -9,11 +9,7 @@ import { SET_CURRENT_STATE } from "../../redux/AuthModal/type";
 function Main() {
     const dispatch = useDispatch()
     const {state , bool} = useSelector((state) => state.authModal)
-    const cancel = () => {
-      dispatch({type:TOGGLE_AUTH_MODAL , bool:false})
-      dispatch({type:USER_REGISTER_SUCCESS , redirects:false})
-      dispatch({type:SET_CURRENT_STATE , bool:false})
-    }
+    
   return (
     <div className={`modal ${ bool ? "is-active":""}`}>
   <div className="modal-background"></div>
@@ -25,9 +21,7 @@ function Main() {
     <section className="modal-card-body">
       {state == "Login" ? <Login /> : <SignUp />}
     </section>
-    <footer className="modal-card-foot">
-      <button className="button nav-btn-2" onClick={cancel}>Cancel</button>
-    </footer>
+  
   </div>
 </div>
   )

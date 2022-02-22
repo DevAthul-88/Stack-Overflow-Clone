@@ -2,7 +2,6 @@ import React,{useState} from "react";
 import Logo from "../../assets/logo-stackoverflow.svg";
 import { SET_CURRENT_STATE} from "../../redux/AuthModal/type";
 import {useDispatch} from 'react-redux'
-import { Link } from "wouter";
 import ActiveLink from "../../Components/ActiveLink";
 
 

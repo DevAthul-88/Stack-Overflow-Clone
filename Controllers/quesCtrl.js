@@ -1,8 +1,8 @@
 const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
-const req = require("express/lib/request");
 const { findById, findOne } = require("../Schema/quesSchema");
+
 
 module.exports = {
   create: async (req, res) => {
@@ -60,31 +60,54 @@ module.exports = {
     }
   },
   byId: async (req, res) => {
-  try {
-    const {id} = req.params;
-
-    const data = await quesSchema.findById(id)
-    res.json({data: data});
-  } catch (error) {
-    res.json({ error: error.message });
-  }
-  },
-  comment: async (req, res) => {
-     try {    
-       await quesSchema.updateOne({_id:req.params.id}, {$push:{'replies':req.body}});
-       const data = await quesSchema.findOne({_id:req.params.id})
-       res.json({data: data});
-     } catch (error) {
-       res.json({ error: error.message });
-     }
-  },
-  newest: async (req, res) => {
     try {
-      const data = await quesSchema.find().sort({createdAt:-1})
-      res.json({data:data})
+      const { id } = req.params;
+
+      const data = await quesSchema.findById(id);
+      res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
     }
-  }
-
+  },
+  comment: async (req, res) => {
+    try {
+      const comment = {
+        comment: req.body.comment,
+        userId: req.body.userId,
+        userName: req.body.userName,
+        date: req.body.date,
+        commentId:uuid()
+      }
+      await quesSchema.updateOne(
+        { _id: req.params.id },
+        { $push: { replies: comment} },
+      );
+   
+      const data = await quesSchema.findOne({ _id: req.params.id });
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+  deleteComment: async (req, res) => {
+    try {
+      await quesSchema.updateOne(
+        { _id: req.params.id },
+        { $pull: { replies: { commentId:req.body.commentId , userId: req.body.userId } } }
+      );
+      
+      const data = await quesSchema.findOne({ _id: req.params.id });
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+  newest: async (req, res) => {
+    try {
+      const data = await quesSchema.find().sort({ createdAt: -1 });
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
 };
