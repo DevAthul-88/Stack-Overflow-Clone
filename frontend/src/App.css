@@ -200,3 +200,20 @@ a{
   border-top: 1px solid #dbdbdb;
   border-bottom: 1px solid #dbdbdb;
 }
+.vote_btn{
+  border: none !important;
+  background: transparent !important;
+  outline: none !important;
+}
+.voted{
+  color: #f48225;
+}
+.voted:hover{
+  color: #f48225;
+}
+.voted:active{
+  color: #f48225;
+}
+.voted:focus{
+  color: #f48225;
+}

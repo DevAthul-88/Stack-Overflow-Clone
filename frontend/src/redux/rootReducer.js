@@ -6,8 +6,9 @@ import ProfileReducer from "./Profile/reducer";
 import questionReducer from "./Question/reducer";
 import tagReducer from "./Tags/reducer";
 import postReducer from "./Post/reducer";
-import singleReducer from "./Single/reducer"
-import commentReducer from "./Comment/reducer"
+import singleReducer from "./Single/reducer";
+import commentReducer from "./Comment/reducer";
+import voteReducer from "./Vote/reducer";
 
 const root = combineReducers({
   authModal: authModalReducer,
@@ -18,6 +19,7 @@ const root = combineReducers({
   tag: tagReducer,
   post: postReducer,
   single: singleReducer,
-  comment: commentReducer
+  comment: commentReducer,
+  vote: voteReducer,
 });
 export default root;

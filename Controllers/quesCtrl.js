@@ -3,7 +3,6 @@ const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
 const { findById, findOne } = require("../Schema/quesSchema");
 
-
 module.exports = {
   create: async (req, res) => {
     try {
@@ -76,13 +75,13 @@ module.exports = {
         userId: req.body.userId,
         userName: req.body.userName,
         date: req.body.date,
-        commentId:uuid()
-      }
+        commentId: uuid(),
+      };
       await quesSchema.updateOne(
         { _id: req.params.id },
-        { $push: { replies: comment} },
+        { $push: { replies: comment } }
       );
-   
+
       const data = await quesSchema.findOne({ _id: req.params.id });
       res.json({ data: data });
     } catch (error) {
@@ -93,11 +92,37 @@ module.exports = {
     try {
       await quesSchema.updateOne(
         { _id: req.params.id },
-        { $pull: { replies: { commentId:req.body.commentId , userId: req.body.userId } } }
+        {
+          $pull: {
+            replies: { commentId: req.body.commentId, userId: req.body.userId },
+          },
+        }
       );
-      
+
       const data = await quesSchema.findOne({ _id: req.params.id });
       res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+  upVote: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.user._id;
+
+       await quesSchema.updateOne(
+        { _id: id },
+        { $push: { upVote: userId } }
+      );
+      await quesSchema.updateOne(
+        { _id: id },
+        { $pull: { downVote: userId } }
+      );
+
+      const data = await quesSchema.findOne({ _id: id });
+
+      res.json({data:data})
+
     } catch (error) {
       res.json({ error: error.message });
     }

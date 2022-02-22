@@ -10,6 +10,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import {commentDeleteAction} from '../redux/Comment/action'
+import {upVoteAction} from '../redux/Vote/action'
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
@@ -37,6 +38,9 @@ function SingleQues({ id }) {
     if (Object.keys(userInfo).length == 0) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     }
+    else{
+      dispatch(upVoteAction(id))
+    }
   };
 
   return (
@@ -55,7 +59,7 @@ function SingleQues({ id }) {
 
               <div className="columns">
                 <div className="column is-1">
-                  <button className="button" onClick={() => vote()}>
+                  <button className="button vote_btn " onClick={() => vote()}>
                     <span className="icon">
                       <i className="fas fa-caret-up fa-2x"></i>
                     </span>
@@ -65,7 +69,7 @@ function SingleQues({ id }) {
                       ? data.upVote.length
                       : data.downVote.length}
                   </h5>
-                  <button className="button" onClick={() => vote()}>
+                  <button className="button vote_btn " onClick={() => vote()}>
                     <span className="icon">
                       <i className="fas fa-caret-down fa-2x"></i>
                     </span>

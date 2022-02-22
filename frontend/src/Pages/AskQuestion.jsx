@@ -4,7 +4,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import QuestionSchema from "../Schema/Question";
 import {useDispatch , useSelector} from 'react-redux'
 import {createAction} from '../redux/Question/action'
-import Alert from '../Components/Alert'
+import Alert from '../Components/Alert';
+
 
 function AskQuestion() {
   const dispatch = useDispatch()
