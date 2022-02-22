@@ -37,7 +37,7 @@ function SingleQues({ id }) {
   };
 
   const vote = (state) => {
-    if (Object.keys(userInfo).length == 0) {
+    if (userInfo !== null || userInfo !== undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "up") {
       dispatch(upVoteAction(id, userInfo._id));
@@ -64,12 +64,18 @@ function SingleQues({ id }) {
                 <div className="column is-1">
                   <button
                     className={`button vote_btn ${
-                      userInfo !== null && userInfo !== undefined ? data.upVote.some((e) => e.userId == userInfo._id)
-                      ? "voted disabled"
-                      : "" : null
+                      userInfo !== null && userInfo !== undefined
+                        ? data.upVote.some((e) => e.userId == userInfo._id)
+                          ? "voted disabled"
+                          : ""
+                        : null
                     }`}
                     onClick={() => vote("up")}
-                    disabled={data.upVote.some((e) => e.userId == userInfo._id)}
+                    disabled={
+                      userInfo !== undefined && userInfo !== null
+                        ? data.upVote.some((e) => e.userId == userInfo._id)
+                        : ""
+                    }
                   >
                     <span className="icon">
                       <i className="fas fa-caret-up fa-2x"></i>
@@ -82,14 +88,18 @@ function SingleQues({ id }) {
                   </h5>
                   <button
                     className={`button vote_btn ${
-                      userInfo !== null && userInfo !== undefined ?data.downVote.some((e) => e.userId == userInfo._id)
-                      ? "voted disabled"
-                      : ""  : null
+                      userInfo !== null && userInfo !== undefined
+                        ? data.downVote.some((e) => e.userId == userInfo._id)
+                          ? "voted disabled"
+                          : ""
+                        : null
                     }`}
                     onClick={() => vote()}
-                    disabled={data.downVote.some(
-                      (e) => e.userId == userInfo._id
-                    )}
+                    disabled={
+                      userInfo !== null && userInfo !== undefined
+                        ? data.downVote.some((e) => e.userId == userInfo._id)
+                        : ""
+                    }
                   >
                     <span className="icon">
                       <i className="fas fa-caret-down fa-2x"></i>
@@ -115,8 +125,10 @@ function SingleQues({ id }) {
                         {userInfo !== null || userInfo !== undefined ? (
                           <Link
                             href={`${
-                              userInfo._id === data.id
-                                ? "/profile"
+                              userInfo !== null && userInfo !== undefined
+                                ? userInfo._id === data.id
+                                  ? "/profile"
+                                  : `/users/${data.id}`
                                 : `/users/${data.id}`
                             }`}
                           >
@@ -143,9 +155,11 @@ function SingleQues({ id }) {
                   <div>
                     <Link
                       href={`${
-                        userInfo._id === e.userId
-                          ? "/profile"
-                          : `/users/${e.userId}`
+                        userInfo !== null && userInfo !== undefined
+                          ? userInfo._id === data.id
+                            ? "/profile"
+                            : `/users/${data.id}`
+                          : `/users/${data.id}`
                       }`}
                       style={{ fontSize: "10px" }}
                       className="mr-2"
@@ -155,18 +169,20 @@ function SingleQues({ id }) {
                     <span style={{ fontSize: "10px" }}>
                       {timeago.format(e.createdAt)}
                     </span>
-                    <span style={{ fontSize: "10px" }} className="ml-2 ">
-                      {userInfo._id === e.userId ? (
-                        <a
-                          className="has-text-danger"
-                          onClick={() =>
-                            deleteComment(id, e.userId, e.commentId)
-                          }
-                        >
-                          Delete
-                        </a>
-                      ) : null}
-                    </span>
+                    {userInfo !== null && userInfo !== undefined ? (
+                      <span style={{ fontSize: "10px" }} className="ml-2 ">
+                        {userInfo._id === e.userId ? (
+                          <a
+                            className="has-text-danger"
+                            onClick={() =>
+                              deleteComment(id, e.userId, e.commentId)
+                            }
+                          >
+                            Delete
+                          </a>
+                        ) : null}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
               </div>
@@ -176,18 +192,27 @@ function SingleQues({ id }) {
             {data.replies.length < limit ? null : (
               <a onClick={() => loadMore()}>Load More</a>
             )}
-            {Object.keys(userInfo).length == 0 ? null : (
-              <a onClick={() => setShowComment(!showComment)}>Add Comment</a>
-            )}
+            {userInfo !== null && userInfo !== undefined ? (
+              <div>
+                {Object.keys(userInfo).length == 0 ? null : (
+                  <a onClick={() => setShowComment(!showComment)}>
+                    Add Comment
+                  </a>
+                )}
+              </div>
+            ) : null}
           </div>
           {showComment && <Comment id={id} />}
-          <hr />
 
+          {userInfo !== null && userInfo !== undefined ? (
+            <div>{userInfo._id == data.id ? null : <AnswerForm id={id} />}</div>
+          ) : (
+            null
+          )}
 
-          {userInfo._id == data.id ? null : <AnswerForm id={id} />}
+        
         </>
       )}
-      
     </div>
   );
 }
