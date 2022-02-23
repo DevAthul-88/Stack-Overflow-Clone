@@ -250,13 +250,11 @@ function SingleQues({ id }) {
               <div className="field has-addons">
                 <p className="control">
                   <button className="button">
-                    
                     <span>Oldest</span>
                   </button>
                 </p>
                 <p className="control">
                   <button className="button">
-                    
                     <span>Score</span>
                   </button>
                 </p>
