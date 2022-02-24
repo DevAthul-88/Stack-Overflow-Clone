@@ -2,6 +2,7 @@ const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
 const { findById, findOne } = require("../Schema/quesSchema");
+const res = require("express/lib/response");
 
 module.exports = {
   create: async (req, res) => {
@@ -229,5 +230,20 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+
+  editQuestion: async (req, res) => {
+    try {
+       const data = {
+         title:req.body.title,
+         description:req.body.description,
+         tags: req.body.tags
+       }
+       console.log(typeof req.body.tags);
+       console.log('Function is running ok');
+    } catch (error) {
+      
+      res.json({ error: error.message })
+    }
+  }
 
 };

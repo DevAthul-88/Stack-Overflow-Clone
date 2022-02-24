@@ -1,24 +1,26 @@
 import React,{useEffect} from "react";
 import { Helmet } from "react-helmet";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import QuestionSchema from "../Schema/Question";
+import EditSchema from "../Schema/EditQues";
 import { useDispatch, useSelector } from "react-redux";
-import { createAction } from "../redux/Question/action";
+import { EditAction } from "../redux/Question/action";
 import Alert from "../Components/Alert";
 import QuesAction from "../redux/Single/action";
 import Loader from "../Components/Loader/Loader";
 
 function EditQues({ id }) {
   const dispatch = useDispatch();
-  const {  created } = useSelector((state) => state.question);
-  const { loading ,error, data } = useSelector((state) => state.single);
+  const { loader , edited } = useSelector((state) => state.question);
+  const { loading , data } = useSelector((state) => state.single);
+  const { userInfo } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(QuesAction(id))
   },[])
+  
   return (
     <div>
-      {created && (
-        <Alert type="is-success" message="Post created successfully" trigger />
+      {edited && (
+        <Alert type="is-success" message="Question edited successfully" trigger />
       )}
       <Helmet>
         <title>Edit question - Stack Overflow</title>
@@ -29,11 +31,13 @@ function EditQues({ id }) {
           title: data.title,
           description: data.description,
           tags:data.tags,
+          userId:userInfo._id,
+          quesId:id,
         }}
-        validationSchema={QuestionSchema}
-        onSubmit={(values , {resetForm}) => {
-          dispatch(createAction(values))
-           resetForm({})
+        validationSchema={EditSchema}
+        onSubmit={(values) => {
+          dispatch(EditAction(values))
+         
         }}
       >
         {({ errors, touched }) => (
@@ -48,8 +52,7 @@ function EditQues({ id }) {
               </label>
               <Field
                 type="text"
-                name="title"
-                value={data.title}
+                name="title" 
                 className={`input mt-2 ques_input ${
                   errors.title && touched.title ? " is-danger" : ""
                 }`}
@@ -75,7 +78,6 @@ function EditQues({ id }) {
                 id=""
                 cols={30}
                 rows={10}
-                value={data.description}
                 placeholder="Explain your question here!"
               ></Field>
 
@@ -92,7 +94,6 @@ function EditQues({ id }) {
               <Field
                 type="text"
                 name="tags"
-                value={data.tags}
                 className={`input mt-2 ques_input ${
                   errors.tags && touched.tags ? " is-danger" : ""
                 }`}
@@ -102,7 +103,7 @@ function EditQues({ id }) {
                 <label className="label has-text-danger">{errors.tags}</label>
               ) : null}
             </div>
-            <button className={`nav-btn button ${loading ? "is-loading" : ""}`} type="submit">
+            <button className={`nav-btn button ${loader ? "is-loading" : ""}`} type="submit">
               Submit
             </button>
           </Form>
