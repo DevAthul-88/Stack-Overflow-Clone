@@ -8,10 +8,11 @@ import Profile from "../../Pages/Profile";
 import MeAnswers from "../../Pages/You.Answers";
 import YouQuestions from "../../Pages/You.Questions";
 import Settings from "../../Pages/Settings";
-import Users from '../../Pages/Users';
-import SingleUser from '../../Pages/SingleUser'
-import AskQuestion from "../../Pages/AskQuestion"
+import Users from "../../Pages/Users";
+import SingleUser from "../../Pages/SingleUser";
+import AskQuestion from "../../Pages/AskQuestion";
 import SingleQues from "../../Pages/SingleQues";
+import EditQues from "../../Pages/EditQues";
 
 function Home() {
   return (
@@ -26,11 +27,14 @@ function Home() {
           <Route path="/tags" component={Tags} />
           <Route path="/profile" component={Profile} />
           <Route path="/users" component={Users} />
-          <Route path="/users/:id"> 
-          {(params) => <SingleUser id={params.id}/>}
+          <Route path="/users/:id">
+            {(params) => <SingleUser id={params.id} />}
           </Route>
-          <Route path="/question/:id"> 
-          {(params) => <SingleQues id={params.id}/>}
+          <Route path="/edit/q/:id">
+            {(params) => <EditQues id={params.id} />}
+          </Route>
+          <Route path="/question/:id">
+            {(params) => <SingleQues id={params.id} />}
           </Route>
           <Route path="/ask" component={AskQuestion} />
           <NestedRoutes base="/profile">

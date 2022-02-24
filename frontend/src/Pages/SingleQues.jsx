@@ -87,17 +87,22 @@ function SingleQues({ id }) {
               </Helmet>
               <h1 className="title">{data.title}</h1>
               <div className="is-flex is-justify-content-space-between">
-              <span>Asked {timeago.format(data.createdAt)}</span>
-              {
-                userInfo == null && userInfo == undefined ? null : <div>
-                {userInfo._id === data.userId ? <div>
-               <Link href={`/edit/q/${data._id}`} className="has-text-success mr-2">
-                Edit
-               </Link>
-               <a className="has-text-danger">Delete</a>
-             </div> : null}
-               </div>
-              }
+                <span>Asked {timeago.format(data.createdAt)}</span>
+                {userInfo !== null && userInfo !== undefined ? <div>
+                    {userInfo._id == data.id ? (
+                      <div>
+                        <Link
+                          href={`/edit/q/${data._id}`}
+                          className="has-text-success mr-4"
+                        >
+                          Edit
+                        </Link>
+                        <a className="has-text-danger">Delete</a>
+                      </div>
+                    ) : null}
+                  </div> : (
+                  null
+                )}
               </div>
               <hr />
 
@@ -114,8 +119,10 @@ function SingleQues({ id }) {
                     onClick={() => vote("up")}
                     disabled={
                       userInfo !== undefined && userInfo !== null
-                        ? Object.keys(userInfo).length == 0 ? true
-                       : data.upVote.some((e) => e.userId == userInfo._id) : true
+                        ? Object.keys(userInfo).length == 0
+                          ? true
+                          : data.upVote.some((e) => e.userId == userInfo._id)
+                        : true
                     }
                   >
                     <span className="icon">
@@ -144,7 +151,9 @@ function SingleQues({ id }) {
                     onClick={() => vote()}
                     disabled={
                       userInfo !== null && userInfo !== undefined
-                        ? Object.keys(userInfo).length == 0 ? true : data.downVote.some((e) => e.userId == userInfo._id)
+                        ? Object.keys(userInfo).length == 0
+                          ? true
+                          : data.downVote.some((e) => e.userId == userInfo._id)
                         : true
                     }
                   >
@@ -252,6 +261,7 @@ function SingleQues({ id }) {
               </div>
             ) : null}
           </div>
+          <hr />
           {showComment && <Comment id={id} />}
           <div className="is-flex mt-4 is-justify-content-space-between">
             <div>
@@ -274,6 +284,7 @@ function SingleQues({ id }) {
             </div>
           </div>
           <div className="ans mt-6">
+            {data.answer.length == 0 ? <h1>No answers</h1> : <>
             {data.answer.map((e, index) => {
               return (
                 <div key={index}>
@@ -290,7 +301,9 @@ function SingleQues({ id }) {
                         onClick={() => votes("ups", e.id)}
                         disabled={
                           userInfo !== undefined && userInfo !== null
-                            ? Object.keys(userInfo).length == 0 ? true : e.upVote.some((e) => e.userId == userInfo._id)
+                            ? Object.keys(userInfo).length == 0
+                              ? true
+                              : e.upVote.some((e) => e.userId == userInfo._id)
                             : ""
                         }
                       >
@@ -320,7 +333,9 @@ function SingleQues({ id }) {
                         onClick={() => votes("", e.id)}
                         disabled={
                           userInfo !== null && userInfo !== undefined
-                            ? Object.keys(userInfo).length == 0 ? true : e.downVote.some((e) => e.userId == userInfo._id)
+                            ? Object.keys(userInfo).length == 0
+                              ? true
+                              : e.downVote.some((e) => e.userId == userInfo._id)
                             : ""
                         }
                       >
@@ -368,6 +383,7 @@ function SingleQues({ id }) {
                 </div>
               );
             })}
+            </>}
           </div>
 
           {userInfo !== null && userInfo !== undefined ? (
