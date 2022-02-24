@@ -44,7 +44,7 @@ function SingleQues({ id }) {
   };
 
   const vote = (state, ansId) => {
-    if (userInfo == null && userInfo == undefined) {
+    if (userInfo == null || userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "up") {
       dispatch(upVoteAction(id, userInfo._id));
@@ -54,7 +54,7 @@ function SingleQues({ id }) {
   };
 
   const votes = (state, commentId) => {
-    if (userInfo == null && userInfo == undefined) {
+    if (userInfo == null || userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "ups") {
       dispatch(upVoteAnsAction(id, commentId, userInfo._id));
@@ -86,7 +86,19 @@ function SingleQues({ id }) {
                 <meta name="description" content={data.description} />
               </Helmet>
               <h1 className="title">{data.title}</h1>
+              <div className="is-flex is-justify-content-space-between">
               <span>Asked {timeago.format(data.createdAt)}</span>
+              {
+                userInfo == null && userInfo == undefined ? null : <div>
+                {userInfo._id === data.userId ? <div>
+               <Link href={`/edit/q/${data._id}`} className="has-text-success mr-2">
+                Edit
+               </Link>
+               <a className="has-text-danger">Delete</a>
+             </div> : null}
+               </div>
+              }
+              </div>
               <hr />
 
               <div className="columns">
@@ -97,13 +109,13 @@ function SingleQues({ id }) {
                         ? data.upVote.some((e) => e.userId == userInfo._id)
                           ? "voted disabled"
                           : ""
-                        : null
+                        : "disabled"
                     }`}
                     onClick={() => vote("up")}
                     disabled={
                       userInfo !== undefined && userInfo !== null
-                        ? data.upVote.some((e) => e.userId == userInfo._id)
-                        : ""
+                        ? Object.keys(userInfo).length == 0 ? true
+                       : data.upVote.some((e) => e.userId == userInfo._id) : true
                     }
                   >
                     <span className="icon">
@@ -132,8 +144,8 @@ function SingleQues({ id }) {
                     onClick={() => vote()}
                     disabled={
                       userInfo !== null && userInfo !== undefined
-                        ? data.downVote.some((e) => e.userId == userInfo._id)
-                        : ""
+                        ? Object.keys(userInfo).length == 0 ? true : data.downVote.some((e) => e.userId == userInfo._id)
+                        : true
                     }
                   >
                     <span className="icon">
@@ -249,12 +261,12 @@ function SingleQues({ id }) {
             <div>
               <div className="field has-addons">
                 <p className="control">
-                  <button className="button">
+                  <button className="button is-dark">
                     <span>Oldest</span>
                   </button>
                 </p>
                 <p className="control">
-                  <button className="button">
+                  <button className="button is-dark">
                     <span>Score</span>
                   </button>
                 </p>
@@ -278,7 +290,7 @@ function SingleQues({ id }) {
                         onClick={() => votes("ups", e.id)}
                         disabled={
                           userInfo !== undefined && userInfo !== null
-                            ? e.upVote.some((e) => e.userId == userInfo._id)
+                            ? Object.keys(userInfo).length == 0 ? true : e.upVote.some((e) => e.userId == userInfo._id)
                             : ""
                         }
                       >
@@ -308,7 +320,7 @@ function SingleQues({ id }) {
                         onClick={() => votes("", e.id)}
                         disabled={
                           userInfo !== null && userInfo !== undefined
-                            ? e.downVote.some((e) => e.userId == userInfo._id)
+                            ? Object.keys(userInfo).length == 0 ? true : e.downVote.some((e) => e.userId == userInfo._id)
                             : ""
                         }
                       >
