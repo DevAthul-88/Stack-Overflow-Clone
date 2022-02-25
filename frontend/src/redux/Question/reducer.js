@@ -14,11 +14,13 @@ const questionReducer = (state = initialState, action) => {
     case QUESTION_REQUEST:
       return { loading: true };
     case QUESTION_EDIT_REQUEST:
-      return {loader: true}  
+      return { loader: true };
     case QUESTION_CREATE:
       return { loading: false, created: action.payload };
     case QUESTION_EDIT:
-      return {loader:false , edited: action.payload}  
+      return { loader: false, edited: action.payload };
+    case QUESTION_DELETE:
+      return { loader: false, deleted: action.payload };
     case QUESTION_ERROR:
       return { loading: false, error: action.payload };
     default:

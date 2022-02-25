@@ -9,7 +9,6 @@ import {
 import axios from "axios";
 import config from "../../Config/header";
 
-
 export const createAction = (credentials) => async (dispatch) => {
   try {
     dispatch({ type: QUESTION_REQUEST });
@@ -31,25 +30,36 @@ export const createAction = (credentials) => async (dispatch) => {
 };
 
 export const EditAction = (credentials) => async (dispatch) => {
- 
-  try { 
-    
+  try {
     dispatch({ type: QUESTION_EDIT_REQUEST });
     const ques = {
       title: credentials.title,
       description: credentials.description,
       tags: credentials.tags,
       userId: credentials.userId,
-      quesId: credentials.quesId
+      quesId: credentials.quesId,
     };
 
     const { data } = await axios.put("/api/question/edit", ques, config);
 
     if (data.status) {
+      dispatch({ type: QUESTION_EDIT, payload: data.status });
     }
-    dispatch({ type: QUESTION_EDIT, payload: data.status });
   } catch (error) {
     console.log(error.message);
     dispatch({ type: QUESTION_ERROR, payload: error.message });
   }
 };
+
+export const DeleteAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type:QUESTION_REQUEST})
+    const {data} = await axios.delete("/api/question/delete/"+id , config )
+
+    if(data.status){
+      dispatch({ type:QUESTION_DELETE , payload:data.status})
+    }
+  } catch (error) {
+    dispatch({ type:QUESTION_ERROR, payload: error.message });
+  }
+}

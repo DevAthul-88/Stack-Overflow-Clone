@@ -37,7 +37,6 @@ function EditQues({ id }) {
         validationSchema={EditSchema}
         onSubmit={(values) => {
           dispatch(EditAction(values))
-         
         }}
       >
         {({ errors, touched }) => (

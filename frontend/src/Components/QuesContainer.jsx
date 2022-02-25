@@ -44,13 +44,7 @@ function QuesHeader() {
             >
               Featured
             </a>
-            <a
-              href="#unanswered"
-              className={current == "unanswered" ? "tab-active" : ""}
-              onClick={() => setCurrent('unanswered')}
-            >
-              Unanswered{" "}
-            </a>
+            
             <a
               href="#interesting"
               className={current == "interesting" ? "tab-active" : ""}

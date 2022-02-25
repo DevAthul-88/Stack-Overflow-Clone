@@ -236,13 +236,25 @@ module.exports = {
        const data = {
          title:req.body.title,
          description:req.body.description,
-         tags: req.body.tags
+         tags: req.body.tags.split(",")
        }
-       console.log(typeof req.body.tags);
-       console.log('Function is running ok');
+      await quesSchema.updateOne({_id:req.body.quesId , id:req.body.userId} , {$set:data})
+      res.json({status: true})
     } catch (error) {
       
       res.json({ error: error.message })
+    }
+  },
+
+  deleteQues: async (req, res) => {
+    try {
+      const {id} = req.params
+
+      await quesSchema.deleteOne({_id:id});
+      res.json({status: true})
+    } catch (error) {
+      console.log(error.message);
+      res.json({ error: error.message})
     }
   }
 

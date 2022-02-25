@@ -63,13 +63,13 @@ function Tags() {
         </div>
       ) : (
         <>
-          <div className="card-container columns ">
+          <div className="card-container columns is-multiline">
             {tags !== null && tags !== undefined ? (
               <>
                 {tags.map((e, index) => {
                   return (
                     <div
-                      className="tag-card card is-4 ml-2 is-shadowless p-4 column"
+                      className="tag-card card is-3  ml-2 is-shadowless p-4 column"
                       key={index}
                     >
                       <div>

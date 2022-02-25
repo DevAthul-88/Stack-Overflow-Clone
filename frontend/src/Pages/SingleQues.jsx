@@ -19,17 +19,22 @@ import {
 import AnswerForm from "../Components/Post/Ans";
 import { answerDeleteAction } from "../redux/Answer/action";
 import { Helmet } from "react-helmet";
+import {DeleteAction} from '../redux/Question/action'
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
+  const {deleted} = useSelector((state) => state.question)
   const { userInfo } = useSelector((state) => state.auth);
   const [showComment, setShowComment] = useState(false);
   const [limit, setLimit] = useState(4);
 
   useEffect((e) => {
     dispatch(QuesAction(id));
-  }, []);
+    if(deleted){
+      window.location.href = "/"
+    }
+  }, [deleted]);
 
   const loadMore = () => {
     setLimit(limit + 5);
@@ -69,6 +74,12 @@ function SingleQues({ id }) {
     }
   };
 
+  const deleteQues = (id) => {
+    if(window.confirm("Are you sure you want to delete this question")){
+       dispatch(DeleteAction(id))
+    }
+  }
+
   return (
     <div>
       {data === null || data === undefined ? (
@@ -88,19 +99,22 @@ function SingleQues({ id }) {
               <h1 className="title">{data.title}</h1>
               <div className="is-flex is-justify-content-space-between">
                 <span>Asked {timeago.format(data.createdAt)}</span>
-                {userInfo !== null && userInfo !== undefined ? <div>
-                    {userInfo._id == data.id ? (
-                      <div>
-                        <Link
-                          href={`/edit/q/${data._id}`}
-                          className="has-text-success mr-4"
-                        >
-                          Edit
-                        </Link>
-                        <a className="has-text-danger">Delete</a>
-                      </div>
-                    ) : null}
-                  </div> : (
+                {userInfo !== null && userInfo !== undefined ? <>
+                {Object.keys(userInfo).length > 0 ? 
+                <div>
+                {userInfo._id === data.id ? (
+                  <div>
+                    <Link
+                      href={`/edit/q/${data._id}`}
+                      className="has-text-success mr-4"
+                    >
+                      Edit
+                    </Link>
+                    <a className="has-text-danger" onClick={() => deleteQues(data._id)}>Delete</a>
+                  </div>
+                ) : null}
+              </div>
+                : null}</> : (
                   null
                 )}
               </div>
