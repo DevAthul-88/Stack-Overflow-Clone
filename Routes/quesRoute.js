@@ -17,5 +17,7 @@ Router.route("/ansVote/down/:id").post(auth, quesRoute.downVoteAns);
 Router.route("/downVote/:id").post(auth, quesRoute.downVote);
 Router.route("/answer/:id").post(auth, quesRoute.answer);
 Router.route("/answer/delete/:id").post(auth, quesRoute.deleteAnswer);
+Router.route("/featured").get(quesRoute.featured);
+Router.route("/inter").get(quesRoute.featured);
 
 module.exports = Router;

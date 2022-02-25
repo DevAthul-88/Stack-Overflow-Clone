@@ -256,6 +256,25 @@ module.exports = {
       console.log(error.message);
       res.json({ error: error.message})
     }
-  }
+  },
+
+
+  featured: async (req, res) => {
+    try {
+      const data = await quesSchema.find().sort({upVote : -1});
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+
+  inter: async (req, res) => {
+    try {
+      const data = await quesSchema.find().sort({answer : -1});
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
 
 };
