@@ -1,8 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import {Link} from 'wouter'
 
 
 function Card({Data}) {
+  const {userInfo} = useSelector((state) => state.auth)
   return (
     <div>
       {Data.map((e, index) => {
@@ -23,7 +25,7 @@ function Card({Data}) {
                </div>
              )}
              <div>
-             <Link href="" >
+             <Link href={userInfo._id == e.id ? "/profile" : `/user/${e._id}`} >
              <a className="blue_text" style={{fontSize:"10px"}}>
                 {e.userName}
               </a>
@@ -36,7 +38,11 @@ function Card({Data}) {
                   <div >
                   <div className="is-flex ">
                 {e.tags.map((es, index) => {
-                  return <div className="tag post_tag" key={index}>{es}</div>;
+                  return <div className="tag post_tag" key={index}>
+                    <Link href={`/tags/${es}`}>
+                    {es}
+                    </Link>
+                  </div>;
                 })}
               </div>
                   </div>

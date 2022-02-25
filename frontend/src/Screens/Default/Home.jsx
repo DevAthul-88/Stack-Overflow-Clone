@@ -7,6 +7,8 @@ import Questions from "../../Pages/Questions";
 import Modal from "../../Components/Modal/Main";
 import SingleUser from '../../Pages/SingleUser';
 import SingleQues from "../../Pages/SingleQues";
+import TagsQues from '../../Pages/TagsQues'
+
 
 function Home() {
   return (
@@ -21,6 +23,9 @@ function Home() {
           <Route path="/" component={Questions} />
           <Route path="/tags" component={Tags} />
           <Route path="/users" component={Users} />
+          <Route path='/tags/:id'>
+               {(params) => <TagsQues id={params.id}/>}
+          </Route>
           <Route path="/users/:id"> 
           {(params) => <SingleUser id={params.id}/>}
           </Route>

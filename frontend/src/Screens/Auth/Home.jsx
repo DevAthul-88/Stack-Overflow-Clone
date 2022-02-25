@@ -13,6 +13,7 @@ import SingleUser from "../../Pages/SingleUser";
 import AskQuestion from "../../Pages/AskQuestion";
 import SingleQues from "../../Pages/SingleQues";
 import EditQues from "../../Pages/EditQues";
+import TagsQues from "../../Pages/TagsQues";
 
 function Home() {
   return (
@@ -23,20 +24,31 @@ function Home() {
 
       <div className="wrapper  section container  column  mt-6">
         <Switch>
-          <Route path="/" component={Questions} />
+
+          
+            <Route path="/question" component={Questions} />
+            
+          
+
+          <Route path="/edit/q/:id">
+              {(params) => <EditQues id={params.id} />}
+            </Route>
+            <Route path="/question/:id">
+              {(params) => <SingleQues id={params.id} />}
+            </Route>
+            <Route path="/ask" component={AskQuestion} />
+
           <Route path="/tags" component={Tags} />
           <Route path="/profile" component={Profile} />
           <Route path="/users" component={Users} />
           <Route path="/users/:id">
             {(params) => <SingleUser id={params.id} />}
           </Route>
-          <Route path="/edit/q/:id">
-            {(params) => <EditQues id={params.id} />}
+
+          <Route path="/tags/:id">
+            {(params) => <TagsQues id={params.id} />}
           </Route>
-          <Route path="/question/:id">
-            {(params) => <SingleQues id={params.id} />}
-          </Route>
-          <Route path="/ask" component={AskQuestion} />
+
           <NestedRoutes base="/profile">
             <Route path="/questions" component={YouQuestions} />
             <Route path="/answers" component={MeAnswers} />
