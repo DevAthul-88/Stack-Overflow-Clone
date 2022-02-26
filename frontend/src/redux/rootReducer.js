@@ -10,6 +10,7 @@ import singleReducer from "./Single/reducer";
 import commentReducer from "./Comment/reducer";
 import voteReducer from "./Vote/reducer";
 import answerReducer from "./Answer/reducer";
+import TagsPostReducer from "./TagPosts/reducer";
 
 const root = combineReducers({
   authModal: authModalReducer,
@@ -23,5 +24,6 @@ const root = combineReducers({
   comment: commentReducer,
   vote: voteReducer,
   answer: answerReducer,
+  tagPostReducer: TagsPostReducer,
 });
 export default root;

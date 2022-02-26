@@ -275,4 +275,12 @@ module.exports = {
     }
   },
 
+  tags: async (req , res) => {
+    try {
+      console.log(req.params.id);
+    } catch (error) {
+      res.json({ error: error.message })
+    }
+  }
+
 };
