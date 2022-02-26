@@ -1,7 +1,7 @@
 import { TAG_POST_REQUEST, TAG_POST_SUCCESS, TAG_POST_ERROR } from "./type";
 import axios from "axios";
 
-export const tagPostAction = (tag) => async (dispatch) => {
+export const tagPostNewestAction = (tag) => async (dispatch) => {
   try {
     dispatch({ type: TAG_POST_REQUEST });
 

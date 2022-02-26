@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Card from "../Components/Post/Card";
 import Interesting from '../Pages/Tabs/Interesting'
-import Unanswered from '../Pages/Tabs/unanswered'
 import Featured from "../Pages/Tabs/Featured";
 import Newest from "../Pages/Tabs/Newest";
 
@@ -18,9 +17,7 @@ function QuesHeader() {
     else if(current === "featured"){
       return <Featured />
     }
-    else {
-      return <Unanswered/>
-    }
+    
   }
 
   return (

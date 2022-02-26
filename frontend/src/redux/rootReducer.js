@@ -24,6 +24,6 @@ const root = combineReducers({
   comment: commentReducer,
   vote: voteReducer,
   answer: answerReducer,
-  tagPostReducer: TagsPostReducer,
+  tagPost: TagsPostReducer,
 });
 export default root;

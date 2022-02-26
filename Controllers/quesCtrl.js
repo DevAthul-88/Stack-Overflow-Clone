@@ -277,7 +277,8 @@ module.exports = {
 
   tags: async (req , res) => {
     try {
-      console.log(req.params.id);
+      const data = await quesSchema.find({'tags':req.params.id}).sort({answer : -1});
+      res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message })
     }
