@@ -20,5 +20,7 @@ Router.route("/answer/delete/:id").post(auth, quesRoute.deleteAnswer);
 Router.route("/featured").get(quesRoute.featured);
 Router.route("/inter").get(quesRoute.featured);
 Router.route("/tags/:id").get(quesRoute.tags);
+Router.route("/tags/f/:id").get(quesRoute.tagsF);
+Router.route("/tags/i/:id").get(quesRoute.tagsI);
 
 module.exports = Router;

@@ -31,7 +31,7 @@ module.exports = {
   allTags: async (req, res) => {
     try {
       const count = await quesSchema.aggregate([
-        { $project: { tags: 1} },
+        { $project: { tags: 1 } },
         { $unwind: "$tags" },
         { $group: { _id: "$tags", count: { $sum: 1 } } },
         { $sort: { count: -1 } },
@@ -207,10 +207,9 @@ module.exports = {
   },
 
   downVoteAns: async (req, res) => {
- 
     try {
       const { id } = req.params;
-   
+
       await quesSchema.updateOne(
         { _id: id, "answer.id": req.body.answerId },
         { $push: { "answer.$.downVote": { userId: req.body.user } } }
@@ -231,35 +230,36 @@ module.exports = {
 
   editQuestion: async (req, res) => {
     try {
-       const data = {
-         title:req.body.title,
-         description:req.body.description,
-         tags: req.body.tags.split(",")
-       }
-      await quesSchema.updateOne({_id:req.body.quesId , id:req.body.userId} , {$set:data})
-      res.json({status: true})
+      const data = {
+        title: req.body.title,
+        description: req.body.description,
+        tags: req.body.tags.split(","),
+      };
+      await quesSchema.updateOne(
+        { _id: req.body.quesId, id: req.body.userId },
+        { $set: data }
+      );
+      res.json({ status: true });
     } catch (error) {
-      
-      res.json({ error: error.message })
+      res.json({ error: error.message });
     }
   },
 
   deleteQues: async (req, res) => {
     try {
-      const {id} = req.params
+      const { id } = req.params;
 
-      await quesSchema.deleteOne({_id:id});
-      res.json({status: true})
+      await quesSchema.deleteOne({ _id: id });
+      res.json({ status: true });
     } catch (error) {
       console.log(error.message);
-      res.json({ error: error.message})
+      res.json({ error: error.message });
     }
   },
 
-
   featured: async (req, res) => {
     try {
-      const data = await quesSchema.find().sort({upVote : -1});
+      const data = await quesSchema.find().sort({ upVote: -1 });
       res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
@@ -268,20 +268,43 @@ module.exports = {
 
   inter: async (req, res) => {
     try {
-      const data = await quesSchema.find().sort({answer : -1});
+      const data = await quesSchema.find().sort({ answer: -1 });
       res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
     }
   },
 
-  tags: async (req , res) => {
+  tags: async (req, res) => {
     try {
-      const data = await quesSchema.find({'tags':req.params.id}).sort({answer : -1});
+      const data = await quesSchema
+        .find({ tags: req.params.id })
+        .sort({ answer: -1 });
       res.json({ data: data });
     } catch (error) {
-      res.json({ error: error.message })
+      res.json({ error: error.message });
     }
-  }
+  },
 
+  tagsF: async (req, res) => {
+    try {
+      const data = await quesSchema
+        .find({ tags: req.params.id })
+        .sort({ upVote: -1 });
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+
+  tagsI: async (req, res) => {
+    try {
+      const data = await quesSchema
+        .find({ tags: req.params.id })
+        .sort({ answer: -1 });
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
 };

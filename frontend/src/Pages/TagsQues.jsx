@@ -1,23 +1,22 @@
-import React, { useEffect } from 'react'
-import {useDispatch , useSelector} from 'react-redux'
+import React from 'react'
 import Interesting from '../Pages/Tabs/Tags/Interesting'
 import Featured from "../Pages/Tabs/Tags/Featured";
-import Newest from "../Pages/Tabs/Newest";
+import Newest from "../Pages/Tabs/Tags/Newest";
 import { useState } from 'react'
 
 function TagsQues({id}) {
-  const dispatch = useDispatch()
+
   const [current, setCurrent] = useState("newest");
 
   const Main = () => {
     if(current === "newest"){
-      return <Newest Id={id}/>
+      return <Newest Id={id} />
     }
     else if(current === "interesting"){
-      return <Interesting />
+      return <Interesting Id={id} />
     }
     else if(current === "featured"){
-      return <Featured />
+      return <Featured Id={id} />
     }
     
   }
