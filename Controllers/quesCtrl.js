@@ -31,12 +31,11 @@ module.exports = {
   allTags: async (req, res) => {
     try {
       const count = await quesSchema.aggregate([
-        { $project: { tags: 1 } },
+        { $project: { tags: 1} },
         { $unwind: "$tags" },
         { $group: { _id: "$tags", count: { $sum: 1 } } },
         { $sort: { count: -1 } },
       ]);
-
       res.json({ tag: count });
     } catch (error) {
       res.json({ error: error.message });
@@ -53,7 +52,6 @@ module.exports = {
         { $match: { _id: { $regex: search, $options: "i" } } },
         { $sort: { count: -1 } },
       ]);
-      console.log(data);
       res.json({ tag: data });
     } catch (error) {
       res.json({ error: error.message });

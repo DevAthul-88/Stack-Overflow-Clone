@@ -27,7 +27,7 @@ function AskQuestion() {
         }}
         validationSchema={QuestionSchema}
         onSubmit={(values , {resetForm}) => {
-          dispatch(createAction(values))
+          dispatch(createAction(QuestionSchema.cast(values)))
            resetForm({})
         }}
       >

@@ -36,7 +36,7 @@ function EditQues({ id }) {
         }}
         validationSchema={EditSchema}
         onSubmit={(values) => {
-          dispatch(EditAction(values))
+          dispatch(EditAction(EditSchema.cast(values)))
         }}
       >
         {({ errors, touched }) => (
