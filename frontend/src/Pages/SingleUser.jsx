@@ -1,5 +1,5 @@
 import React from 'react'
-import ProfileAction from '../redux/Profile/action';
+import {profileAction} from '../redux/Profile/action';
 import Alert from '../Components/Alert'
 import {useSelector, useDispatch} from 'react-redux'
 import { useEffect } from 'react';
@@ -12,7 +12,7 @@ function SingleUser({id}) {
   const {loading , error , profile} = useSelector((state) => state.profile)
 
   useEffect(() => {
-    dispatch(ProfileAction(id))
+    dispatch(profileAction(id))
   },[])
 
   return (

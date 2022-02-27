@@ -1,19 +1,27 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { Helmet } from "react-helmet";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ProfileSchema from "../Schema/editProfile";
 import { useDispatch, useSelector } from "react-redux";
-import { createAction } from "../redux/Question/action";
+import { editAction } from "../redux/Profile/action";
 import Alert from "../Components/Alert";
 
 function Settings() {
   const dispatch = useDispatch();
   const { loading, userInfo } = useSelector((state) => state.auth);
+  const { loadings, user , error , edited } = useSelector((state) => state.profile);
+ 
+  useEffect(() => {
+    if(edited){
+    localStorage.setItem("user_stack" , JSON.stringify(user))
+    window.location.reload();
+    }
+  },[])
 
   return (
     <div>
-      {"" && (
-        <Alert type="is-success" message="Post created successfully" trigger />
+      {error && (
+        <Alert type="is-danger" message={`${error}`} trigger />
       )}
       <Helmet>
         <title>Settings - Stack Overflow</title>
@@ -26,8 +34,7 @@ function Settings() {
         }}
         validationSchema={ProfileSchema}
         onSubmit={(values) => {
-         console.log(values);
-          
+          dispatch(editAction(userInfo._id, values));
         }}
       >
         {({ errors, touched }) => (
@@ -69,7 +76,7 @@ function Settings() {
                 </label>
               ) : null}
 
-              <label className="label mt-5">About</label>
+              <label className="label mt-5">About - (optional)</label>
 
               <Field
                 as="textarea"
@@ -88,7 +95,7 @@ function Settings() {
               ) : null}
             </div>
             <button
-              className={`nav-btn button ${loading ? "is-loading" : ""}`}
+              className={`nav-btn button ${loadings ? "is-loading" : ""}`}
               type="submit"
             >
               Submit
