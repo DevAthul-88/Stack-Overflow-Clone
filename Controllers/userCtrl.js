@@ -58,32 +58,66 @@ module.exports = {
   },
   getUserById: async (req, res) => {
     try {
-      const {id} = req.params
+      const { id } = req.params;
 
-      const data = await userSchema.findById(id)
+      const data = await userSchema.findById(id);
 
       const user = {
         _id: data._id,
-        userName:data.userName,
-        reputation:data.reputation,
-        createdAt:data.createdAt,
-        about:data.about,
-      }
+        userName: data.userName,
+        reputation: data.reputation,
+        createdAt: data.createdAt,
+        about: data.about,
+      };
 
-      res.json({userData:user})
-
+      res.json({ userData: user });
     } catch (error) {
-      res.json({ error: error.message })
+      res.json({ error: error.message });
     }
   },
 
   searchUser: async (req, res) => {
     try {
-      const {search} = req.query
-      const data = await userSchema.find({userName:{$regex:`${search}`, $options:"i"}})
-      res.json({users:data})
+      const { search } = req.query;
+      const data = await userSchema.find({
+        userName: { $regex: `${search}`, $options: "i" },
+      });
+      res.json({ users: data });
     } catch (error) {
-      res.json({ error: error.message })
+      res.json({ error: error.message });
     }
-  }
+  },
+
+  edit: async (req, res) => {
+    try {
+      const userObj = {
+        userName: req.body.userName,
+        about: req.body.about,
+        email: req.body.email,
+      };
+      const data = await userSchema.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            email: userObj.email,
+            about: req.body.about,
+            userName: req.body.userName,
+          },
+        }
+      );
+      const user = await userSchema.findById(req.params.id);
+      const userObject = {
+        _id: user._id,
+        userName: user.userName,
+        email: user.email,
+        createdAt: user.createdAt,
+        about: user.about,
+        reputation: user.reputation,
+      };
+    
+      res.json({ data: userObject, edited: true });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
 };

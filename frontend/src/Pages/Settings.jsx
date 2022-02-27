@@ -16,7 +16,7 @@ function Settings() {
     localStorage.setItem("user_stack" , JSON.stringify(user))
     window.location.reload();
     }
-  },[])
+  },[edited])
 
   return (
     <div>
