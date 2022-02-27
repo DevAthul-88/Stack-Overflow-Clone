@@ -3,6 +3,7 @@ import Interesting from '../Pages/Tabs/Tags/Interesting'
 import Featured from "../Pages/Tabs/Tags/Featured";
 import Newest from "../Pages/Tabs/Tags/Newest";
 import { useState } from 'react'
+import {Helmet} from 'react-helmet'
 
 function TagsQues({id}) {
 
@@ -23,6 +24,9 @@ function TagsQues({id}) {
 
   return (
     <div className="top">
+      <Helmet>
+        <title>Bountied '{id}' questions - Stack Overflow</title>
+      </Helmet>
     <h1 className="title has-text-weight-bold">Questions tagged [{id}]</h1>
 
     <div className="card">
