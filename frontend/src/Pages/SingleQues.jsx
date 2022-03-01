@@ -11,7 +11,7 @@ import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { prism } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {
   upVoteAction,
   downVoteAction,
@@ -218,7 +218,7 @@ function SingleQues({ id }) {
                         return !inline && match ? (
                           <SyntaxHighlighter
                             children={String(children).replace(/\n$/, "")}
-                            style={dark}
+                            style={prism}
                             language={match[1]}
                             PreTag="div"
                             {...props}

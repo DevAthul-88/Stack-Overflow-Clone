@@ -30,7 +30,7 @@ function EditQues({ id }) {
         initialValues={{
           title: data.title,
           description: data.description,
-          tags:data.tags,
+          tags:data.tags+"",
           userId:userInfo._id,
           quesId:id,
         }}
