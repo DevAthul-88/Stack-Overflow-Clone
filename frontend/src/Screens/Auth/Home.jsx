@@ -24,19 +24,15 @@ function Home() {
 
       <div className="wrapper  section container  column  mt-6">
         <Switch>
-
-          
-            <Route path="/question" component={Questions} />
-            
-          
+          <Route path="/" component={Questions} />
 
           <Route path="/edit/q/:id">
-              {(params) => <EditQues id={params.id} />}
-            </Route>
-            <Route path="/question/:id">
-              {(params) => <SingleQues id={params.id} />}
-            </Route>
-            <Route path="/ask" component={AskQuestion} />
+            {(params) => <EditQues id={params.id} />}
+          </Route>
+          <Route path="/question/:id">
+            {(params) => <SingleQues id={params.id} />}
+          </Route>
+          <Route path="/ask" component={AskQuestion} />
 
           <Route path="/tags" component={Tags} />
           <Route path="/profile" component={Profile} />
@@ -48,12 +44,15 @@ function Home() {
           <Route path="/tags/:id">
             {(params) => <TagsQues id={params.id} />}
           </Route>
+          <Route path="/questions" component={YouQuestions} />
+          <Route path="/answers" component={MeAnswers} />
 
           <NestedRoutes base="/profile">
-            <Route path="/questions" component={YouQuestions} />
-            <Route path="/answers" component={MeAnswers} />
             <Route path="/settings" component={Settings} />
           </NestedRoutes>
+
+          
+
         </Switch>
       </div>
     </div>

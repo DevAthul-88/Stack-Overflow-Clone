@@ -11,7 +11,7 @@ function Navbar() {
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
         <div className="navbar-brand ml-4">
-         <Link href="/question">
+         <Link href="/">
          <a className="navbar-item ">
             <img src={Logo} alt="logo" className="nav-img" />
           </a>
@@ -51,7 +51,7 @@ function Navbar() {
         <p className="menu-label">MENU</p>
         <ul className="menu-list">
           <li>
-            <ActiveLink href="/question">
+            <ActiveLink href="/">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-question" aria-hidden="true"></i>

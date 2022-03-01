@@ -311,7 +311,7 @@ module.exports = {
   YourAnswersNewest: async (req, res) => {
     try {
       const {id} = req.params
-      const data = await quesSchema.find({"answer.$.userId":id})
+      const data = await quesSchema.find({"answer.userId":id})
       res.json({data: data})
     } catch (error) {
       res.json({ error: error.message });
@@ -321,7 +321,7 @@ module.exports = {
   YourAnswersOldest: async (req, res) => {
     try {
       const {id} = req.params
-      const data = await quesSchema.find({"answer.$.userId":id}).sort({createdAt: -1})
+      const data = await quesSchema.find({"answer.userId":id}).sort({createdAt: -1})
       res.json({data: data})
     } catch (error) {
       res.json({ error: error.message });

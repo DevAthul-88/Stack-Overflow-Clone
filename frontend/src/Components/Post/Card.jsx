@@ -25,7 +25,7 @@ function Card({Data}) {
                </div>
              )}
              <div>
-             <Link href={userInfo._id == e.id ? "/profile" : `/user/${e._id}`} >
+             <Link href={userInfo._id == e.id ? "/profile" : `/users/${e.id}`} >
              <a className="blue_text" style={{fontSize:"10px"}}>
                 {e.userName}
               </a>
