@@ -346,6 +346,16 @@ module.exports = {
     } catch (error) {
       res.json({ error: error.message });
     }
+  },
+
+  allPostsByUser:async  (req ,res) => {
+    try {
+      const {id} = req.params;
+      const data = await quesSchema.find({id:id})
+      res.json({data});
+    } catch (error) {
+      res.json({ error: error.message });
+    }
   }
 
 };

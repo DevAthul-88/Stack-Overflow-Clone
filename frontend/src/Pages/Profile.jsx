@@ -83,11 +83,7 @@ function Profile() {
       </div>
       <hr />
       <div>
-        <h1>Posts</h1>
-
-        <div className="card p-4 is-shadowless profile_card mt-4">
-          <h1>Just getting started? Try answering a question!</h1>
-        </div>
+      
 
       </div>
     </div>
