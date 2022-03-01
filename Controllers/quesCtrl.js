@@ -126,6 +126,43 @@ module.exports = {
     }
   },
 
+  UnUpVote: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await quesSchema.updateOne(
+        { _id: id },
+        { $pull: { upVote: { userId: req.body.user } } }
+      );
+
+      const data = await quesSchema.findOne({ _id: id });
+
+      res.json({ data: data });
+    } catch (error) {
+      console.log(error.message);
+      res.json({ error: error.message });
+    }
+  },
+
+
+  UnDownVote: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await quesSchema.updateOne(
+        { _id: id },
+        { $pull: { downVote: { userId: req.body.user } } }
+      );
+
+      const data = await quesSchema.findOne({ _id: id });
+
+      res.json({ data: data });
+    } catch (error) {
+      console.log(error.message);
+      res.json({ error: error.message });
+    }
+  },
+
   downVote: async (req, res) => {
     try {
       const { id } = req.params;
@@ -310,9 +347,9 @@ module.exports = {
 
   YourAnswersNewest: async (req, res) => {
     try {
-      const {id} = req.params
-      const data = await quesSchema.find({"answer.userId":id})
-      res.json({data: data})
+      const { id } = req.params;
+      const data = await quesSchema.find({ "answer.userId": id });
+      res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
     }
@@ -320,9 +357,11 @@ module.exports = {
 
   YourAnswersOldest: async (req, res) => {
     try {
-      const {id} = req.params
-      const data = await quesSchema.find({"answer.userId":id}).sort({createdAt: -1})
-      res.json({data: data})
+      const { id } = req.params;
+      const data = await quesSchema
+        .find({ "answer.userId": id })
+        .sort({ createdAt: -1 });
+      res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
     }
@@ -330,9 +369,9 @@ module.exports = {
 
   YourQuesOldest: async (req, res) => {
     try {
-      const {id} = req.params
-      const data = await quesSchema.find({id:id}).sort({createdAt: -1})
-      res.json({data: data})
+      const { id } = req.params;
+      const data = await quesSchema.find({ id: id }).sort({ createdAt: -1 });
+      res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
     }
@@ -340,22 +379,21 @@ module.exports = {
 
   YourQuesNewest: async (req, res) => {
     try {
-      const {id} = req.params
-      const data = await quesSchema.find({id:id})
-      res.json({data: data})
+      const { id } = req.params;
+      const data = await quesSchema.find({ id: id });
+      res.json({ data: data });
     } catch (error) {
       res.json({ error: error.message });
     }
   },
 
-  allPostsByUser:async  (req ,res) => {
+  allPostsByUser: async (req, res) => {
     try {
-      const {id} = req.params;
-      const data = await quesSchema.find({id:id})
-      res.json({data});
+      const { id } = req.params;
+      const data = await quesSchema.find({ id: id });
+      res.json({ data });
     } catch (error) {
       res.json({ error: error.message });
     }
-  }
-
+  },
 };

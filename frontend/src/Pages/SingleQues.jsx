@@ -15,26 +15,31 @@ import {
   downVoteAction,
   upVoteAnsAction,
   downVoteAnsAction,
+  UnUpVoteAction,
+  UnDownVoteAction,
 } from "../redux/Vote/action";
 import AnswerForm from "../Components/Post/Ans";
 import { answerDeleteAction } from "../redux/Answer/action";
 import { Helmet } from "react-helmet";
-import {DeleteAction} from '../redux/Question/action'
+import { DeleteAction } from "../redux/Question/action";
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
-  const {deleted} = useSelector((state) => state.question)
+  const { deleted } = useSelector((state) => state.question);
   const { userInfo } = useSelector((state) => state.auth);
   const [showComment, setShowComment] = useState(false);
   const [limit, setLimit] = useState(4);
 
-  useEffect((e) => {
-    dispatch(QuesAction(id));
-    if(deleted){
-      window.location.href = "/"
-    }
-  }, [deleted]);
+  useEffect(
+    (e) => {
+      dispatch(QuesAction(id));
+      if (deleted) {
+        window.location.href = "/";
+      }
+    },
+    [deleted]
+  );
 
   const loadMore = () => {
     setLimit(limit + 5);
@@ -52,9 +57,17 @@ function SingleQues({ id }) {
     if (userInfo == null || userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "up") {
-      dispatch(upVoteAction(id, userInfo._id));
+      if (data.upVote.some((e) => e.userId == userInfo._id)) {
+        dispatch(UnUpVoteAction(id, userInfo._id));
+      } else {
+        dispatch(upVoteAction(id, userInfo._id));
+      }
     } else {
-      dispatch(downVoteAction(id, userInfo._id));
+      if (data.downVote.some((e) => e.userId == userInfo._id)) {
+        dispatch(UnDownVoteAction(id, userInfo._id));
+      } else {
+        dispatch(downVoteAction(id, userInfo._id));
+      }
     }
   };
 
@@ -75,10 +88,10 @@ function SingleQues({ id }) {
   };
 
   const deleteQues = (id) => {
-    if(window.confirm("Are you sure you want to delete this question")){
-       dispatch(DeleteAction(id))
+    if (window.confirm("Are you sure you want to delete this question")) {
+      dispatch(DeleteAction(id));
     }
-  }
+  };
 
   return (
     <div>
@@ -99,24 +112,30 @@ function SingleQues({ id }) {
               <h1 className="title">{data.title}</h1>
               <div className="is-flex is-justify-content-space-between">
                 <span>Asked {timeago.format(data.createdAt)}</span>
-                {userInfo !== null && userInfo !== undefined ? <>
-                {Object.keys(userInfo).length > 0 ? 
-                <div>
-                {userInfo._id === data.id ? (
-                  <div>
-                    <Link
-                      href={`/edit/q/${data._id}`}
-                      className="has-text-success mr-4"
-                    >
-                      Edit
-                    </Link>
-                    <a className="has-text-danger" onClick={() => deleteQues(data._id)}>Delete</a>
-                  </div>
+                {userInfo !== null && userInfo !== undefined ? (
+                  <>
+                    {Object.keys(userInfo).length > 0 ? (
+                      <div>
+                        {userInfo._id === data.id ? (
+                          <div>
+                            <Link
+                              href={`/edit/q/${data._id}`}
+                              className="has-text-success mr-4"
+                            >
+                              Edit
+                            </Link>
+                            <a
+                              className="has-text-danger"
+                              onClick={() => deleteQues(data._id)}
+                            >
+                              Delete
+                            </a>
+                          </div>
+                        ) : null}
+                      </div>
+                    ) : null}
+                  </>
                 ) : null}
-              </div>
-                : null}</> : (
-                  null
-                )}
               </div>
               <hr />
 
@@ -134,8 +153,6 @@ function SingleQues({ id }) {
                     disabled={
                       userInfo !== undefined && userInfo !== null
                         ? Object.keys(userInfo).length == 0
-                          ? true
-                          : data.upVote.some((e) => e.userId == userInfo._id)
                         : true
                     }
                   >
@@ -158,16 +175,14 @@ function SingleQues({ id }) {
                     className={`button vote_btn ${
                       userInfo !== null && userInfo !== undefined
                         ? data.downVote.some((e) => e.userId == userInfo._id)
-                          ? "voted disabled"
+                          ? "voted"
                           : ""
                         : null
                     }`}
                     onClick={() => vote()}
                     disabled={
-                      userInfo !== null && userInfo !== undefined
+                      userInfo !== undefined && userInfo !== null
                         ? Object.keys(userInfo).length == 0
-                          ? true
-                          : data.downVote.some((e) => e.userId == userInfo._id)
                         : true
                     }
                   >
@@ -184,7 +199,7 @@ function SingleQues({ id }) {
                       {data.tags.map((e, index) => {
                         return (
                           <div className="tag post_tag" key={index}>
-                            {e}
+                            <Link href={"/tags/" + e}>{e}</Link>
                           </div>
                         );
                       })}
@@ -219,7 +234,7 @@ function SingleQues({ id }) {
           <hr />
           {data.replies.slice(0, limit).map((e, index) => {
             return (
-              <div className="replay  p-1" key={index}>
+              <div className="replay  p-1 " key={index}>
                 <div className="is-flex is-justify-content-space-between is-flex-wrap-wrap">
                   <h6 className="is-capitalized">{e.comment}</h6>
                   <div>
@@ -298,106 +313,121 @@ function SingleQues({ id }) {
             </div>
           </div>
           <div className="ans mt-6">
-            {data.answer.length == 0 ? <h1>No answers</h1> : <>
-            {data.answer.map((e, index) => {
-              return (
-                <div key={index}>
-                  <div className="columns">
-                    <div className="column is-1">
-                      <button
-                        className={`button vote_btn ${
-                          userInfo !== null && userInfo !== undefined
-                            ? e.upVote.some((e) => e.userId == userInfo._id)
-                              ? "voted disabled"
-                              : ""
-                            : null
-                        }`}
-                        onClick={() => votes("ups", e.id)}
-                        disabled={
-                          userInfo !== undefined && userInfo !== null
-                            ? Object.keys(userInfo).length == 0
-                              ? true
-                              : e.upVote.some((e) => e.userId == userInfo._id)
-                            : ""
-                        }
-                      >
-                        <span className="icon">
-                          <i className="fas fa-caret-up fa-2x"></i>
-                        </span>
-                      </button>
-                      <h5 className="is-size-4 ml-3">
-                        {e.upVote.length == e.downVote.length ? (
-                          e.upVote.length
-                        ) : (
-                          <>
-                            {e.upVote.length > e.downVote.length
-                              ? e.upVote.length
-                              : -e.downVote.length}
-                          </>
-                        )}
-                      </h5>
-                      <button
-                        className={`button vote_btn ${
-                          userInfo !== null && userInfo !== undefined
-                            ? e.downVote.some((e) => e.userId == userInfo._id)
-                              ? "voted disabled"
-                              : ""
-                            : null
-                        }`}
-                        onClick={() => votes("", e.id)}
-                        disabled={
-                          userInfo !== null && userInfo !== undefined
-                            ? Object.keys(userInfo).length == 0
-                              ? true
-                              : e.downVote.some((e) => e.userId == userInfo._id)
-                            : ""
-                        }
-                      >
-                        <span className="icon">
-                          <i className="fas fa-caret-down fa-2x"></i>
-                        </span>
-                      </button>
-                    </div>
-                    <div className="column">
-                      <h1 className="is-capitalized">{e.answer}</h1>
-                    </div>
-                  </div>
-                  <div className="is-flex is-justify-content-space-between">
-                    <div>
-                      <span>{timeago.format(e.createdAt)}</span>
+            {data.answer.length == 0 ? (
+              <h1>No answers</h1>
+            ) : (
+              <>
+                {data.answer.map((e, index) => {
+                  return (
+                    <div key={index}>
+                      <div className="columns">
+                        <div className="column is-1">
+                          <button
+                            className={`button vote_btn ${
+                              userInfo !== null && userInfo !== undefined
+                                ? e.upVote.some((e) => e.userId == userInfo._id)
+                                  ? "voted disabled"
+                                  : ""
+                                : null
+                            }`}
+                            onClick={() => votes("ups", e.id)}
+                            disabled={
+                              userInfo !== undefined && userInfo !== null
+                                ? Object.keys(userInfo).length == 0
+                                  ? true
+                                  : e.upVote.some(
+                                      (e) => e.userId == userInfo._id
+                                    )
+                                : ""
+                            }
+                          >
+                            <span className="icon">
+                              <i className="fas fa-caret-up fa-2x"></i>
+                            </span>
+                          </button>
+                          <h5 className="is-size-4 ml-3">
+                            {e.upVote.length == e.downVote.length ? (
+                              e.upVote.length
+                            ) : (
+                              <>
+                                {e.upVote.length > e.downVote.length
+                                  ? e.upVote.length
+                                  : -e.downVote.length}
+                              </>
+                            )}
+                          </h5>
+                          <button
+                            className={`button vote_btn ${
+                              userInfo !== null && userInfo !== undefined
+                                ? e.downVote.some(
+                                    (e) => e.userId == userInfo._id
+                                  )
+                                  ? "voted disabled"
+                                  : ""
+                                : null
+                            }`}
+                            onClick={() => votes("", e.id)}
+                            disabled={
+                              userInfo !== null && userInfo !== undefined
+                                ? Object.keys(userInfo).length == 0
+                                  ? true
+                                  : e.downVote.some(
+                                      (e) => e.userId == userInfo._id
+                                    )
+                                : ""
+                            }
+                          >
+                            <span className="icon">
+                              <i className="fas fa-caret-down fa-2x"></i>
+                            </span>
+                          </button>
+                        </div>
+                        <div className="column">
+                          <h1 className="is-capitalized">{e.answer}</h1>
+                        </div>
+                      </div>
+                      <div className="is-flex is-justify-content-space-between">
+                        <div>
+                          <span>{timeago.format(e.createdAt)}</span>
 
-                      <Link
-                        href={`${
-                          userInfo !== null && userInfo !== undefined
-                            ? userInfo._id == e.userId
-                              ? "/profile"
-                              : `/users/${data.id}`
-                            : `/users/${data.id}`
-                        }`}
-                        style={{ fontSize: "10px" }}
-                        className="ml-2"
-                      >
-                        {e.userName}
-                      </Link>
-                      {userInfo !== null && userInfo !== undefined ? (
-                        <span style={{ fontSize: "10px" }} className="ml-2 ">
-                          {userInfo._id === e.userId ? (
-                            <a
-                              className="has-text-danger"
-                              onClick={() => deleteAnswer(id, e.userId, e.id)}
+                          <Link
+                            href={`${
+                              userInfo !== null && userInfo !== undefined
+                                ? userInfo._id == e.userId
+                                  ? "/profile"
+                                  : `/users/${data.id}`
+                                : `/users/${data.id}`
+                            }`}
+                            style={{ fontSize: "10px" }}
+                            className="ml-2"
+                          >
+                            {e.userName}
+                          </Link>
+                          {userInfo !== null && userInfo !== undefined ? (
+                            <span
+                              style={{ fontSize: "10px" }}
+                              className="ml-2 "
                             >
-                              Delete
-                            </a>
+                              {userInfo._id === e.userId ? (
+                                <a
+                                  className="has-text-danger"
+                                  onClick={() =>
+                                    deleteAnswer(id, e.userId, e.id)
+                                  }
+                                >
+                                  Delete
+                                </a>
+                              ) : null}
+                            </span>
                           ) : null}
-                        </span>
-                      ) : null}
+                        </div>
+                      </div>
+                      <hr />
                     </div>
-                  </div>
-                  <hr />
-                </div>
-              );
-            })}
-            </>}
+                  );
+                })}
+              </>
+            )}
           </div>
 
           {userInfo !== null && userInfo !== undefined ? (
