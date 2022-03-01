@@ -14,7 +14,7 @@ function YouAnswers() {
       return <Newest  id={userInfo._id}/>
     }
     else if(current === "oldest"){
-      return <Oldest />
+      return <Oldest id={userInfo._id}/>
     }
     
   }

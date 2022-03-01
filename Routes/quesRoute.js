@@ -23,5 +23,6 @@ Router.route("/tags/:id").get(quesRoute.tags);
 Router.route("/tags/f/:id").get(quesRoute.tagsF);
 Router.route("/tags/i/:id").get(quesRoute.tagsI);
 Router.route("/your/ans/newest/:id").get(auth , quesRoute.YourAnswersNewest);
+Router.route("/your/ans/oldest/:id").get(auth , quesRoute.YourAnswersOldest);
 
 module.exports = Router;

@@ -23,3 +23,18 @@ export const ansNewestAction = (userId) => async (dispatch) => {
     dispatch({ type: PERSONAL_ERROR, payload: error.message });
   }
 };
+
+export const ansOldestAction = (userId) => async (dispatch) => {
+    try {
+      dispatch({ type: PERSONAL_REQUEST });
+  
+      const { data } = await axios.get(
+        `/api/question/your/ans/oldest/${userId}`,
+        Auth
+      );
+  
+      dispatch({ type: PERSONAL_ANS_OLDEST, payload: data.data });
+    } catch (error) {
+      dispatch({ type: PERSONAL_ERROR, payload: error.message });
+    }
+  };

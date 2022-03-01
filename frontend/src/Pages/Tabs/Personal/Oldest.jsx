@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { featuredAction } from "../../../redux/Post/action";
+import { ansOldestAction } from "../../../redux/Personal/action";
 import Card from "../../../Components/Post/Card";
 import Loader from "../../../Components/Loader/Loader";
 
 
-function Oldest() {
+function Oldest({id}) {
   const dispatch = useDispatch();
-  const { loading, error, data } = useSelector((state) => state.post);
+  const { loading,data } = useSelector((state) => state.personal);
   useEffect(() => {
-    dispatch(featuredAction());
+    dispatch(ansOldestAction(id));
   }, []);
 
   return (
