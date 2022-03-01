@@ -8,6 +8,11 @@ import ActiveLink from "../../Components/ActiveLink";
 
 function Navbar() {
   const {userInfo} = useSelector((state) => state.auth )
+
+  const LogOut = () => {
+    localStorage.clear()
+    window.location.href = '/'
+  }
   return (
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
@@ -59,8 +64,8 @@ function Navbar() {
        Profile
       </Link>
       <hr className="navbar-divider" />
-      <div className="navbar-item">
-        Logout
+      <div className="navbar-item is-danger" onClick={LogOut}>
+        <a className="is-danger">Logout</a>
       </div>
     </div>
   </div>
