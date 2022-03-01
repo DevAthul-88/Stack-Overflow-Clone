@@ -409,8 +409,8 @@ function SingleQues({ id }) {
                               userInfo !== null && userInfo !== undefined
                                 ? userInfo._id == e.userId
                                   ? "/profile"
-                                  : `/users/${data.id}`
-                                : `/users/${data.id}`
+                                  : `/users/${e.userId}`
+                                : `/users/${e.userId}`
                             }`}
                             style={{ fontSize: "10px" }}
                             className="ml-2"
