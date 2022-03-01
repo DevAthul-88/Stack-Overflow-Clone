@@ -10,6 +10,8 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { SET_CURRENT_STATE } from "../redux/AuthModal/type";
 import { commentDeleteAction } from "../redux/Comment/action";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { dark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import {
   upVoteAction,
   downVoteAction,
@@ -24,7 +26,7 @@ import AnswerForm from "../Components/Post/Ans";
 import { answerDeleteAction } from "../redux/Answer/action";
 import { Helmet } from "react-helmet";
 import { DeleteAction } from "../redux/Question/action";
-
+import ReactMarkdown from "react-markdown";
 
 function SingleQues({ id }) {
   const dispatch = useDispatch();
@@ -34,15 +36,12 @@ function SingleQues({ id }) {
   const [showComment, setShowComment] = useState(false);
   const [limit, setLimit] = useState(4);
 
-  useEffect(
-    () => {
-      dispatch(QuesAction(id));
-      if (deleted) {
-        window.location.href = "/";
-      }
-    },
-    [deleted]
-  );
+  useEffect(() => {
+    dispatch(QuesAction(id));
+    if (deleted) {
+      window.location.href = "/";
+    }
+  }, [deleted]);
 
   const loadMore = () => {
     setLimit(limit + 5);
@@ -211,9 +210,29 @@ function SingleQues({ id }) {
                   </button>
                 </div>
                 <div className="column">
-                  <p className="subtitle">{data.description}</p>
+                  <ReactMarkdown
+                    children={data.description}
+                    components={{
+                      code({ node, inline, className, children, ...props }) {
+                        const match = /language-(\w+)/.exec(className || "");
+                        return !inline && match ? (
+                          <SyntaxHighlighter
+                            children={String(children).replace(/\n$/, "")}
+                            style={dark}
+                            language={match[1]}
+                            PreTag="div"
+                            {...props}
+                          />
+                        ) : (
+                          <code className={className} {...props}>
+                            {children}
+                          </code>
+                        );
+                      },
+                    }}
+                  />
 
-                  <div className="is-flex is-justify-content-space-between">
+                  <div className="is-flex is-justify-content-space-between mt-4">
                     <div>
                       {data.tags.map((e, index) => {
                         return (
@@ -265,14 +284,11 @@ function SingleQues({ id }) {
                             : `/users/${data.id}`
                           : `/users/${data.id}`
                       }`}
-                      
                       className="mr-2"
                     >
                       {e.userName}
                     </Link>{" "}
-                    <span >
-                      {timeago.format(e.createdAt)}
-                    </span>
+                    <span>{timeago.format(e.createdAt)}</span>
                     {userInfo !== null && userInfo !== undefined ? (
                       <span className="ml-2 ">
                         {userInfo._id === e.userId ? (
@@ -299,10 +315,7 @@ function SingleQues({ id }) {
             {userInfo !== null && userInfo !== undefined ? (
               <div>
                 {Object.keys(userInfo).length == 0 ? null : (
-                  <a
-                    onClick={() => setShowComment(!showComment)}
-                 
-                  >
+                  <a onClick={() => setShowComment(!showComment)}>
                     Add Comment
                   </a>
                 )}
@@ -311,20 +324,20 @@ function SingleQues({ id }) {
           </div>
           <hr />
           {showComment && <Comment id={id} />}
-          
+
           <div className="ans mt-6">
             {data.answer.length == 0 ? (
               <h1>No answers</h1>
             ) : (
               <>
-              <div className="is-flex mt-4 is-justify-content-space-between">
-            <div>
-              <h1 className="title  is-size-4">Answers</h1>
-            </div>
-          </div>
+                <div className="is-flex mt-4 is-justify-content-space-between">
+                  <div>
+                    <h1 className="title  is-size-4">Answers</h1>
+                  </div>
+                </div>
                 {data.answer.map((e, index) => {
                   return (
-                    <div key={index} className='mt-4'>
+                    <div key={index} className="mt-4">
                       <div className="columns">
                         <div className="column is-1">
                           <button
@@ -399,16 +412,12 @@ function SingleQues({ id }) {
                                   : `/users/${e.userId}`
                                 : `/users/${e.userId}`
                             }`}
-                            
                             className="ml-2"
                           >
                             {e.userName}
                           </Link>
                           {userInfo !== null && userInfo !== undefined ? (
-                            <span
-                              
-                              className="ml-2 "
-                            >
+                            <span className="ml-2 ">
                               {userInfo._id === e.userId ? (
                                 <a
                                   className="has-text-danger"

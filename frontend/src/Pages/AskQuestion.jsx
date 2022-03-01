@@ -57,7 +57,7 @@ function AskQuestion() {
               <label className="label mt-5">Question</label>
               <label>
                 Include all the information someone would need to answer your
-                question
+                question - (Markdown supported)
               </label>
 
               <Field
