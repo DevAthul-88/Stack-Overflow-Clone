@@ -17,6 +17,8 @@ import {
   downVoteAnsAction,
   UnUpVoteAction,
   UnDownVoteAction,
+  UnUpVoteAnsAction,
+  UnDownVoteAnsAction,
 } from "../redux/Vote/action";
 import AnswerForm from "../Components/Post/Ans";
 import { answerDeleteAction } from "../redux/Answer/action";
@@ -75,9 +77,25 @@ function SingleQues({ id }) {
     if (userInfo == null || userInfo == undefined) {
       dispatch({ type: SET_CURRENT_STATE, state: "Login", bool: true });
     } else if (state == "ups") {
-      dispatch(upVoteAnsAction(id, commentId, userInfo._id));
+      data.answer.forEach((e) => {
+        if (e.id == commentId) {
+          if (e.upVote.some((e) => e.userId == userInfo._id)) {
+            dispatch(UnUpVoteAnsAction(id, commentId, userInfo._id));
+          } else {
+            dispatch(upVoteAnsAction(id, commentId, userInfo._id));
+          }
+        }
+      });
     } else {
-      dispatch(downVoteAnsAction(id, commentId, userInfo._id));
+      data.answer.forEach((e) => {
+        if (e.id == commentId) {
+          if (e.downVote.some((e) => e.userId == userInfo._id)) {
+            dispatch(UnDownVoteAnsAction(id, commentId, userInfo._id));
+          } else {
+            dispatch(downVoteAnsAction(id, commentId, userInfo._id));
+          }
+        }
+      });
     }
   };
 
@@ -326,7 +344,7 @@ function SingleQues({ id }) {
                             className={`button vote_btn ${
                               userInfo !== null && userInfo !== undefined
                                 ? e.upVote.some((e) => e.userId == userInfo._id)
-                                  ? "voted disabled"
+                                  ? "voted"
                                   : ""
                                 : null
                             }`}
@@ -335,10 +353,8 @@ function SingleQues({ id }) {
                               userInfo !== undefined && userInfo !== null
                                 ? Object.keys(userInfo).length == 0
                                   ? true
-                                  : e.upVote.some(
-                                      (e) => e.userId == userInfo._id
-                                    )
-                                : ""
+                                  : false
+                                : false
                             }
                           >
                             <span className="icon">
@@ -362,7 +378,7 @@ function SingleQues({ id }) {
                                 ? e.downVote.some(
                                     (e) => e.userId == userInfo._id
                                   )
-                                  ? "voted disabled"
+                                  ? "voted"
                                   : ""
                                 : null
                             }`}
@@ -371,10 +387,8 @@ function SingleQues({ id }) {
                               userInfo !== null && userInfo !== undefined
                                 ? Object.keys(userInfo).length == 0
                                   ? true
-                                  : e.downVote.some(
-                                      (e) => e.userId == userInfo._id
-                                    )
-                                : ""
+                                  : false
+                                : false
                             }
                           >
                             <span className="icon">

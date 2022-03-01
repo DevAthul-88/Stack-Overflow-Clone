@@ -243,6 +243,42 @@ module.exports = {
     }
   },
 
+  upUnVoteAns: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+     
+      await quesSchema.updateOne(
+        { _id: id, "answer.id": req.body.answerId },
+        { $pull: { "answer.$.upVote": { userId: req.body.user } } }
+      );
+
+      const data = await quesSchema.findOne({ _id: id });
+
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+
+  downUnVoteAns: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+     
+      await quesSchema.updateOne(
+        { _id: id, "answer.id": req.body.answerId },
+        { $pull: { "answer.$.downVote": { userId: req.body.user } } }
+      );
+
+      const data = await quesSchema.findOne({ _id: id });
+
+      res.json({ data: data });
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  },
+
   downVoteAns: async (req, res) => {
     try {
       const { id } = req.params;

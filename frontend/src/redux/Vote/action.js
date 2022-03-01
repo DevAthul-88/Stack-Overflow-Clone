@@ -127,4 +127,44 @@ export const downVoteAnsAction =
     }
   };
 
-  
+export const UnUpVoteAnsAction = (postId, answerId, userId) => async (dispatch) => {
+    try {
+      dispatch({ type: VOTE_REQUEST });
+
+      dispatch({ type: SINGLE_REQUEST });
+
+      const { data } = await axios.post(
+        `/api/question/ansUnVote/up/${postId}`,
+        { answerId: answerId, user: userId },
+        config
+      );
+
+      if (data.error)
+        return dispatch({ type: VOTE_ERROR, payload: data.error });
+      dispatch({ type: DOWN_VOTE });
+      dispatch({ type: SINGLE_SUCCESS, payload: data.data });
+    } catch (error) {
+      dispatch({ type: VOTE_ERROR, payload: error.message });
+    }
+  };
+
+  export const UnDownVoteAnsAction = (postId, answerId, userId) => async (dispatch) => {
+    try {
+      dispatch({ type: VOTE_REQUEST });
+
+      dispatch({ type: SINGLE_REQUEST });
+
+      const { data } = await axios.post(
+        `/api/question/ansUnVote/down/${postId}`,
+        { answerId: answerId, user: userId },
+        config
+      );
+
+      if (data.error)
+        return dispatch({ type: VOTE_ERROR, payload: data.error });
+      dispatch({ type: DOWN_VOTE });
+      dispatch({ type: SINGLE_SUCCESS, payload: data.data });
+    } catch (error) {
+      dispatch({ type: VOTE_ERROR, payload: error.message });
+    }
+  };

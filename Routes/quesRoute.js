@@ -15,6 +15,8 @@ Router.route("/upVote/:id").post(auth, quesRoute.upVote);
 Router.route("/UnUpVote/:id").post(auth, quesRoute.UnUpVote);
 Router.route("/UnDownVote/:id").post(auth, quesRoute.UnDownVote);
 Router.route("/ansVote/up/:id").post(auth, quesRoute.upVoteAns);
+Router.route("/ansUnVote/up/:id").post(auth, quesRoute.upUnVoteAns);
+Router.route("/ansUnVote/down/:id").post(auth, quesRoute.downUnVoteAns);
 Router.route("/ansVote/down/:id").post(auth, quesRoute.downVoteAns);
 Router.route("/downVote/:id").post(auth, quesRoute.downVote);
 Router.route("/answer/:id").post(auth, quesRoute.answer);
