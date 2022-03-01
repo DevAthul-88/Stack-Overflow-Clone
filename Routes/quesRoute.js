@@ -24,5 +24,7 @@ Router.route("/tags/f/:id").get(quesRoute.tagsF);
 Router.route("/tags/i/:id").get(quesRoute.tagsI);
 Router.route("/your/ans/newest/:id").get(auth , quesRoute.YourAnswersNewest);
 Router.route("/your/ans/oldest/:id").get(auth , quesRoute.YourAnswersOldest);
+Router.route("/your/ques/oldest/:id").get(auth , quesRoute.YourQuesOldest);
+Router.route("/your/ques/newest/:id").get(auth , quesRoute.YourQuesNewest);
 
 module.exports = Router;

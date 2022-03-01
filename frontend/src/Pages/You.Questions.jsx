@@ -1,6 +1,6 @@
 import React from 'react'
-import Oldest from "./Tabs/Personal/Oldest";
-import Newest from "../Pages/Tabs/Personal/Newest";
+import Oldest from "./Tabs/Personal/Oldest.ques";
+import Newest from "../Pages/Tabs/Personal/Newest.ques";
 import { useState } from 'react'
 import {Helmet} from 'react-helmet'
 import {useSelector} from 'react-redux'
