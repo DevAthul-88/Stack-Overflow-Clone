@@ -25,6 +25,7 @@ import { answerDeleteAction } from "../redux/Answer/action";
 import { Helmet } from "react-helmet";
 import { DeleteAction } from "../redux/Question/action";
 
+
 function SingleQues({ id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.single);
@@ -34,7 +35,7 @@ function SingleQues({ id }) {
   const [limit, setLimit] = useState(4);
 
   useEffect(
-    (e) => {
+    () => {
       dispatch(QuesAction(id));
       if (deleted) {
         window.location.href = "/";
@@ -216,7 +217,7 @@ function SingleQues({ id }) {
                     <div>
                       {data.tags.map((e, index) => {
                         return (
-                          <div className="tag post_tag" key={index}>
+                          <div className="tag post_tag is-medium" key={index}>
                             <Link href={"/tags/" + e}>{e}</Link>
                           </div>
                         );
@@ -264,16 +265,16 @@ function SingleQues({ id }) {
                             : `/users/${data.id}`
                           : `/users/${data.id}`
                       }`}
-                      style={{ fontSize: "10px" }}
+                      
                       className="mr-2"
                     >
                       {e.userName}
                     </Link>{" "}
-                    <span style={{ fontSize: "10px" }}>
+                    <span >
                       {timeago.format(e.createdAt)}
                     </span>
                     {userInfo !== null && userInfo !== undefined ? (
-                      <span style={{ fontSize: "10px" }} className="ml-2 ">
+                      <span className="ml-2 ">
                         {userInfo._id === e.userId ? (
                           <a
                             className="has-text-danger"
@@ -300,7 +301,7 @@ function SingleQues({ id }) {
                 {Object.keys(userInfo).length == 0 ? null : (
                   <a
                     onClick={() => setShowComment(!showComment)}
-                    style={{ fontSize: "10px" }}
+                 
                   >
                     Add Comment
                   </a>
@@ -310,34 +311,20 @@ function SingleQues({ id }) {
           </div>
           <hr />
           {showComment && <Comment id={id} />}
-          <div className="is-flex mt-4 is-justify-content-space-between">
-            <div>
-              <h1 className="title  is-size-4">Answers</h1>
-            </div>
-
-            <div>
-              <div className="field has-addons">
-                <p className="control">
-                  <button className="button is-dark">
-                    <span>Oldest</span>
-                  </button>
-                </p>
-                <p className="control">
-                  <button className="button is-dark">
-                    <span>Score</span>
-                  </button>
-                </p>
-              </div>
-            </div>
-          </div>
+          
           <div className="ans mt-6">
             {data.answer.length == 0 ? (
               <h1>No answers</h1>
             ) : (
               <>
+              <div className="is-flex mt-4 is-justify-content-space-between">
+            <div>
+              <h1 className="title  is-size-4">Answers</h1>
+            </div>
+          </div>
                 {data.answer.map((e, index) => {
                   return (
-                    <div key={index}>
+                    <div key={index} className='mt-4'>
                       <div className="columns">
                         <div className="column is-1">
                           <button
@@ -396,7 +383,7 @@ function SingleQues({ id }) {
                             </span>
                           </button>
                         </div>
-                        <div className="column">
+                        <div className="column section">
                           <h1 className="is-capitalized">{e.answer}</h1>
                         </div>
                       </div>
@@ -412,14 +399,14 @@ function SingleQues({ id }) {
                                   : `/users/${e.userId}`
                                 : `/users/${e.userId}`
                             }`}
-                            style={{ fontSize: "10px" }}
+                            
                             className="ml-2"
                           >
                             {e.userName}
                           </Link>
                           {userInfo !== null && userInfo !== undefined ? (
                             <span
-                              style={{ fontSize: "10px" }}
+                              
                               className="ml-2 "
                             >
                               {userInfo._id === e.userId ? (

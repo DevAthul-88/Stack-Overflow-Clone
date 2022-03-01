@@ -26,7 +26,7 @@ function Card({Data}) {
              )}
              <div>
              <Link href={userInfo._id == e.id ? "/profile" : `/users/${e.id}`} >
-             <a className="blue_text" style={{fontSize:"10px"}}>
+             <a className="blue_text" >
                 {e.userName}
               </a>
              </Link>
@@ -38,7 +38,7 @@ function Card({Data}) {
                   <div >
                   <div className="is-flex ">
                 {e.tags.map((es, index) => {
-                  return <div className="tag post_tag" key={index}>
+                  return <div className="tag post_tag is-medium" key={index}>
                     <Link href={`/tags/${es}`}>
                     {es}
                     </Link>
@@ -47,10 +47,10 @@ function Card({Data}) {
               </div>
                   </div>
                   <div>
-                      <div className="tag ml-2">
+                      <div className="tag ml-2 is-medium">
                           {e.upVote.length} Votes
                       </div>
-                      <div className="tag is-success is-light">
+                      <div className="tag is-success is-light is-medium">
                           {e.answer.length} Answers
                       </div>
                       
