@@ -1,8 +1,56 @@
 import React from 'react'
+import Oldest from "./Tabs/Personal/Oldest";
+import Newest from "../Pages/Tabs/Personal/Newest";
+import { useState } from 'react'
+import {Helmet} from 'react-helmet'
 
-function YouAnswers() {
+function YouAnswers({id}) {
+
+  const [current, setCurrent] = useState("newest");
+
+  const Main = () => {
+    if(current === "newest"){
+      return <Newest  />
+    }
+    else if(current === "oldest"){
+      return <Oldest />
+    }
+    
+  }
+
   return (
-    <div>You.Answers</div>
+    <div className="top">
+      <Helmet>
+        <title>Your answers - Stack Overflow</title>
+      </Helmet>
+    <h1 className="title has-text-weight-bold">Your answers</h1>
+
+    <div className="card">
+      <div className="post-links">
+        <div className="is-flex is-justify-content-space-between p-4 b-b">
+          <a
+            href="#current"
+            className={current == "newest" ? "tab-active" : ""}
+            onClick={() => setCurrent('newest')}
+          >
+            Newest
+          </a>
+          <a
+            href="#oldest"
+            className={current == "oldest" ? "tab-active" : ""}
+            onClick={() => setCurrent('oldest')}
+          >
+            Oldest
+          </a>
+          
+        
+        </div>
+      </div>
+      <div className="p-4 mt-5">
+       <Main />
+      </div>
+    </div>
+  </div>
   )
 }
 

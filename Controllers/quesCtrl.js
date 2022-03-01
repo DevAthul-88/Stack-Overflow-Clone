@@ -307,4 +307,16 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+
+  YourAnswersNewest: async (req, res) => {
+    try {
+      const {id} = req.params
+
+      const data = await quesSchema.find({id:id})
+      res.json({data: data})
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  }
+
 };
