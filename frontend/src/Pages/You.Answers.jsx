@@ -3,14 +3,15 @@ import Oldest from "./Tabs/Personal/Oldest";
 import Newest from "../Pages/Tabs/Personal/Newest";
 import { useState } from 'react'
 import {Helmet} from 'react-helmet'
+import {useSelector} from 'react-redux'
 
-function YouAnswers({id}) {
+function YouAnswers() {
 
   const [current, setCurrent] = useState("newest");
-
+  const {userInfo} = useSelector((state) => state.auth);
   const Main = () => {
     if(current === "newest"){
-      return <Newest  />
+      return <Newest  id={userInfo._id}/>
     }
     else if(current === "oldest"){
       return <Oldest />

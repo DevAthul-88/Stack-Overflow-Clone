@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { newestAction } from "../../../redux/Post/action";
+import { ansNewestAction } from "../../../redux/Personal/action";
 import Card from "../../../Components/Post/Card";
 import Loader from "../../../Components/Loader/Loader";
 
-function Newest() {
+function Newest({id}) {
   const dispatch = useDispatch();
-  const { loading, error, data } = useSelector((state) => state.post);
+  const { loading,  data } = useSelector((state) => state.personal);
   useEffect(() => {
-    dispatch(newestAction());
+    dispatch(ansNewestAction(id));
   }, []);
 
   return (

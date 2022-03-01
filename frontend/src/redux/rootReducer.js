@@ -11,6 +11,7 @@ import commentReducer from "./Comment/reducer";
 import voteReducer from "./Vote/reducer";
 import answerReducer from "./Answer/reducer";
 import TagsPostReducer from "./TagPosts/reducer";
+import personalReducer from "./Personal/reducer";
 
 const root = combineReducers({
   authModal: authModalReducer,
@@ -25,5 +26,6 @@ const root = combineReducers({
   vote: voteReducer,
   answer: answerReducer,
   tagPost: TagsPostReducer,
+  personal: personalReducer,
 });
 export default root;
