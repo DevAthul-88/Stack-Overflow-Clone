@@ -25,11 +25,15 @@ function Card({Data}) {
                </div>
              )}
              <div>
-             <Link href={userInfo._id == e.id ? "/profile" : `/users/${e.id}`} >
+            {userInfo !== undefined && userInfo !== null ?  <Link href={userInfo._id == e.id ? "/profile" : `/users/${e.id}`} >
              <a className="blue_text" >
                 {e.userName}
               </a>
-             </Link>
+             </Link> : <Link href={`/users/${e.id}`} >
+             <a className="blue_text" >
+                {e.userName}
+              </a>
+             </Link>}
              </div>
              </div>
 

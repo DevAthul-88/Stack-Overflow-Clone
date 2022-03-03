@@ -1,5 +1,4 @@
 import React from "react";
-import RightContainer from "../Components/RightContainer";
 import QuesContainer from "../Components/QuesContainer";
 import { Helmet } from "react-helmet";
 
@@ -10,14 +9,12 @@ function Questions() {
         <title>Questions - Stack Overflow</title>
         <meta name="description" content="questions stack overflow" />
       </Helmet>
-      <div className="column is-9">
+      <div className="column">
         <div>
           <QuesContainer />
         </div>
       </div>
-      <div className="column is-hidden-mobile">
-        <RightContainer />
-      </div>
+      
     </div>
   );
 }

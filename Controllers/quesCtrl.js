@@ -1,8 +1,7 @@
 const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
-const { findById, findOne } = require("../Schema/quesSchema");
-const res = require("express/lib/response");
+
 
 module.exports = {
   create: async (req, res) => {

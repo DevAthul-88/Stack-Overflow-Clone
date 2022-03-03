@@ -12,6 +12,7 @@ function Comment({ id }) {
 
   return (
     <div className="mt-4">
+      <label htmlFor="" className="label">Define your answer - (Markdown supported)</label>
       <Formik
         initialValues={{
           id:uuidv4(),
