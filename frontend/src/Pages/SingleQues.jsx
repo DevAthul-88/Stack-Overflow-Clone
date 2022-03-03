@@ -211,6 +211,7 @@ function SingleQues({ id }) {
                 </div>
                 <div className="column">
  
+                 <div className="subtitle">
                  <ReactMarkdown
                     children={data.description}
                     components={{
@@ -235,6 +236,7 @@ function SingleQues({ id }) {
                       },
                     }}
                   />
+                 </div>
              
 
                   <div className="is-flex is-justify-content-space-between mt-4">
@@ -402,6 +404,7 @@ function SingleQues({ id }) {
                           </button>
                         </div>
                         <div className="column section">
+                        <div className="subtitle">
                         <ReactMarkdown
                     children={e.answer}
                     components={{
@@ -426,6 +429,7 @@ function SingleQues({ id }) {
                       },
                     }}
                   />
+                        </div>
                         </div>
                       </div>
                       <div className="is-flex is-justify-content-space-between">
