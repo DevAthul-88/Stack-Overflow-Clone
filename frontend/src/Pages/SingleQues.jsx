@@ -434,7 +434,7 @@ function SingleQues({ id }) {
                       </div>
                       <div className="is-flex is-justify-content-space-between">
                         <div>
-                          <span>{timeago.format(e.createdAt)}</span>
+                          <span>{timeago.format(e.date)}</span>
 
                           <Link
                             href={`${

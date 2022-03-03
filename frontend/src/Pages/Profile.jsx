@@ -36,26 +36,20 @@ function Profile() {
         <div className="column is-4">
           <h1>Stats</h1>
           <div className="card profile_card is-shadowless mt-4 p-4">
-            <nav className="level  is-mobile">
-              <div className="level-item">
-                <div>
-                  <p className="heading">Reputation</p>
-                  <p className="is-size-5">{userInfo.reputation}</p>
-                </div>
-              </div>
-              <div className="level-item">
-                <div>
-                  <p className="heading">Questions</p>
-                  <p className="is-size-5">0</p>
-                </div>
-              </div>
-            </nav>
+          
 
             <nav className="level is-mobile">
               <div className="level-item">
                 <div>
                   <p className="heading">Answers</p>
                   <p className="is-size-5">{userInfo.reputation}</p>
+                </div>
+              </div>
+
+              <div className="level-item">
+                <div>
+                  <p className="heading">Questions</p>
+                  <p className="is-size-5">0</p>
                 </div>
               </div>
             </nav>

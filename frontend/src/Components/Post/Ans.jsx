@@ -22,7 +22,6 @@ function Comment({ id }) {
           replies:[],
           upVote:[],
           downVote:[],
-          date: new Date(),
         }}
         validationSchema={AnswerSchema}
         onSubmit={(values) => {

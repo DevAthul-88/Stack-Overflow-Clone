@@ -2,6 +2,13 @@ const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
 
+const options = { 
+  month: '2-digit', 
+  day: '2-digit',
+  year: 'numeric', 
+};
+
+
 
 module.exports = {
   create: async (req, res) => {
@@ -67,12 +74,13 @@ module.exports = {
     }
   },
   comment: async (req, res) => {
+  
     try {
       const comment = {
         comment: req.body.comment,
         userId: req.body.userId,
         userName: req.body.userName,
-        date: req.body.date,
+        createdAt: Date.now(),
         commentId: uuid(),
       };
       await quesSchema.updateOne(
@@ -142,7 +150,6 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
-
 
   UnDownVote: async (req, res) => {
     try {
@@ -246,7 +253,6 @@ module.exports = {
     try {
       const { id } = req.params;
 
-     
       await quesSchema.updateOne(
         { _id: id, "answer.id": req.body.answerId },
         { $pull: { "answer.$.upVote": { userId: req.body.user } } }
@@ -264,7 +270,6 @@ module.exports = {
     try {
       const { id } = req.params;
 
-     
       await quesSchema.updateOne(
         { _id: id, "answer.id": req.body.answerId },
         { $pull: { "answer.$.downVote": { userId: req.body.user } } }
