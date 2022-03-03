@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import * as timeago from "timeago.js";
 import { Link } from "wouter";
-import Helmet from 'react-helmet'
+import Helmet from "react-helmet";
+import axios from "axios";
 
 function Profile() {
   const { userInfo } = useSelector((state) => state.auth);
+  const [count, setCount] = useState({});
+
+  useEffect(() => {
+    const fetchCount = async () => {
+      const ds = await axios.get(`/api/question/count/${userInfo._id}`);
+      setCount(ds.data);
+    };
+    fetchCount();
+  }, []);
   return (
     <div>
       <Helmet>
@@ -36,20 +46,17 @@ function Profile() {
         <div className="column is-4">
           <h1>Stats</h1>
           <div className="card profile_card is-shadowless mt-4 p-4">
-          
-
-            <nav className="level is-mobile">
+            <nav className="level  is-mobile">
+              <div className="level-item">
+                <div>
+                  <p className="heading">Reputation</p>
+                  <p className="is-size-5">{count.quesCount}</p>
+                </div>
+              </div>
               <div className="level-item">
                 <div>
                   <p className="heading">Answers</p>
-                  <p className="is-size-5">{userInfo.reputation}</p>
-                </div>
-              </div>
-
-              <div className="level-item">
-                <div>
-                  <p className="heading">Questions</p>
-                  <p className="is-size-5">0</p>
+                  <p className="is-size-5">{count.ansCount}</p>
                 </div>
               </div>
             </nav>
@@ -76,10 +83,7 @@ function Profile() {
         </div>
       </div>
       <hr />
-      <div>
-      
-
-      </div>
+      <div></div>
     </div>
   );
 }

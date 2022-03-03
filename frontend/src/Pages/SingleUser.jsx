@@ -13,6 +13,7 @@ function SingleUser({ id }) {
   const dispatch = useDispatch();
   const { loading, error, profile } = useSelector((state) => state.profile);
   const [post, setPost] = useState([]);
+  const [count , setCount] = useState({})
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
@@ -20,7 +21,8 @@ function SingleUser({ id }) {
 
     const fetchPosts = async () => {
       const { data } = await axios.get(`/api/question/user/post/${id}`);
-
+      const ds = await axios.get(`/api/question/count/${id}`);
+      setCount(ds.data)
       setPost(data.data);
       setLoader(false);
     };
@@ -81,25 +83,17 @@ function SingleUser({ id }) {
                           <div className="level-item">
                             <div>
                               <p className="heading">Reputation</p>
-                              <p className="is-size-5">{profile.reputation}</p>
+                              <p className="is-size-5">{count.quesCount}</p>
                             </div>
                           </div>
-                          <div className="level-item">
+                            <div className="level-item">
                             <div>
-                              <p className="heading">Questions</p>
-                              <p className="is-size-5">0</p>
+                              <p className="heading">Answers</p>
+                              <p className="is-size-5">{count.ansCount}</p>
                             </div>
                           </div>
                         </nav>
 
-                        <nav className="level is-mobile">
-                          <div className="level-item">
-                            <div>
-                              <p className="heading">Answers</p>
-                              <p className="is-size-5">{profile.reputation}</p>
-                            </div>
-                          </div>
-                        </nav>
                       </div>
                     </div>
 
@@ -128,17 +122,23 @@ function SingleUser({ id }) {
                       </div>
                     ) : (
                       <>
-                        { post !== undefined ? (
+                        {post !== undefined ? (
                           <>
-                            { post.length > 0 ? <div className="mt-6">
-                              <Card Data={post} />
-                            </div> : <div className="card p-4 is-shadowless profile_card mt-4">
-                        <h1>This user hasn’t posted yet.</h1>
-                      </div> }
+                            {post.length > 0 ? (
+                              <div className="mt-6">
+                                <Card Data={post} />
+                              </div>
+                            ) : (
+                              <div className="card p-4 is-shadowless profile_card mt-4">
+                                <h1>This user hasn’t posted yet.</h1>
+                              </div>
+                            )}
                           </>
-                        ) :  <div className="card p-4 is-shadowless profile_card mt-4">
-                        <h1>This user hasn’t posted yet.</h1>
-                      </div> }
+                        ) : (
+                          <div className="card p-4 is-shadowless profile_card mt-4">
+                            <h1>This user hasn’t posted yet.</h1>
+                          </div>
+                        )}
                       </>
                     )}
                   </div>

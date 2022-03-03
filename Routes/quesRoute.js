@@ -31,5 +31,6 @@ Router.route("/your/ans/oldest/:id").get(auth, quesRoute.YourAnswersOldest);
 Router.route("/your/ques/oldest/:id").get(auth, quesRoute.YourQuesOldest);
 Router.route("/your/ques/newest/:id").get(auth, quesRoute.YourQuesNewest);
 Router.route("/user/post/:id").get(quesRoute.allPostsByUser);
+Router.route("/count/:id").get(quesRoute.getCount);
 
 module.exports = Router;
