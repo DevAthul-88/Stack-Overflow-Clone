@@ -1,27 +1,25 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Logo from "../../assets/logo-stackoverflow.svg";
-import { SET_CURRENT_STATE} from "../../redux/AuthModal/type";
-import {useSelector} from 'react-redux'
+import { SET_CURRENT_STATE } from "../../redux/AuthModal/type";
+import { useSelector } from "react-redux";
 import { Link } from "wouter";
 import ActiveLink from "../../Components/ActiveLink";
 
-
 function Navbar() {
-  const {userInfo} = useSelector((state) => state.auth )
-
+  const { userInfo } = useSelector((state) => state.auth);
+  const [active, setActive] = useState(false);
   const LogOut = () => {
-    localStorage.clear()
-    window.location.href = '/'
-  }
+    localStorage.clear();
+    window.location.href = "/";
+  };
   return (
     <div className="nav">
-      <div className="navbar  has-shadow is-fixed-top">
+      <div className="navbar   has-shadow is-fixed-top">
         <div className="navbar-brand ml-4">
-          <Link href="/" >
+          <Link href="/">
             <a className="navbar-item">
               <img src={Logo} alt="logo" className="nav-img" />
             </a>
-            
           </Link>
 
           <a
@@ -30,6 +28,7 @@ function Navbar() {
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
+            onClick={() => setActive(!active)}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -37,43 +36,85 @@ function Navbar() {
           </a>
         </div>
 
-        <div className="navbar-menu mr-4">
-        <div className="navbar-end">
-          <div className="navbar-item">
-            <Link href="/ask" className="button nav_ask is-small">
-              <span className="icon">
-                <i className="fa fa-plus" aria-hidden="true"></i>
-              </span>
-              <span>
-               Ask Question
-              </span>
-            </Link>
+        <div className={`navbar-menu mr-4 ${active ? "is-active" : ""}`}>
+          <div className="navbar-end">
+            <div className="navbar-item">
+              <Link href="/ask" className="button nav_ask is-small">
+                <span className="icon">
+                  <i className="fa fa-plus" aria-hidden="true"></i>
+                </span>
+                <span>Ask Question</span>
+              </Link>
+            </div>
+
+            <div className="navbar-item has-dropdown is-hoverable">
+              <a className="navbar-link is-hidden-desktop">MENU</a>
+
+              <div className="navbar-dropdown">
+                <Link href="/" className="navbar-item">
+                  Questions
+                </Link>
+                <Link href="/tags" className="navbar-item">
+                  Tags
+                </Link>
+                <Link href="/users" className="navbar-item">
+                  Users
+                </Link>
+              </div>
+            </div>
+
+            <div className="navbar-item has-dropdown is-hoverable">
+              <a className="navbar-link is-hidden-desktop">DASHBOARD</a>
+
+              <div className="navbar-dropdown">
+                <Link href="/profile" className="navbar-item">
+                  Profile
+                </Link>
+                <Link href="/questions" className="navbar-item">
+                  Your Questions
+                </Link>
+                <Link href="/answers" className="navbar-item">
+                  Your Answers
+                </Link>
+                <Link href="/profile/settings" className="navbar-item">
+                  Settings
+                </Link>
+              </div>
+            </div>
+
+            <div className="navbar-item is-hidden-touch">
+              <Link href="/profile">
+                <img
+                  src={`https://secure.gravatar.com/avatar/${userInfo._id}?s=164&d=identicon`}
+                  alt=""
+                  className="avatar_nav"
+                  title={`${userInfo.userName}`}
+                />
+              </Link>
+            </div>
+            <div className="navbar-item has-dropdown is-hoverable ">
+              <a className="navbar-link is-arrowless">
+                <i
+                  className="fab fa-stack-exchange fa-lg"
+                  aria-hidden="true"
+                ></i>
+              </a>
+
+              <div className="navbar-dropdown is-right">
+                <Link href="/profile" className="navbar-item">
+                  Profile
+                </Link>
+                <hr className="navbar-divider" />
+                <div className="navbar-item is-danger" onClick={LogOut}>
+                  <a className="is-danger">Logout</a>
+                </div>
+              </div>
+            </div>
           </div>
-        <div className="navbar-item">
-        <Link href="/profile" >
-            <img src={`https://secure.gravatar.com/avatar/${userInfo._id}?s=164&d=identicon`} alt="" className="avatar_nav" title={`${userInfo.userName}`}/>
-          </Link>
-        </div>
-        <div className="navbar-item has-dropdown is-hoverable ">
-    <a className="navbar-link is-arrowless">
-     <i className="fab fa-stack-exchange fa-lg" aria-hidden="true"></i>
-    </a>
-
-    <div className="navbar-dropdown is-right">
-      <Link href="/profile" className="navbar-item">
-       Profile
-      </Link>
-      <hr className="navbar-divider" />
-      <div className="navbar-item is-danger" onClick={LogOut}>
-        <a className="is-danger">Logout</a>
-      </div>
-    </div>
-  </div>
-        </div>
         </div>
       </div>
 
-      <aside className="menu mt-6  ml-5 is-hidden-mobile is-fullwidth sidebar">
+      <aside className="menu mt-6  ml-5 is-hidden-touch is-fullwidth sidebar">
         <ul className="menu-list mt-6"></ul>
         <p className="menu-label">MENU</p>
         <ul className="menu-list">
@@ -154,7 +195,6 @@ function Navbar() {
           </li>
         </ul>
       </aside>
-     
     </div>
   );
 }

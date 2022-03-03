@@ -22,7 +22,7 @@ function Home() {
         <Navbar />
       </div>
 
-      <div className="wrapper  section container  column  mt-6">
+      <div className="wrapper  section container  column  mt-6 ">
         <Switch>
           <Route path="/" component={Questions} />
 
@@ -50,9 +50,6 @@ function Home() {
           <NestedRoutes base="/profile">
             <Route path="/settings" component={Settings} />
           </NestedRoutes>
-
-          
-
         </Switch>
       </div>
     </div>

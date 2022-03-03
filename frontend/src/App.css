@@ -20,7 +20,7 @@ body{
 }
 
 
-.is-active {
+.active {
   background: #fcf5ed !important;
   color: #000 !important;
   border-right: 4px solid #f48225;
