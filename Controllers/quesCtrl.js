@@ -436,4 +436,16 @@ module.exports = {
       res.json({ error: error.message });
     }
   },
+
+  getCount: async (req, res) => {
+    try {
+      const {id} = req.params;
+      const quesCount = await quesSchema.find({ id: id }).count();
+      const ansCount = await quesSchema
+        .find({ "answer.userId": id }).count()
+       res.json({quesCount: quesCount , ansCount:ansCount})
+    } catch (error) {
+      res.json({ error: error.message });
+    }
+  }
 };

@@ -7,7 +7,6 @@ import Loader from "../Components/Loader/Loader";
 import { Helmet } from "react-helmet";
 import * as timeago from "timeago.js";
 import axios from "axios";
-import Auth from "../Config/header";
 import Card from "../Components/Post/Card";
 
 function SingleUser({ id }) {
@@ -20,14 +19,13 @@ function SingleUser({ id }) {
     dispatch(profileAction(id));
 
     const fetchPosts = async () => {
-      const { data } = await axios.get(`/api/question/user/post/${id}`, Auth);
+      const { data } = await axios.get(`/api/question/user/post/${id}`);
 
       setPost(data.data);
       setLoader(false);
     };
     fetchPosts();
   }, []);
-
   return (
     <div>
       {profile == null ? (
@@ -130,15 +128,17 @@ function SingleUser({ id }) {
                       </div>
                     ) : (
                       <>
-                        {post !== null && post.length > 0 ? (
-                          <div className="mt-4">
-                            <Card Data={post}/>
-                          </div>
-                        ) : (
-                          <div className="card p-4 is-shadowless profile_card mt-4">
-                            <h1>This user hasn’t posted yet.</h1>
-                          </div>
-                        )}
+                        { post !== undefined ? (
+                          <>
+                            { post.length > 0 ? <div className="mt-6">
+                              <Card Data={post} />
+                            </div> : <div className="card p-4 is-shadowless profile_card mt-4">
+                        <h1>This user hasn’t posted yet.</h1>
+                      </div> }
+                          </>
+                        ) :  <div className="card p-4 is-shadowless profile_card mt-4">
+                        <h1>This user hasn’t posted yet.</h1>
+                      </div> }
                       </>
                     )}
                   </div>

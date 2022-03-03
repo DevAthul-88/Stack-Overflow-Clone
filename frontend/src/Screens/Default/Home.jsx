@@ -17,7 +17,7 @@ function Home() {
         <Navbar />
       </div>
 
-      <div className="wrapper  section container   column mt-6">
+      <div className="wrapper  section container    mt-6">
         <Modal />
         <Switch>
           <Route path="/" component={Questions} />

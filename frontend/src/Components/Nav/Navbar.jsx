@@ -7,6 +7,7 @@ import {Link} from 'wouter'
 
 function Navbar() {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(false);
   return (
     <div className="nav">
       <div className="navbar  has-shadow is-fixed-top">
@@ -23,6 +24,7 @@ function Navbar() {
             aria-label="menu"
             aria-expanded="false"
             data-target="navbarBasicExample"
+            onClick={() => setActive(!active)}
           >
             <span aria-hidden="true"></span>
             <span aria-hidden="true"></span>
@@ -30,8 +32,25 @@ function Navbar() {
           </a>
         </div>
 
-        <div className="navbar-menu mr-4">
+        <div className={`navbar-menu mr-4 ${active ? "is-active" : ""}`}>
           <div className="navbar-end">
+
+          <div className="navbar-item has-dropdown is-hoverable">
+              <a className="navbar-link is-hidden-desktop">MENU</a>
+
+              <div className="navbar-dropdown">
+                <Link href="/" className="navbar-item">
+                  Questions
+                </Link>
+                <Link href="/tags" className="navbar-item">
+                  Tags
+                </Link>
+                <Link href="/users" className="navbar-item">
+                  Users
+                </Link>
+              </div>
+            </div>
+
             <div className="navbar-item">
               <button className="button nav-btn-2" onClick={() => dispatch({type:SET_CURRENT_STATE ,state:"Login" , bool:true})}>
                 Login
