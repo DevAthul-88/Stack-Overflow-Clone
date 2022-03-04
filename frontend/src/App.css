@@ -217,3 +217,9 @@ a{
 .voted:focus{
   color: #f48225;
 }
+.images {
+  width: auto;
+  height: auto;
+  max-width: 200px;
+  max-height: 200px;
+}

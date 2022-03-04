@@ -184,7 +184,7 @@ function Navbar() {
             </ActiveLink>
           </li>
           <li>
-            <ActiveLink href="/profile/settings">
+            <ActiveLink href="/settings">
               <span className="icon-text">
                 <span className="icon">
                   <i className="fa fa-cog" aria-hidden="true"></i>

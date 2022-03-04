@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Card from "../Components/Post/Card";
-import Interesting from '../Pages/Tabs/Interesting'
+import Interesting from "../Pages/Tabs/Interesting";
 import Featured from "../Pages/Tabs/Featured";
 import Newest from "../Pages/Tabs/Newest";
 
@@ -8,17 +8,14 @@ function QuesHeader() {
   const [current, setCurrent] = useState("newest");
 
   const Main = () => {
-    if(current === "newest"){
-      return <Newest />
+    if (current === "newest") {
+      return <Newest />;
+    } else if (current === "interesting") {
+      return <Interesting />;
+    } else if (current === "featured") {
+      return <Featured />;
     }
-    else if(current === "interesting"){
-      return <Interesting />
-    }
-    else if(current === "featured"){
-      return <Featured />
-    }
-    
-  }
+  };
 
   return (
     <div className="top">
@@ -30,29 +27,29 @@ function QuesHeader() {
             <a
               href="#current"
               className={current == "newest" ? "tab-active" : ""}
-              onClick={() => setCurrent('newest')}
+              onClick={() => setCurrent("newest")}
             >
               Newest
             </a>
             <a
               href="#featured"
               className={current == "featured" ? "tab-active" : ""}
-              onClick={() => setCurrent('featured')}
+              onClick={() => setCurrent("featured")}
             >
               Featured
             </a>
-            
+
             <a
               href="#interesting"
               className={current == "interesting" ? "tab-active" : ""}
-              onClick={() => setCurrent('interesting')}
+              onClick={() => setCurrent("interesting")}
             >
               Interesting
             </a>
           </div>
         </div>
         <div className="p-4 mt-5">
-         <Main />
+          <Main />
         </div>
       </div>
     </div>

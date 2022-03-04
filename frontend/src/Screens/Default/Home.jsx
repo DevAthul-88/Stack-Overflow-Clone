@@ -8,7 +8,7 @@ import Modal from "../../Components/Modal/Main";
 import SingleUser from '../../Pages/SingleUser';
 import SingleQues from "../../Pages/SingleQues";
 import TagsQues from '../../Pages/TagsQues'
-
+import notfound from "../../Pages/notfound";
 
 function Home() {
   return (
@@ -32,6 +32,7 @@ function Home() {
           <Route path="/question/:id"> 
           {(params) => <SingleQues id={params.id}/>}
           </Route>
+          <Route path="/:rest*" component={notfound}/>
         </Switch>
       </div>
     </div>

@@ -71,7 +71,7 @@ function Profile() {
                 <h3 className="has-text-centered">
                   Your about me section is currently blank. Would you like to
                   add one?{" "}
-                  <Link href="/profile/settings" className=" blue_text">
+                  <Link href="/settings" className=" blue_text">
                     Edit profile
                   </Link>
                 </h3>

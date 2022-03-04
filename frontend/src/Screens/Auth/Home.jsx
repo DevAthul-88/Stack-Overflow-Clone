@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "../../Components/Nav/NavbarAuth";
 import { Switch, Route, Router } from "wouter";
-import NestedRoutes from "../../Components/NestedRoutes";
 import Tags from "../../Pages/Tags";
 import Questions from "../../Pages/Questions";
 import Profile from "../../Pages/Profile";
@@ -14,6 +13,7 @@ import AskQuestion from "../../Pages/AskQuestion";
 import SingleQues from "../../Pages/SingleQues";
 import EditQues from "../../Pages/EditQues";
 import TagsQues from "../../Pages/TagsQues";
+import notfound from "../../Pages/notfound";
 
 function Home() {
   return (
@@ -47,9 +47,8 @@ function Home() {
           <Route path="/questions" component={YouQuestions} />
           <Route path="/answers" component={MeAnswers} />
 
-          <NestedRoutes base="/profile">
-            <Route path="/settings" component={Settings} />
-          </NestedRoutes>
+          <Route path="/settings" component={Settings} />
+          <Route path="/:rest*" component={notfound} />
         </Switch>
       </div>
     </div>
