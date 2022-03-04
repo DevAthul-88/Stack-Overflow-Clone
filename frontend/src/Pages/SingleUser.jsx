@@ -13,7 +13,7 @@ function SingleUser({ id }) {
   const dispatch = useDispatch();
   const { loading, error, profile } = useSelector((state) => state.profile);
   const [post, setPost] = useState([]);
-  const [count , setCount] = useState({})
+  const [count, setCount] = useState({});
   const [loader, setLoader] = useState(true);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ function SingleUser({ id }) {
     const fetchPosts = async () => {
       const { data } = await axios.get(`/api/question/user/post/${id}`);
       const ds = await axios.get(`/api/question/count/${id}`);
-      setCount(ds.data)
+      setCount(ds.data);
       setPost(data.data);
       setLoader(false);
     };
@@ -86,14 +86,13 @@ function SingleUser({ id }) {
                               <p className="is-size-5">{count.quesCount}</p>
                             </div>
                           </div>
-                            <div className="level-item">
+                          <div className="level-item">
                             <div>
                               <p className="heading">Answers</p>
                               <p className="is-size-5">{count.ansCount}</p>
                             </div>
                           </div>
                         </nav>
-
                       </div>
                     </div>
 

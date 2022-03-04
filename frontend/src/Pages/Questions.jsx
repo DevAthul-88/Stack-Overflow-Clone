@@ -14,7 +14,6 @@ function Questions() {
           <QuesContainer />
         </div>
       </div>
-      
     </div>
   );
 }

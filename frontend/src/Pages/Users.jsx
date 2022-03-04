@@ -93,12 +93,11 @@ function Users() {
                   </div>
                 );
               })}
-               {allUsers.length == 0 ? <h1>No user found</h1> : null}
+              {allUsers.length == 0 ? <h1>No user found</h1> : null}
             </div>
           ) : (
             <h1>Nothing Found</h1>
           )}
-         
         </div>
       )}
     </div>

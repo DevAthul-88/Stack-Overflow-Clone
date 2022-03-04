@@ -210,34 +210,31 @@ function SingleQues({ id }) {
                   </button>
                 </div>
                 <div className="column">
- 
-                 <div className="subtitle">
-                 <ReactMarkdown
-                    children={data.description}
-                    components={{
-                      code({ node, inline, className, children, ...props }) {
-                        const match = /language-(\w+)/.exec(className || "");
-                        return !inline && match ? (
-                          <SyntaxHighlighter
-                            children={String(children).replace(/\n$/, "")}
-                            style={prism}
-                            showLineNumbers
-                            language={match[1]}
-                            PreTag="div"
-                            customStyle={{background:"none"}}
-                            {...props}
-                            
-                          />
-                        ) : (
-                          <code className={className} {...props} >
-                            {children}
-                          </code>
-                        );
-                      },
-                    }}
-                  />
-                 </div>
-             
+                  <div className="subtitle">
+                    <ReactMarkdown
+                      children={data.description}
+                      components={{
+                        code({ node, inline, className, children, ...props }) {
+                          const match = /language-(\w+)/.exec(className || "");
+                          return !inline && match ? (
+                            <SyntaxHighlighter
+                              children={String(children).replace(/\n$/, "")}
+                              style={prism}
+                              showLineNumbers
+                              language={match[1]}
+                              PreTag="div"
+                              customStyle={{ background: "none" }}
+                              {...props}
+                            />
+                          ) : (
+                            <code className={className} {...props}>
+                              {children}
+                            </code>
+                          );
+                        },
+                      }}
+                    />
+                  </div>
 
                   <div className="is-flex is-justify-content-space-between mt-4">
                     <div>
@@ -404,32 +401,42 @@ function SingleQues({ id }) {
                           </button>
                         </div>
                         <div className="column section">
-                        <div className="subtitle">
-                        <ReactMarkdown
-                    children={e.answer}
-                    components={{
-                      code({ node, inline, className, children, ...props }) {
-                        const match = /language-(\w+)/.exec(className || "");
-                        return !inline && match ? (
-                          <SyntaxHighlighter
-                            children={String(children).replace(/\n$/, "")}
-                            style={prism}
-                            showLineNumbers
-                            language={match[1]}
-                            PreTag="div"
-                            customStyle={{background:"none"}}
-                            {...props}
-                            
-                          />
-                        ) : (
-                          <code className={className} {...props} >
-                            {children}
-                          </code>
-                        );
-                      },
-                    }}
-                  />
-                        </div>
+                          <div className="subtitle">
+                            <ReactMarkdown
+                              children={e.answer}
+                              components={{
+                                code({
+                                  node,
+                                  inline,
+                                  className,
+                                  children,
+                                  ...props
+                                }) {
+                                  const match = /language-(\w+)/.exec(
+                                    className || ""
+                                  );
+                                  return !inline && match ? (
+                                    <SyntaxHighlighter
+                                      children={String(children).replace(
+                                        /\n$/,
+                                        ""
+                                      )}
+                                      style={prism}
+                                      showLineNumbers
+                                      language={match[1]}
+                                      PreTag="div"
+                                      customStyle={{ background: "none" }}
+                                      {...props}
+                                    />
+                                  ) : (
+                                    <code className={className} {...props}>
+                                      {children}
+                                    </code>
+                                  );
+                                },
+                              }}
+                            />
+                          </div>
                         </div>
                       </div>
                       <div className="is-flex is-justify-content-space-between">

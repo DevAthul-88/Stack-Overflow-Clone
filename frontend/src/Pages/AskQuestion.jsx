@@ -1,20 +1,19 @@
 import React from "react";
-import {Helmet} from "react-helmet"
+import { Helmet } from "react-helmet";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import QuestionSchema from "../Schema/Question";
-import {useDispatch , useSelector} from 'react-redux'
-import {createAction} from '../redux/Question/action'
-import Alert from '../Components/Alert';
-
+import { useDispatch, useSelector } from "react-redux";
+import { createAction } from "../redux/Question/action";
+import Alert from "../Components/Alert";
 
 function AskQuestion() {
-  const dispatch = useDispatch()
-  const {loading , created} = useSelector((state) => state.question)
-  
+  const dispatch = useDispatch();
+  const { loading, created } = useSelector((state) => state.question);
+
   return (
     <div>
       {created && (
-        <Alert type="is-success" message="Post created successfully" trigger/>
+        <Alert type="is-success" message="Post created successfully" trigger />
       )}
       <Helmet>
         <title>Ask a question - Stack Overflow</title>
@@ -26,9 +25,9 @@ function AskQuestion() {
           tags: "",
         }}
         validationSchema={QuestionSchema}
-        onSubmit={(values , {resetForm}) => {
-          dispatch(createAction(QuestionSchema.cast(values)))
-           resetForm({})
+        onSubmit={(values, { resetForm }) => {
+          dispatch(createAction(QuestionSchema.cast(values)));
+          resetForm({});
         }}
       >
         {({ errors, touched }) => (
@@ -94,7 +93,10 @@ function AskQuestion() {
                 <label className="label has-text-danger">{errors.tags}</label>
               ) : null}
             </div>
-            <button className={`nav-btn button ${loading ? "is-loading" : ""}`} type="submit">
+            <button
+              className={`nav-btn button ${loading ? "is-loading" : ""}`}
+              type="submit"
+            >
               Submit
             </button>
           </Form>

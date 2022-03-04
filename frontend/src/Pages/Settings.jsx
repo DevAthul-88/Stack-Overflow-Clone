@@ -1,4 +1,4 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ProfileSchema from "../Schema/editProfile";
@@ -9,20 +9,20 @@ import Alert from "../Components/Alert";
 function Settings() {
   const dispatch = useDispatch();
   const { loading, userInfo } = useSelector((state) => state.auth);
-  const { loadings, user , error , edited } = useSelector((state) => state.profile);
- 
+  const { loadings, user, error, edited } = useSelector(
+    (state) => state.profile
+  );
+
   useEffect(() => {
-    if(edited){
-    localStorage.setItem("user_stack" , JSON.stringify(user))
-    window.location.reload();
+    if (edited) {
+      localStorage.setItem("user_stack", JSON.stringify(user));
+      window.location.reload();
     }
-  },[edited])
+  }, [edited]);
 
   return (
     <div>
-      {error && (
-        <Alert type="is-danger" message={`${error}`} trigger />
-      )}
+      {error && <Alert type="is-danger" message={`${error}`} trigger />}
       <Helmet>
         <title>Settings - Stack Overflow</title>
       </Helmet>
@@ -30,7 +30,7 @@ function Settings() {
         initialValues={{
           userName: userInfo.userName,
           about: userInfo.about == null ? "" : userInfo.about,
-          email:userInfo.email
+          email: userInfo.email,
         }}
         validationSchema={ProfileSchema}
         onSubmit={(values) => {
@@ -71,9 +71,7 @@ function Settings() {
               />
 
               {errors.email && touched.email ? (
-                <label className="label has-text-danger">
-                  {errors.email}
-                </label>
+                <label className="label has-text-danger">{errors.email}</label>
               ) : null}
 
               <label className="label mt-5">About - (optional)</label>
