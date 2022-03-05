@@ -4,7 +4,6 @@ import { interestingAction } from "../../redux/Post/action";
 import Card from "../../Components/Post/Card";
 import Loader from "../../Components/Loader/Loader";
 
-
 function Interesting() {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.post);

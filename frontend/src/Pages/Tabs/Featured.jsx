@@ -4,7 +4,6 @@ import { featuredAction } from "../../redux/Post/action";
 import Card from "../../Components/Post/Card";
 import Loader from "../../Components/Loader/Loader";
 
-
 function Featured() {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.post);
