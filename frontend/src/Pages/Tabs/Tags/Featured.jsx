@@ -4,8 +4,7 @@ import { tagPostFeaturedAction } from "../../../redux/TagPosts/action";
 import Card from "../../../Components/Post/Card";
 import Loader from "../../../Components/Loader/Loader";
 
-
-function Featured({Id}) {
+function Featured({ Id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.tagPost);
   useEffect(() => {

@@ -4,8 +4,7 @@ import { tagPostInterestingAction } from "../../../redux/TagPosts/action";
 import Card from "../../../Components/Post/Card";
 import Loader from "../../../Components/Loader/Loader";
 
-
-function Interesting({Id}) {
+function Interesting({ Id }) {
   const dispatch = useDispatch();
   const { loading, error, data } = useSelector((state) => state.tagPost);
   useEffect(() => {
