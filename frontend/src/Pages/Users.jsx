@@ -75,15 +75,19 @@ function Users() {
                         />
                       </div>
                       <div className="ml-4">
-                        <Link
-                          href={
-                            userInfo._id == e._id
-                              ? `/profile`
-                              : `/users/${e._id}`
-                          }
-                        >
-                          {e.userName}
-                        </Link>
+                        {userInfo !== undefined && userInfo !== null ? (
+                          <Link
+                            href={
+                              userInfo._id == e._id
+                                ? `/profile`
+                                : `/users/${e._id}`
+                            }
+                          >
+                            {e.userName}
+                          </Link>
+                        ) : (
+                          <Link href={`/users/${e._id}`}>{e.userName}</Link>
+                        )}
 
                         <span className="is-block">
                           {timeago.format(e.createdAt)}
