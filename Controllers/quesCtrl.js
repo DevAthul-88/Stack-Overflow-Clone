@@ -12,16 +12,19 @@ module.exports = {
 
       const tag = await tags.map((e) => {
         return {
-          name: e,
+          name: e.trim(),
         };
       });
+
+
+
 
       const Ques = new quesSchema({
         id: req.user._id,
         userName: req.user.userName,
         title: req.body.title,
         description: req.body.description,
-        tags: req.body.tags,
+        tags: tags.map(e => e.replace(/\s+/g, '')),
       });
       res.json({ status: true });
       Ques.save();
@@ -302,17 +305,20 @@ module.exports = {
 
   editQuestion: async (req, res) => {
     try {
+      var re = req.body.tags.replace(/\[|\]/g,'').split(',')
       const data = {
         title: req.body.title,
         description: req.body.description,
-        tags: req.body.tags.split(","),
+        tags:re.map(e => e.replace(/\s+/g, '')) ,
       };
+ 
       await quesSchema.updateOne(
         { _id: req.body.quesId, id: req.body.userId },
         { $set: data }
       );
       res.json({ status: true });
     } catch (error) {
+      console.log(error.message);
       res.json({ error: error.message });
     }
   },
