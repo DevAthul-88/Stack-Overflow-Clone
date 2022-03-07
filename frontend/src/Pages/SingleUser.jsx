@@ -82,7 +82,7 @@ function SingleUser({ id }) {
                         <nav className="level  is-mobile">
                           <div className="level-item">
                             <div>
-                              <p className="heading">Reputation</p>
+                              <p className="heading">Questions</p>
                               <p className="is-size-5">{count.quesCount}</p>
                             </div>
                           </div>

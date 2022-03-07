@@ -39,8 +39,9 @@ function SignUp() {
           passwordConfirmation: "",
         }}
         validationSchema={SignUpSchema}
-        onSubmit={(values) => {
+        onSubmit={(values , { resetForm }) => {
           dispatch(registerAction(values))
+          resetForm({});
         }}
       >
         {({ errors, touched }) => (
