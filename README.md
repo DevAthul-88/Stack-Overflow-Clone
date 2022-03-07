@@ -23,10 +23,6 @@ Here is a working live demo :  https://stackoverflows-clone.herokuapp.com/
 
 [![Screenshot-1.png](https://i.postimg.cc/xdzkFHNq/Screenshot-1.png)](https://postimg.cc/Z9JKWWch)
 
-### Profile page
-
-[![Screenshot-2.png](https://i.postimg.cc/MGydNG5d/Screenshot-2.png)](https://postimg.cc/KK8PgxdM)
-
 ### Answer
 
 [![Screenshot-2.png](https://i.postimg.cc/VvdPD95V/Screenshot-2.png)](https://postimg.cc/fSnPb9cc)
