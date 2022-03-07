@@ -32,7 +32,6 @@ Here is a working live demo :  https://stackoverflows-clone.herokuapp.com/
 [![Screenshot-3.png](https://i.postimg.cc/zBkT0W4K/Screenshot-3.png)](https://postimg.cc/sQvB2Bjg)
 
 
-
 ### Bug 
 
 If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/DevAthul-88/Stack-Overflow-Clone/issues) by including your search query and the expected result.
