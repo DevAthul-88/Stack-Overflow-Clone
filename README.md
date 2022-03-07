@@ -35,9 +35,9 @@ Here is a working live demo :  https://stackoverflows-clone.herokuapp.com/
 
 ### Bug 
 
-If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/DevAthul-88/Change-Org-Clone/issues) by including your search query and the expected result.
+If you find a bug (the website couldn't handle the query and / or gave undesired results), kindly open an issue [here](https://github.com/DevAthul-88/Stack-Overflow-Clone/issues) by including your search query and the expected result.
 
-If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/DevAthul-88/Change-Org-Clone/issues). Please include sample queries and their corresponding results.
+If you'd like to request a new function, feel free to do so by opening an issue [here](https://github.com/DevAthul-88/Stack-Overflow-Clone/issues). Please include sample queries and their corresponding results.
 
 
 ## Built with 
