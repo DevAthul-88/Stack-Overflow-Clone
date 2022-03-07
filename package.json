@@ -1,17 +1,35 @@
 {
-  "name": "Stack-Overflow-Clone",
+  "name": "stack-overflow-clone",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+  "description": "The clone most famous Q/A website StackOverFlow",
+  "main": "server.js",
+  "engines": {
+    "node": "14.x"
   },
-  "keywords": [],
-  "author": "",
+ 
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd frontend && npm run start",
+    "client-install": "cd frontend && npm install",
+    "server-install": "npm install",
+    "install-all": "concurrently \"npm run frontend-install\" \"npm run server-install\" ",
+    "dev": "concurrently \"npm run frontend\" \"npm run server\" ",
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
+  },
+  "keywords": [
+    "stackoverflow",
+    "stackoverflow clone",
+    "stackoverflow clone react",
+    "stack over flow clone ",
+    "stackoverflow clone github",
+    "react stackoverflow"
+  ],
+  "author": "athul vinod",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
+    "concurrently": "^7.0.0",
     "dotenv": "^16.0.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
