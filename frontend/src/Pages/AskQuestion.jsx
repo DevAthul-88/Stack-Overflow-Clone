@@ -26,7 +26,8 @@ function AskQuestion() {
         }}
         validationSchema={QuestionSchema}
         onSubmit={(values, { resetForm }) => {
-          dispatch(createAction(QuestionSchema.cast(values)));
+          const value = QuestionSchema.cast(values)
+          dispatch(createAction(value));
           resetForm({});
         }}
       >

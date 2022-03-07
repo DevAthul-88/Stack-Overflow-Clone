@@ -2,11 +2,6 @@ const quesSchema = require("../Schema/quesSchema");
 const tagSchema = require("../Schema/tagSchema");
 const { v4: uuid } = require("uuid");
 
-const options = { 
-  month: '2-digit', 
-  day: '2-digit',
-  year: 'numeric', 
-};
 
 
 
