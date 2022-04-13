@@ -43,7 +43,7 @@ If you'd like to request a new function, feel free to do so by opening an issue 
 
 - [React](https://www.w3schools.com/react/default.asp) - React is a JavaScript library for building user interfaces.
 - [Node.js](https://www.w3schools.com/nodejs/default.asp) - Node.js is an open source server environment.
-- [Bootstrap](https://bulma.io/documentation) - Bulma is a free, open source css framework.
+- [Bulma](https://bulma.io/documentation) - Bulma is a free, open source css framework.
 - [MongoDB](https://docs.mongodb.com/) - 
 MongoDB is a source-available cross-platform document-oriented database program
 - [Express.Js](http://expressjs.com/) - Express.js, or simply Express, is a back end web application framework for Node.js,
